@@ -24,11 +24,11 @@ public interface IInsertionManager {
 
         boolean tryInsertFluid(IPipeContentsEditableFluid fluid, Object extractor, EnumFacing direction, boolean simulate);
 
-        /** @return True if {@link #tryExtractItems(IStackFilter, Object, EnumFacing, boolean)} can return a non-null
+        /** @return True if {@link IInsertable_BC8#tryInsertItems(IPipeContentsEditableItem, Object, EnumFacing, boolean)} can return a non-null
          *         value at any future point in time. */
         boolean acceptsItems();
 
-        /** @return True if {@link #tryExtractFluid(IFluidFilter, Object, EnumFacing, boolean)} can return a non-null
+        /** @return True if {@link IInsertable_BC8#tryInsertFluid(IPipeContentsEditableFluid, Object, EnumFacing, boolean)} can return a non-null
          *         value at any future point in time. */
         boolean acceptsFluids();
     }

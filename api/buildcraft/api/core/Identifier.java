@@ -17,10 +17,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 /** Identifies an in world tile entity or movable entity. Feel free to extend this class if your tile entity contains
- * multiple identifiable {@link IPowerConnection}. Just make sure to register it with
- * {@link #registerType(String, Supplier)} to make loading work.
+ * multiple identifiable IPowerConnection. Just make sure to register it with {@link #registerType(String, Supplier)} to
+ * make loading work.
  * <p>
  * Created on 1 Jan 2016 by AlexIIL */
+@Deprecated
 public abstract class Identifier {
     private static Map<String, Supplier<Identifier>> registeredIdentifiers;
 

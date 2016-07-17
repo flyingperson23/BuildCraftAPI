@@ -41,7 +41,6 @@ public final class PipeDefinition_BC8 extends ObjectDefinition {
 
     /** @param tag A MOD-unique tag for the pipe
      * @param type The type of pipe this is
-     * @param maxSprites The maximum number of sprites
      * @param itemSpriteIndex
      * @param textureStart
      * @param factory */

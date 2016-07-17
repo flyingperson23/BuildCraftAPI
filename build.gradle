@@ -50,6 +50,7 @@ sourceSets {
     }
 }
 
+
 processResources
 {
     // this will ensure that this task is redone when the versions change.
@@ -68,4 +69,13 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
 }

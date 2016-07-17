@@ -2,6 +2,8 @@ package buildcraft.api.core;
 
 import net.minecraft.world.World;
 
+/** Provides a way to quickly enable or disable certain debug conditions via VM arguments or whether the client/server
+ * is in a dev environment */
 public class BCDebugging {
     public enum DebugStatus {
         NONE,
@@ -15,11 +17,12 @@ public class BCDebugging {
 
     static {
         // Basically we enable debugging for the dev-environment, and disable everything for normal players.
-        // However if you provide a VM arguments then the behaviour changes somewhat:
+        // However if you provide VM arguments then the behaviour changes somewhat:
         // (VM argument is "-Dbuildcraft.debug=...")
         // - "enable" Enables debugging even if you are not in a dev environment
         // - "disable" Disables ALL debugging (and doesn't output any messages even in the dev environment)
-        // - "all" All possible debug options are turned on.
+        // - "log" Major debug options are turned on. Registry setup + API usage etc
+        // - "all" All possible debug options are turned on. Lots of spam. Not recommended.
 
         String value = System.getProperty("buildcraft.debug");
         if ("enable".equals(value)) DEBUG_STATUS = DebugStatus.ENABLE;
@@ -33,7 +36,10 @@ public class BCDebugging {
         } else if (World.class.getName().contains("World")) {
             // Dev environment
             DEBUG_STATUS = DebugStatus.ENABLE;
-        } else DEBUG_STATUS = DebugStatus.NONE;
+        } else {
+            // Most likely a built jar - don't spam people with info they probably don't need
+            DEBUG_STATUS = DebugStatus.NONE;
+        }
 
         if (DEBUG_STATUS == DebugStatus.ALL) {
             BCLog.logger.info("[debugger] Debugging automatically enabled for ALL of buildcraft. Prepare for log spam.");

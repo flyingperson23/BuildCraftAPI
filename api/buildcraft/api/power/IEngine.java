@@ -16,7 +16,7 @@ public interface IEngine {
     boolean canReceiveFromEngine(EnumFacing side);
 
     /** Receives energy from an engine. See
-     * {@link cofh.api.energy.IEnergyHandler#receiveEnergy(EnumFacing, int, boolean)}
+     * {@link cofh.api.energy.IEnergyReceiver#receiveEnergy(EnumFacing, int, boolean)}
      * 
      * @param side The side the engine is receiving energy from.
      * @param energy The amount of energy given to the engine.
