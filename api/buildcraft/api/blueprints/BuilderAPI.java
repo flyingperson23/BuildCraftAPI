@@ -8,8 +8,6 @@ public final class BuilderAPI {
     public static ISchematicRegistry schematicRegistry;
     public static ISchematicHelper schematicHelper;
 
-@Deprecated    public static final int BREAK_ENERGY = 160;// rf
-@Deprecated    public static final int BUILD_ENERGY = 240;// rf
     private static final long MJ = 1000 * 1000;
     public static final long BREAK_POWER = 16 * MJ;// ųMj
     public static final long BUILD_POWER = 24 * MJ;// ųMj
