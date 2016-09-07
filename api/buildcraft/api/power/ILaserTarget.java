@@ -12,12 +12,12 @@ public interface ILaserTarget {
     /** Returns true if the target currently needs power. For example, if the Advanced Crafting Table has work to do.
      *
      * @return true if needs power */
-    boolean requiresLaserEnergy();
+    boolean requiresLaserPower();
 
     /** Transfers energy from the laser to the target.
      *
      * @param energy */
-    void receiveLaserEnergy(int energy);
+    void receiveLaserPower(long microJoules);
 
     /** Return true if the Tile Entity object is no longer a valid target. For example, if its been invalidated.
      *
