@@ -16,7 +16,7 @@ public interface ILaserTarget {
 
     /** Transfers energy from the laser to the target.
      *
-     * @param energy */
+     * @param microJoules The number of micro Minecraft Joules to accept */
     void receiveLaserPower(long microJoules);
 
     /** Return true if the Tile Entity object is no longer a valid target. For example, if its been invalidated.
