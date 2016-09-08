@@ -15,7 +15,7 @@ public interface IAssemblyRecipeManager {
      * @param input Object... containing either an ItemStack, or a paired string and integer(ex: "dyeBlue", 1)
      * @param energyCost RF cost to produce
      * @param output resulting ItemStack */
-    void addRecipe(String id, int energyCost, ItemStack output, Object... input);
+    void addRecipe(String id, long powerCost, ItemStack output, Object... input);
 
     void addRecipe(IFlexibleRecipe<ItemStack> recipe);
 

@@ -14,11 +14,11 @@ public interface IProgrammingRecipe {
      * @return */
     List<ItemStack> getOptions(int width, int height);
 
-    /** Get the energy cost of a given option ItemStack.
+    /** Get the power cost of a given option ItemStack.
      * 
      * @param option
-     * @return */
-    int getEnergyCost(ItemStack option);
+     * @return The number of micro Minecraft Joules that the stack costs. */
+    long getPowerCost(ItemStack option);
 
     /** @param input The input stack.
      * @return Whether this recipe applies to the given input stack. */
