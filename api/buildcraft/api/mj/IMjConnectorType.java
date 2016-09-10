@@ -10,9 +10,10 @@ public interface IMjConnectorType {
     boolean is(@Nonnull IMjConnectorType other);
 
     /** Gets the most appropriate {@link MjSimpleType} that this type represents. If your type machine doesn't fit
-     * easily into this system then open an issue at
+     * easily into this system then open an issue at the github page.
      *
-     * @see <a href="https://github.com/BuildCraft/BuildCraftAPI/issues">https://github.com/BuildCraft/BuildCraftAPI/issues</a> */
+     * @see <a href="https://github.com/BuildCraft/BuildCraftAPI/issues">
+     *      https://github.com/BuildCraft/BuildCraftAPI/issues</a> */
     @Nonnull
     MjSimpleType getSimpleType();
 }
