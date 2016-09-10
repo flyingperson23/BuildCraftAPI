@@ -7,6 +7,8 @@ package buildcraft.api.robots;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import buildcraft.api.mj.MjAPI;
+
 public class AIRobot {
     public EntityRobotBase robot;
 
@@ -69,8 +71,8 @@ public class AIRobot {
         success = iSuccess;
     }
 
-    public int getEnergyCost() {
-        return 1;
+    public long getPowerCost() {
+        return MjAPI.MJ / 10;
     }
 
     public boolean canLoadFromNBT() {
@@ -119,7 +121,7 @@ public class AIRobot {
             if (delegateAI != null) {
                 delegateAI.cycle();
             } else {
-                robot.getBattery().extractEnergy(getEnergyCost(), false);
+                robot.getBattery().extractPower(1, getPowerCost());
                 update();
             }
         } catch (Throwable e) {

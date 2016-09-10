@@ -4,7 +4,7 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.power;
 
-/** This interface should be defined by any Tile which wants to receive energy from BuildCraft lasers.
+/** This interface should be defined by any Tile which wants to receive power from BuildCraft lasers.
  *
  * The respective Block MUST implement ILaserTargetBlock! */
 public interface ILaserTarget {
@@ -14,7 +14,7 @@ public interface ILaserTarget {
      * @return true if needs power */
     boolean requiresLaserPower();
 
-    /** Transfers energy from the laser to the target.
+    /** Transfers power from the laser to the target.
      *
      * @param microJoules The number of micro Minecraft Joules to accept */
     void receiveLaserPower(long microJoules);

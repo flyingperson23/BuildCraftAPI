@@ -4,6 +4,7 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.blueprints;
 
+@Deprecated
 public abstract class SchematicBlockBase extends Schematic {
 
 }

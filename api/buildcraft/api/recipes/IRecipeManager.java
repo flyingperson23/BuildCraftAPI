@@ -11,7 +11,7 @@ public interface IRecipeManager<T> {
     /** Add a recipe.
      *
      * @param input Object... containing either an ItemStack, or a paired string and integer(ex: "dyeBlue", 1)
-     * @param powerCost RF cost to produce
+     * @param powerCost MJ cost to produce
      * @param output resulting ItemStack */
     void addRecipe(String id, long powerCost, T output, Object... input);
 

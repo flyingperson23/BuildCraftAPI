@@ -21,6 +21,7 @@ import net.minecraftforge.fluids.BlockFluidBase;
 
 import buildcraft.api.core.BCLog;
 
+@Deprecated
 public class SchematicBlock extends SchematicBlockBase {
     public IBlockState state = null;
     public BuildingPermission defaultPermission = BuildingPermission.ALL;

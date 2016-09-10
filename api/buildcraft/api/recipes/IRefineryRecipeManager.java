@@ -8,6 +8,8 @@ import java.util.Collection;
 
 import net.minecraftforge.fluids.FluidStack;
 
+// Is being replaced by specialised refinery stuffs
+@Deprecated
 public interface IRefineryRecipeManager {
 
     void addRecipe(String id, FluidStack ingredient, FluidStack result, long power, int delay);

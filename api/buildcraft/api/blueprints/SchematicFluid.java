@@ -13,6 +13,7 @@ import net.minecraft.util.math.BlockPos;
 
 import net.minecraftforge.fluids.FluidStack;
 
+@Deprecated
 public class SchematicFluid extends SchematicBlock {
 
     private final ItemStack fluidItem;
@@ -75,7 +76,7 @@ public class SchematicFluid extends SchematicBlock {
 
     @Override
     public int getEnergyRequirement(List<ItemStack> stacksUsed) {
-        return 1 * BuilderAPI.BUILD_ENERGY;
+        return 1;// * BuilderAPI.BUILD_ENERGY;
     }
 
     public int getLevel() {

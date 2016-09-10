@@ -25,6 +25,9 @@ import buildcraft.api.core.IInvSlot;
  * http://www.mod-buildcraft.com/wiki/doku.php?id=builder_support
  *
  * Example of schematics for minecraft blocks are available in the package buildcraft.core.schematics. */
+// is being replaced by a different schematic implementation
+// a simalir styled one to this might be made ontop of the other one though
+@Deprecated
 public abstract class Schematic {
     /** Blocks are build in various stages, in order to make sure that a block can indeed be placed, and that it's
      * unlikely to disturb other blocks. */
@@ -131,7 +134,7 @@ public abstract class Schematic {
 
         if (stacksUsed != null) {
             for (ItemStack s : stacksUsed) {
-                result += s.stackSize * BuilderAPI.BUILD_ENERGY;
+                result += s.stackSize ;//* BuilderAPI.BUILD_ENERGY;
             }
         }
 

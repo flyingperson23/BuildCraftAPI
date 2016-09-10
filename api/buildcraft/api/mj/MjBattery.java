@@ -84,13 +84,13 @@ public class MjBattery implements INBTSerializable<NBTTagCompound> {
     }
 
     public void tick(World world, Vec3d position) {
-        if (microJoules > capacity) {
+        if (microJoules > capacity * 2) {
             losePower(world, position);
         }
     }
 
     protected void losePower(World world, Vec3d position) {
-        long diff = microJoules - capacity;
+        long diff = microJoules - capacity * 2;
         long lost = ceilDivide(diff, 32);
         microJoules -= lost;
         MjAPI.EFFECT_MANAGER.createPowerLossEffect(world, position, lost);
