@@ -11,11 +11,11 @@ public interface IRecipeManager<T> {
     /** Add a recipe.
      *
      * @param input Object... containing either an ItemStack, or a paired string and integer(ex: "dyeBlue", 1)
-     * @param energyCost RF cost to produce
+     * @param powerCost RF cost to produce
      * @param output resulting ItemStack */
-    void addRecipe(String id, int energyCost, T output, Object... input);
+    void addRecipe(String id, long powerCost, T output, Object... input);
 
-    void addRecipe(String id, int energyCost, int craftingDelay, T output, Object... input);
+    void addRecipe(String id, long powerCost, int craftingDelay, T output, Object... input);
 
     void addRecipe(IFlexibleRecipe<T> recipe);
 
