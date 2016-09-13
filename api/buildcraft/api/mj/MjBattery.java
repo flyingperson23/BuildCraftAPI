@@ -57,7 +57,7 @@ public class MjBattery implements INBTSerializable<NBTTagCompound> {
     }
 
     public long extractAll() {
-        return extractPower(0, capacity);
+        return extractPower(0, microJoules);
     }
 
     public long extractPower(long min, long max) {
