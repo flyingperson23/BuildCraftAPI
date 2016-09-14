@@ -99,7 +99,7 @@ public final class IntegrationRecipe {
             }
             return !iterator2.hasNext() && output != null ? ItemStack.areItemStacksEqual(output, that.output) : that.output == null;
         } else {
-            return toIntegrate == null && that.toIntegrate == null;
+            return toIntegrate == null && that.toIntegrate == null && output != null ? ItemStack.areItemStacksEqual(output, that.output) : that.output == null;
         }
     }
 

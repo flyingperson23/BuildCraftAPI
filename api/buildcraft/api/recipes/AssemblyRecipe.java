@@ -8,6 +8,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.common.util.Constants;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 /** Provides an immutable assembly recipe */
 public final class AssemblyRecipe {
@@ -75,10 +76,23 @@ public final class AssemblyRecipe {
         if(requiredMicroJoules != that.requiredMicroJoules) {
             return false;
         }
-        if(requiredStacks != null ? requiredStacks.size() != that.requiredStacks.size() || !requiredStacks.stream().allMatch(that.requiredStacks::contains) : that.requiredStacks != null) {
-            return false;
+        if(requiredStacks != null && that.requiredStacks != null) {
+            Iterator<ItemStack> iterator1 = requiredStacks.iterator();
+            Iterator<ItemStack> iterator2 = that.requiredStacks.iterator();
+            while(iterator1.hasNext()) {
+                if (!iterator2.hasNext()) {
+                    return false;
+                }
+                ItemStack o1 = iterator1.next();
+                ItemStack o2 = iterator2.next();
+                if (!ItemStack.areItemStacksEqual(o1, o2)) {
+                    return false;
+                }
+            }
+            return !iterator2.hasNext() && output != null ? ItemStack.areItemStacksEqual(output, that.output) : that.output == null;
+        } else {
+            return requiredStacks == null && that.requiredStacks == null && output != null ? ItemStack.areItemStacksEqual(output, that.output) : that.output == null;
         }
-        return output != null ? ItemStack.areItemStacksEqual(output, that.output) : that.output == null;
     }
 
     @Override
