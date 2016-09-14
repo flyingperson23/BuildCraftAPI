@@ -8,6 +8,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.common.util.Constants;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 public final class IntegrationRecipe {
     public final long requiredMicroJoules;
@@ -80,13 +81,26 @@ public final class IntegrationRecipe {
         if(requiredMicroJoules != that.requiredMicroJoules) {
             return false;
         }
-        if(target != null ? !target.equals(that.target) : that.target != null) {
+        if(target != null ? !ItemStack.areItemStacksEqual(target, that.target) : that.target != null) {
             return false;
         }
-        if(toIntegrate != null ? !toIntegrate.equals(that.toIntegrate) : that.toIntegrate != null) {
-            return false;
+        if(toIntegrate != null && that.toIntegrate != null) {
+            Iterator<ItemStack> iterator1 = toIntegrate.iterator();
+            Iterator<ItemStack> iterator2 = that.toIntegrate.iterator();
+            while(iterator1.hasNext()) {
+                if (!iterator2.hasNext()) {
+                    return false;
+                }
+                ItemStack o1 = iterator1.next();
+                ItemStack o2 = iterator2.next();
+                if (!ItemStack.areItemStacksEqual(o1, o2)) {
+                    return false;
+                }
+            }
+            return !iterator2.hasNext() && output != null ? ItemStack.areItemStacksEqual(output, that.output) : that.output == null;
+        } else {
+            return toIntegrate == null && that.toIntegrate == null;
         }
-        return output != null ? output.equals(that.output) : that.output == null;
     }
 
     @Override

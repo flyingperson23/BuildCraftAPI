@@ -75,10 +75,10 @@ public final class AssemblyRecipe {
         if(requiredMicroJoules != that.requiredMicroJoules) {
             return false;
         }
-        if(requiredStacks != null ? !requiredStacks.equals(that.requiredStacks) : that.requiredStacks != null) {
+        if(requiredStacks != null ? requiredStacks.size() != that.requiredStacks.size() || !requiredStacks.stream().allMatch(that.requiredStacks::contains) : that.requiredStacks != null) {
             return false;
         }
-        return output != null ? output.equals(that.output) : that.output == null;
+        return output != null ? ItemStack.areItemStacksEqual(output, that.output) : that.output == null;
     }
 
     @Override
