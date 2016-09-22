@@ -16,6 +16,7 @@ import buildcraft.api.core.INBTStoreable;
 import buildcraft.api.core.ISerializable;
 import buildcraft.api.transport.IPipeTile;
 
+@Deprecated
 /** An IPipePluggable MUST have an empty constructor for client-side rendering! */
 public abstract class PipePluggable implements INBTStoreable, ISerializable {
     public abstract ItemStack[] getDropItems(IPipeTile pipe);
