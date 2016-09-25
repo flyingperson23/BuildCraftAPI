@@ -24,6 +24,7 @@ public enum EnumPipePart implements IStringSerializable, INetworkLoadable_BC8<En
     CENTER(null);
 
     public static final EnumPipePart[] VALUES = values();
+    public static final EnumPipePart[] FACES = { DOWN, UP, NORTH, SOUTH, WEST, EAST };
     private static final Map<EnumFacing, EnumPipePart> facingMap = Maps.newEnumMap(EnumFacing.class);
     private static final Map<String, EnumPipePart> nameMap = Maps.newHashMap();
     private static final int MAX_VALUES = values().length;
@@ -47,7 +48,7 @@ public enum EnumPipePart implements IStringSerializable, INetworkLoadable_BC8<En
     }
 
     public static EnumPipePart[] validFaces() {
-        return new EnumPipePart[] { DOWN, UP, NORTH, SOUTH, WEST, EAST };
+        return FACES;
     }
 
     public static EnumPipePart fromMeta(int meta) {
