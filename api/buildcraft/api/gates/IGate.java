@@ -4,22 +4,17 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.gates;
 
-import java.util.Collection;
 import java.util.List;
 
 import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementParameter;
 import buildcraft.api.statements.StatementSlot;
 import buildcraft.api.statements.containers.ISidedStatementContainer;
-import buildcraft.api.transport.IPipe;
+import buildcraft.transport.api_move.IPipeHolder;
 
 public interface IGate extends ISidedStatementContainer {
-    @Deprecated
-    void setPulsing(boolean pulse);
 
-    IPipe getPipe();
-
-    Collection<IGateExpansion> getExpansions();
+    IPipeHolder getPipeHolder();
 
     List<IStatement> getTriggers();
 
