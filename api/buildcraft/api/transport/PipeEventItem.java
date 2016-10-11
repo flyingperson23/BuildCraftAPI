@@ -34,6 +34,9 @@ public abstract class PipeEventItem extends PipeEvent {
     // SideCheck: Remove invalid sides from a set of all connected sides
     // Also can apply ordering to make items prefer some sides over some others
 
+    /* TryBounce: Fired if SideCheck removes ALL sides, to see if the item is allowed to bounce back to where it came
+     * from */
+
     /* Split: Split up the items into different stacks to be sent to the destinations (only the highest priority list of
      * SideCheck will be included in the output) */
 
@@ -66,6 +69,20 @@ public abstract class PipeEventItem extends PipeEvent {
         public final ItemStack stack;
 
         public SideCheck(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, EnumFacing from, ItemStack stack) {
+            super(holder, flow);
+            this.colour = colour;
+            this.from = from;
+            this.stack = stack;
+        }
+    }
+
+    public static class TryBounce extends PipeEventItem {
+        public final EnumDyeColor colour;
+        public final EnumFacing from;
+        public final ItemStack stack;
+        public boolean canBounce = true;// TEMP!
+
+        public TryBounce(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, EnumFacing from, ItemStack stack) {
             super(holder, flow);
             this.colour = colour;
             this.from = from;
