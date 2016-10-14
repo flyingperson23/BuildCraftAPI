@@ -14,6 +14,6 @@ public interface IMjReceiver extends IMjConnector {
      * 
      * @param microJoules The number of micro joules to add.
      * @param simulate If true then just pretend you received power- don't actually change any of your internal state.
-     * @return True if all the power was accepted, false if not. */
-    boolean receivePower(long microJoules, boolean simulate);
+     * @return The excess power. */
+    long receivePower(long microJoules, boolean simulate);
 }

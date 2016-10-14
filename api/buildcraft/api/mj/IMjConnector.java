@@ -13,7 +13,4 @@ public interface IMjConnector {
      * @param other
      * @return */
     boolean canConnect(@Nonnull IMjConnector other);
-
-    @Nonnull
-    IMjConnectorType getType();
 }

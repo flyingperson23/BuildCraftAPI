@@ -53,7 +53,7 @@ public enum EnumPipePart implements IStringSerializable, INetworkLoadable_BC8<En
 
     public static EnumPipePart fromMeta(int meta) {
         if (meta < 0 || meta >= MAX_VALUES) return EnumPipePart.CENTER;
-        return values()[meta];
+        return VALUES[meta];
     }
 
     private EnumPipePart(EnumFacing face) {

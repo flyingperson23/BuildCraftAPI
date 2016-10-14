@@ -44,6 +44,9 @@ public class MjAPI {
     @CapabilityInject(IMjReceiver.class)
     public static final Capability<IMjReceiver> CAP_RECEIVER = null;
 
+    @CapabilityInject(IMjRedstoneReceiver.class)
+    public static final Capability<IMjReceiver> CAP_REDSTONE_RECEIVER = null;
+
     @CapabilityInject(IMjReadable.class)
     public static final Capability<IMjReadable> CAP_READABLE = null;
 
@@ -103,22 +106,19 @@ public class MjAPI {
     public enum NullaryConductor implements IMjConnector {
         INSTANCE;
         @Override public boolean canConnect(IMjConnector other) {return false;}
-        @Override public IMjConnectorType getType() {return MjSimpleType.KINETIC_PRODUCER;}
     }
 
     public enum NullaryRequestor implements IMjReceiver {
         INSTANCE;
         @Override public boolean canConnect(IMjConnector other) {return false;}
         @Override public long getPowerRequested() {return 0;}
-        @Override public boolean receivePower(long microJoules, boolean simulate) {return false;}
-        @Override public IMjConnectorType getType() {return MjSimpleType.KINETIC_CONSUMER;}
+        @Override public long receivePower(long microJoules, boolean simulate) {return microJoules;}
     }
 
     public enum NullaryPassiveProvider implements IMjPassiveProvider {
         INSTANCE;
         @Override public boolean canConnect(IMjConnector other) {return false;}
         @Override public long extractPower(long min, long max, boolean simulate) {return 0;}
-        @Override public IMjConnectorType getType() {return MjSimpleType.KINETIC_PRODUCER;}
     }
 
     public enum NullaryEffectManager implements IMjEffectManager {
@@ -136,13 +136,15 @@ public class MjAPI {
     // ###################
 
     static {
-        registerCapability(IMjReceiver.class);
-        registerCapability(IMjReadable.class);
         registerCapability(IMjConnector.class);
+        registerCapability(IMjReceiver.class);
+        registerCapability(IMjRedstoneReceiver.class);
+        registerCapability(IMjReadable.class);
         registerCapability(IMjPassiveProvider.class);
 
         ensureRegistration(CAP_CONNECTOR, "connector");
         ensureRegistration(CAP_RECEIVER, "receiver");
+        ensureRegistration(CAP_REDSTONE_RECEIVER, "rs_receiver");
         ensureRegistration(CAP_READABLE, "readable");
         ensureRegistration(CAP_PASSIVE_PROVIDER, "passive provider");
     }
