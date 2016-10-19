@@ -1,6 +1,6 @@
 package buildcraft.api.transport;
 
-import buildcraft.transport.api_move.IPipeHolder;
+import buildcraft.api.transport.neptune.IPipeHolder;
 
 public abstract class PipeEvent {
     public final boolean canBeCancelled;

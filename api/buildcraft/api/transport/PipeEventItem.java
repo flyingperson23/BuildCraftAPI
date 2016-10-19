@@ -1,17 +1,16 @@
 package buildcraft.api.transport;
 
-import java.util.ArrayList;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
-import buildcraft.transport.api_move.IFlowItems;
-import buildcraft.transport.api_move.IPipeHolder;
+import buildcraft.api.transport.neptune.IFlowItems;
+import buildcraft.api.transport.neptune.IPipeHolder;
 
 public abstract class PipeEventItem extends PipeEvent {
 
@@ -63,10 +62,12 @@ public abstract class PipeEventItem extends PipeEvent {
     }
 
     public static class SideCheck extends PipeEventItem {
-        public final List<EnumSet<EnumFacing>> possible = new ArrayList<>();
         public final EnumDyeColor colour;
         public final EnumFacing from;
         public final ItemStack stack;
+
+        private final int[] precedence = new int[6];
+        private final EnumSet<EnumFacing> allowed = EnumSet.allOf(EnumFacing.class);
 
         public SideCheck(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, EnumFacing from, ItemStack stack) {
             super(holder, flow);
@@ -74,13 +75,69 @@ public abstract class PipeEventItem extends PipeEvent {
             this.from = from;
             this.stack = stack;
         }
+
+        public void disallow(EnumFacing... sides) {
+            for (EnumFacing side : sides) {
+                allowed.remove(side);
+            }
+        }
+
+        public void disallowAllExcept(EnumFacing... sides) {
+            allowed.retainAll(Lists.newArrayList(sides));
+        }
+
+        public void disallowAll() {
+            allowed.clear();
+        }
+
+        public void increasePrecedence(EnumFacing side) {
+            increasePrecedence(side, 1);
+        }
+
+        public void increasePrecedence(EnumFacing side, int by) {
+            precedence[side.ordinal()] += by;
+        }
+
+        public void decreasePrecedence(EnumFacing side) {
+            decreasePrecedence(side, 1);
+        }
+
+        public void decreasePrecedence(EnumFacing side, int by) {
+            precedence[side.ordinal()] -= by;
+        }
+
+        public List<EnumSet<EnumFacing>> getOrder() {
+            int[] ordered = Arrays.copyOf(precedence, 6);
+            Arrays.sort(ordered);
+            int last = 0;
+            List<EnumSet<EnumFacing>> list = Lists.newArrayList();
+            for (int i = 0; i < 6; i++) {
+                int current = ordered[i];
+                if (i != 0 && current == last) {
+                    continue;
+                }
+                last = current;
+                EnumSet<EnumFacing> set = EnumSet.noneOf(EnumFacing.class);
+                for (EnumFacing face : EnumFacing.VALUES) {
+                    if (allowed.contains(face)) {
+                        if (precedence[face.ordinal()] == current) {
+                            set.add(face);
+                        }
+                    }
+                }
+                if (set.size() > 0) {
+                    list.add(set);
+                }
+            }
+            return list;
+        }
     }
 
     public static class TryBounce extends PipeEventItem {
         public final EnumDyeColor colour;
         public final EnumFacing from;
         public final ItemStack stack;
-        public boolean canBounce = true;// TEMP!
+        public boolean canBounce = false;
 
         public TryBounce(IPipeHolder holder, IFlowItems flow, EnumDyeColor colour, EnumFacing from, ItemStack stack) {
             super(holder, flow);
@@ -90,24 +147,39 @@ public abstract class PipeEventItem extends PipeEvent {
         }
     }
 
-    public static class Split extends PipeEventItem {
-        public final ImmutableList<EnumFacing> possibleDestinations;
+    public static abstract class OrderedEvent extends PipeEventItem {
+        public final List<EnumSet<EnumFacing>> orderedDestinations;
+
+        public OrderedEvent(IPipeHolder holder, IFlowItems flow, List<EnumSet<EnumFacing>> orderedDestinations) {
+            super(holder, flow);
+            this.orderedDestinations = orderedDestinations;
+        }
+
+        public ImmutableList<EnumFacing> generateRandomOrder() {
+            ImmutableList.Builder<EnumFacing> builder = ImmutableList.builder();
+            for (EnumSet<EnumFacing> set : orderedDestinations) {
+                List<EnumFacing> faces = new ArrayList<>(set);
+                Collections.shuffle(faces);
+                builder.addAll(faces);
+            }
+            return builder.build();
+        }
+    }
+
+    public static class Split extends OrderedEvent {
         public final List<ItemEntry> items = new ArrayList<>();
 
-        public Split(IPipeHolder holder, IFlowItems flow, ImmutableList<EnumFacing> possibleDestinations, ItemEntry toSplit) {
-            super(holder, flow);
-            this.possibleDestinations = possibleDestinations;
+        public Split(IPipeHolder holder, IFlowItems flow, List<EnumSet<EnumFacing>> order, ItemEntry toSplit) {
+            super(holder, flow, order);
             items.add(toSplit);
         }
     }
 
-    public static class FindDest extends PipeEventItem {
-        public final ImmutableList<EnumFacing> possibleDestinations;
+    public static class FindDest extends OrderedEvent {
         public final ImmutableList<ItemEntry> items;
 
-        public FindDest(IPipeHolder holder, IFlowItems flow, ImmutableList<EnumFacing> possibleDestinations, ImmutableList<ItemEntry> items) {
-            super(holder, flow);
-            this.possibleDestinations = possibleDestinations;
+        public FindDest(IPipeHolder holder, IFlowItems flow, List<EnumSet<EnumFacing>> orderedDestinations, ImmutableList<ItemEntry> items) {
+            super(holder, flow, orderedDestinations);
             this.items = items;
         }
     }
@@ -115,28 +187,19 @@ public abstract class PipeEventItem extends PipeEvent {
     /** Fired whenever an items speed needs to be adjusted - most likely when the item is inserted into a pipe. */
     public static class ModifySpeed extends PipeEventItem {
         public final ItemEntry item;
-        public final double initSpeed;
-        public double speed;
+        public final double currentSpeed;
+        public double targetSpeed = 0;
+        public double maxSpeedChange = 0;
 
         public ModifySpeed(IPipeHolder holder, IFlowItems flow, ItemEntry item, double initSpeed) {
             super(holder, flow);
             this.item = item;
-            this.initSpeed = initSpeed;
-            this.speed = initSpeed;
+            currentSpeed = initSpeed;
         }
 
         public void modifyTo(double target, double maxDelta) {
-            if (speed < target) {
-                speed += maxDelta;
-                if (speed > target) {
-                    speed = target;
-                }
-            } else if (speed > target) {
-                speed -= maxDelta;
-                if (speed < target) {
-                    speed = target;
-                }
-            }
+            targetSpeed = target;
+            maxSpeedChange = maxDelta;
         }
     }
 
@@ -144,7 +207,8 @@ public abstract class PipeEventItem extends PipeEvent {
         public final EnumDyeColor colour;
         public final ItemStack stack;
         public final EnumFacing from;
-        public EnumFacing to;
+        /** An list of the destinations to try, in order. */
+        public List<EnumFacing> to;
 
         public ItemEntry(EnumDyeColor colour, ItemStack stack, EnumFacing from) {
             this.colour = colour;
