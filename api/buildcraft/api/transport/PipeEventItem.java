@@ -26,23 +26,14 @@ public abstract class PipeEventItem extends PipeEvent {
         this.flow = flow;
     }
 
-    // Insertion has the following events:
+    // ################
+    //
+    // Misc events
+    //
+    // ################
 
-    // TryInsert: See if (and how much) of a given stack can be accepted
-
-    // SideCheck: Remove invalid sides from a set of all connected sides
-    // Also can apply ordering to make items prefer some sides over some others
-
-    /* TryBounce: Fired if SideCheck removes ALL sides, to see if the item is allowed to bounce back to where it came
-     * from */
-
-    /* Split: Split up the items into different stacks to be sent to the destinations (only the highest priority list of
-     * SideCheck will be included in the output) */
-
-    // FindDest: Finds a destination for each of the split items
-
-    // ModifySpeed: Changes the speed of the item
-
+    /** Fires whenever item insertion is attempted. The item might have been extracted by the pipe behaviour, inserted
+     * by another pipe or even a different kind of tile. Note that you have no way of telling what caused this event. */
     public static class TryInsert extends PipeEventItem {
         public final EnumDyeColor colour;
         public final EnumFacing from;
@@ -61,6 +52,43 @@ public abstract class PipeEventItem extends PipeEvent {
         }
     }
 
+    /** Fired whenever an item reaches the centre of a pipe. Note that you *can* change the itemstack or the colour. */
+    public static class ReachCenter extends PipeEventItem {
+        public final ItemStack stack;
+        public final EnumFacing from;
+        public EnumDyeColor colour;
+
+        public ReachCenter(IPipeHolder holder, IFlowItems flow, ItemStack stack, EnumFacing from, EnumDyeColor colour) {
+            super(holder, flow);
+            this.stack = stack;
+            this.from = from;
+            this.colour = colour;
+        }
+    }
+
+    /** Fired whenever an item reaches the end of a pipe. Note that you *can* change the itemstack or the colour. */
+    public static class ReachEnd extends PipeEventItem {
+        public final ItemStack stack;
+        public final EnumFacing from, to;
+        public EnumDyeColor colour;
+
+        public ReachEnd(IPipeHolder holder, IFlowItems flow, ItemStack stack, EnumFacing from, EnumFacing to, EnumDyeColor colour) {
+            super(holder, flow);
+            this.stack = stack;
+            this.from = from;
+            this.to = to;
+            this.colour = colour;
+        }
+    }
+
+    // ############################
+    //
+    // Destination related
+    //
+    // ############################
+
+    /** Fired after {@link TryInsert} (if some items were allowed in) to determine what sides are the items NOT allowed
+     * to go to, and the order of precedence for the allowed sides. */
     public static class SideCheck extends PipeEventItem {
         public final EnumDyeColor colour;
         public final EnumFacing from;
@@ -80,6 +108,10 @@ public abstract class PipeEventItem extends PipeEvent {
             for (EnumFacing side : sides) {
                 allowed.remove(side);
             }
+        }
+
+        public void disallowAll(Collection<EnumFacing> sides) {
+            allowed.removeAll(sides);
         }
 
         public void disallowAllExcept(EnumFacing... sides) {
@@ -133,6 +165,8 @@ public abstract class PipeEventItem extends PipeEvent {
         }
     }
 
+    /** Fired after {@link SideCheck} (if all sides were disallowed) to see if the item is allowed to bounce back to
+     * where it was inserted. */
     public static class TryBounce extends PipeEventItem {
         public final EnumDyeColor colour;
         public final EnumFacing from;
@@ -147,6 +181,7 @@ public abstract class PipeEventItem extends PipeEvent {
         }
     }
 
+    /** Base class for {@link Split} and {@link FindDest}. Do not listen to this directly! */
     public static abstract class OrderedEvent extends PipeEventItem {
         public final List<EnumSet<EnumFacing>> orderedDestinations;
 
@@ -166,6 +201,10 @@ public abstract class PipeEventItem extends PipeEvent {
         }
     }
 
+    /** Fired after {@link SideCheck} (if at least one valid side was found) or after {@link TryBounce} if no valid
+     * sides were detected, but it was allowed to bounce back. This event is for splitting up (or modifying) the input
+     * itemstack. This is most helpful for implementing full round-robin behaviour, or diamond-pipe based splitting. If
+     * you need to generate a random facing for each one then use {@link OrderedEvent#generateRandomOrder()}. */
     public static class Split extends OrderedEvent {
         public final List<ItemEntry> items = new ArrayList<>();
 
@@ -175,6 +214,9 @@ public abstract class PipeEventItem extends PipeEvent {
         }
     }
 
+    /** Fired after {@link Split}. This event is for assigning a destination to each {@link ItemEntry} in
+     * {@link Split#items}. If you need to generate a random facing for each one then use
+     * {@link OrderedEvent#generateRandomOrder()}. */
     public static class FindDest extends OrderedEvent {
         public final ImmutableList<ItemEntry> items;
 
@@ -184,7 +226,7 @@ public abstract class PipeEventItem extends PipeEvent {
         }
     }
 
-    /** Fired whenever an items speed needs to be adjusted - most likely when the item is inserted into a pipe. */
+    /** Fired after {@link FindDest}. */
     public static class ModifySpeed extends PipeEventItem {
         public final ItemEntry item;
         public final double currentSpeed;
@@ -203,6 +245,7 @@ public abstract class PipeEventItem extends PipeEvent {
         }
     }
 
+    /** Mostly immutable holding class for item stacks. */
     public static class ItemEntry {
         public final EnumDyeColor colour;
         public final ItemStack stack;

@@ -26,7 +26,8 @@ public interface IPipeHolder {
 
     IWireManager getWireManager();
 
-    void fireEvent(PipeEvent event);
+    /** @return True if at least 1 handler received this event, false if not. */
+    boolean fireEvent(PipeEvent event);
 
     void scheduleRenderUpdate();
 
