@@ -152,7 +152,7 @@ public abstract class PipeEventItem extends PipeEvent {
                         break outer_loop;
                     }
                 }
-                // No need to work out the precedence when all destinations have the same precedence
+                // No need to work out the order when all destinations have the same precedence
                 return ImmutableList.of(allowed);
             }
 

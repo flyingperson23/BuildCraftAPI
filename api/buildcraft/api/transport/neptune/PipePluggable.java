@@ -17,6 +17,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import buildcraft.api.transport.neptune.IPipeHolder.PipeMessageReceiver;
 import buildcraft.api.transport.pluggable.PluggableModelKey;
 
 public abstract class PipePluggable {
@@ -48,6 +49,10 @@ public abstract class PipePluggable {
 
     public void readPayload(PacketBuffer buffer, Side side, MessageContext ctx) throws IOException {
 
+    }
+
+    public final void scheduleNetworkUpdate() {
+        holder.scheduleNetworkUpdate(PipeMessageReceiver.PLUGGABLES[side.ordinal()]);
     }
 
     public void onTick() {}
@@ -88,7 +93,7 @@ public abstract class PipePluggable {
     public PluggableModelKey<?> getModelRenderKey(BlockRenderLayer layer) {
         return null;
     }
-    
+
     @SideOnly(Side.CLIENT)
     public IPluggableDynamicRenderer getDynamicRenderer() {
         return null;
