@@ -139,6 +139,23 @@ public abstract class PipeEventItem extends PipeEvent {
         }
 
         public List<EnumSet<EnumFacing>> getOrder() {
+            if (allowed.isEmpty()) {
+                return ImmutableList.of();
+            }
+            if (allowed.size() == 1) {
+                return ImmutableList.of(allowed);
+            }
+            outer_loop: while (true) {
+                int val = precedence[0];
+                for (int i = 1; i < precedence.length; i++) {
+                    if (precedence[i] != val) {
+                        break outer_loop;
+                    }
+                }
+                // No need to work out the precedence when all destinations have the same precedence
+                return ImmutableList.of(allowed);
+            }
+
             int[] ordered = Arrays.copyOf(precedence, 6);
             Arrays.sort(ordered);
             int last = 0;
