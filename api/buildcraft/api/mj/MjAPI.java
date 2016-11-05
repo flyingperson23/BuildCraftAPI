@@ -45,7 +45,7 @@ public class MjAPI {
     public static final Capability<IMjReceiver> CAP_RECEIVER = null;
 
     @CapabilityInject(IMjRedstoneReceiver.class)
-    public static final Capability<IMjReceiver> CAP_REDSTONE_RECEIVER = null;
+    public static final Capability<IMjRedstoneReceiver> CAP_REDSTONE_RECEIVER = null;
 
     @CapabilityInject(IMjReadable.class)
     public static final Capability<IMjReadable> CAP_READABLE = null;
@@ -65,8 +65,8 @@ public class MjAPI {
     }
 
     /** Formats a given MJ value to a player-oriented string. Note that this DOES append "*Mj" to the value. This does
-     * however shorten it down to a small length, and displays "µ", "m", "k" or "g" before the MJ depending on how big
-     * or small the value is. */
+     * however shorten it down to a small length, and displays "µ", "m", "K" or "M" or "G" before the MJ depending on
+     * how big or small the value is. */
     public static String formatMjShort(long microJoules) {
         if (microJoules == 0) {
             return "0 Mj";

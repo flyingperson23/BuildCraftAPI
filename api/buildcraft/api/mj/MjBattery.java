@@ -60,6 +60,14 @@ public class MjBattery implements INBTSerializable<NBTTagCompound> {
         return extractPower(0, microJoules);
     }
 
+    /** Attempts to extract exactly the given amount of power.
+     * 
+     * @param power The amount of power to extract.
+     * @return True if the power was removed, false if not. */
+    public boolean extractPower(long power) {
+        return extractPower(power, power) > 0;
+    }
+
     public long extractPower(long min, long max) {
         if (microJoules < min) return 0;
         long extracting = Math.min(microJoules, max);
