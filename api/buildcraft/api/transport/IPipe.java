@@ -8,6 +8,7 @@ import net.minecraft.util.EnumFacing;
 
 import buildcraft.api.gates.IGate;
 
+@Deprecated
 public interface IPipe {
     IPipeTile getTile();
 

@@ -104,6 +104,13 @@ public abstract class PipeEventItem extends PipeEvent {
             this.stack = stack;
         }
 
+        /** Checks to see if a side if allowed. Note that this may return true even though a later handler might
+         * disallow a side, so you should only use this to skip checking a side (for example a diamond pipe might not
+         * check the filters for a specific side if its already been disallowed) */
+        public boolean isAllowed(EnumFacing side) {
+            return allowed.contains(side);
+        }
+
         public void disallow(EnumFacing... sides) {
             for (EnumFacing side : sides) {
                 allowed.remove(side);
@@ -127,7 +134,7 @@ public abstract class PipeEventItem extends PipeEvent {
         }
 
         public void increasePrecedence(EnumFacing side, int by) {
-            precedence[side.ordinal()] += by;
+            precedence[side.ordinal()] -= by;
         }
 
         public void decreasePrecedence(EnumFacing side) {
@@ -135,7 +142,7 @@ public abstract class PipeEventItem extends PipeEvent {
         }
 
         public void decreasePrecedence(EnumFacing side, int by) {
-            precedence[side.ordinal()] -= by;
+            increasePrecedence(side, -by);
         }
 
         public List<EnumSet<EnumFacing>> getOrder() {
