@@ -1,5 +1,6 @@
 package buildcraft.api.transport.neptune;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -34,9 +35,21 @@ public interface IPipeHolder {
     /** @param parts The parts that want to send a network update. */
     void scheduleNetworkUpdate(PipeMessageReceiver... parts);
 
+    /** Schedules a GUI network update, that is only the players who currently have a pipe element open in a GUI will be
+     * updated.
+     * 
+     * @param parts The parts that want to send a network update. */
+    void scheduleNetworkGuiUpdate(PipeMessageReceiver... parts);
+
     /** Sends a custom message from a pluggable or pipe centre to the server/client (depending on which side this is
      * currently on). */
     void sendMessage(PipeMessageReceiver to, IWriter writer);
+
+    /** Called on the server whenever a gui container object is opened. */
+    void onPlayerOpen(EntityPlayer player);
+
+    /** Called on the server whenever a gui container object is closed. */
+    void onPlayerClose(EntityPlayer player);
 
     public enum PipeMessageReceiver {
         BEHAVIOUR(null),
