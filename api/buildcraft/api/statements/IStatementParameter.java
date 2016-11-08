@@ -19,7 +19,7 @@ public interface IStatementParameter {
     String getUniqueTag();
 
     @SideOnly(Side.CLIENT)
-    TextureAtlasSprite getIcon();
+    TextureAtlasSprite getSprite();
 
     ItemStack getItemStack();
 

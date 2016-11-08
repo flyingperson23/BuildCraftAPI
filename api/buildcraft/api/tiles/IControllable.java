@@ -12,7 +12,10 @@ public interface IControllable {
         On,
         Off,
         Mode,
-        Loop
+        Loop;
+
+        public static final Mode[] VALUES = values();
+        public static final Mode[] VALID_VALUES = { On, Off, Loop };
     }
 
     /** Get the current control mode of the Tile Entity.
