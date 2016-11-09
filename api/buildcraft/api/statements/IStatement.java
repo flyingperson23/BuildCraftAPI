@@ -9,6 +9,8 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/** Designates some sort of statement. Most of the time you should implement {@link ITriggerExternal},
+ * {@link ITriggerInternal}, {@link IActionExternal} or {@link IActionInternal} though. */
 public interface IStatement {
     /** Every statement needs a unique tag, it should be in the format of "&lt;modid&gt;:&lt;name&gt;.
      *

@@ -6,6 +6,7 @@ package buildcraft.api.filler;
 
 import buildcraft.api.statements.IStatement;
 
+/** A type of statement that is used for filler patterns. */
 public interface IFillerPattern extends IStatement {
     // Object getBlockOverlay();
 }

@@ -18,9 +18,11 @@ public interface IStatementParameter {
      * @return the unique id */
     String getUniqueTag();
 
+    /** @return A sprite to show in a GUI, or null if this should not render a sprite. */
     @SideOnly(Side.CLIENT)
     TextureAtlasSprite getSprite();
 
+    /** @return An itemstack to render for this parameter, or null if this should not render an itemstack. */
     ItemStack getItemStack();
 
     /** Return the parameter description in the UI */
