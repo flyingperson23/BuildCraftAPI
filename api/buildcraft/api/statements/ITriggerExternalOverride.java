@@ -12,5 +12,5 @@ public interface ITriggerExternalOverride {
         IGNORE
     }
 
-    Result override(EnumFacing side, IStatementContainer source, IStatementParameter[] parameters);
+    Result override(EnumFacing side, IStatementContainer source, ITriggerExternal trigger, IStatementParameter[] parameters);
 }

@@ -5,8 +5,11 @@
 package buildcraft.api.statements;
 
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 
 /** This is implemented by objects containing Statements, such as Gates and TileEntities. */
 public interface IStatementContainer {
     TileEntity getTile();
+
+    TileEntity getNeighbourTile(EnumFacing side);
 }

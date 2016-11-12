@@ -33,8 +33,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import buildcraft.api.core.BCLog;
 
-// Deprecated as NBT will be saved in a compressing format rather than only for blocks, items and entities.
-@Deprecated
 public class MappingRegistry {
 
     public HashMap<Block, Integer> blockToId = new HashMap<Block, Integer>();
@@ -163,7 +161,6 @@ public class MappingRegistry {
 
     /** Relocates a stack nbt from the registry referential to the world referential. */
     public void stackToWorld(NBTTagCompound nbt) throws MappingNotFoundException {
-        // 1.7.10 back-compat
         if (nbt.hasKey("id", Constants.NBT.TAG_SHORT)) {
             Item item = getItemForId(nbt.getShort("id"));
             nbt.setString("id", (Item.REGISTRY.getNameForObject(item).toString()));
@@ -176,7 +173,6 @@ public class MappingRegistry {
                 "Count") instanceof NBTTagByte && nbt.getTag("Damage") instanceof NBTTagShort;
     }
 
-    // 1.7.10 Back compat
     public void scanAndTranslateStacksToWorld(NBTTagCompound nbt) throws MappingNotFoundException {
         // First, check if this nbt is itself a stack
 
