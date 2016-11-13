@@ -12,6 +12,8 @@ import net.minecraft.util.EnumFacing;
 public interface ITriggerProvider {
     void addInternalTriggers(Collection<ITriggerInternal> triggers, IStatementContainer container);
 
+    void addInternalSidedTriggers(Collection<ITriggerInternalSided> triggers, IStatementContainer container, EnumFacing side);
+
     /** Returns the list of triggers available to a gate next to the given block. */
     void addExternalTriggers(Collection<ITriggerExternal> triggers, EnumFacing side, TileEntity tile);
 }
