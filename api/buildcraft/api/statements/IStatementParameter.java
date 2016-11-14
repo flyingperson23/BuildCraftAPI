@@ -4,29 +4,13 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.statements;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-public interface IStatementParameter {
-
-    /** Every parameter needs a unique tag, it should be in the format of "&lt;modid&gt;:&lt;name&gt;".
-     *
-     * @return the unique id */
-    String getUniqueTag();
-
-    /** @return A sprite to show in a GUI, or null if this should not render a sprite. */
-    @SideOnly(Side.CLIENT)
-    TextureAtlasSprite getSprite();
+public interface IStatementParameter extends IGuiSlot {
 
     /** @return An itemstack to render for this parameter, or null if this should not render an itemstack. */
     ItemStack getItemStack();
-
-    /** Return the parameter description in the UI */
-    String getDescription();
 
     void onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse);
 

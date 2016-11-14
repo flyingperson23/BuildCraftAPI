@@ -45,6 +45,8 @@ public interface IPipeHolder {
      * currently on). */
     void sendMessage(PipeMessageReceiver to, IWriter writer);
 
+    void sendGuiMessage(PipeMessageReceiver to, IWriter writer);
+
     /** Called on the server whenever a gui container object is opened. */
     void onPlayerOpen(EntityPlayer player);
 

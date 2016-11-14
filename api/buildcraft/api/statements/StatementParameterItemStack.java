@@ -15,7 +15,7 @@ public class StatementParameterItemStack implements IStatementParameter {
     protected ItemStack stack;
 
     @Override
-    public TextureAtlasSprite getSprite() {
+    public TextureAtlasSprite getGuiSprite() {
         return null;
     }
 
