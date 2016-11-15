@@ -7,10 +7,11 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import buildcraft.api.statements.containers.IRedstoneStatementContainer;
 import buildcraft.api.transport.PipeEvent;
 
 /** Designates a tile that can contain a pipe, up to 6 sided pluggables, and up to 4 different pipe wires. */
-public interface IPipeHolder {
+public interface IPipeHolder extends IRedstoneStatementContainer {
     World getPipeWorld();
 
     BlockPos getPipePos();

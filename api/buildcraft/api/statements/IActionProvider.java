@@ -12,5 +12,7 @@ import net.minecraft.util.EnumFacing;
 public interface IActionProvider {
     void addInternalActions(Collection<IActionInternal> actions, IStatementContainer container);
 
+    void addInternalSidedActions(Collection<IActionInternalSided> actions, IStatementContainer container, EnumFacing side);
+
     void addExternalActions(Collection<IActionExternal> actions, EnumFacing side, TileEntity tile);
 }

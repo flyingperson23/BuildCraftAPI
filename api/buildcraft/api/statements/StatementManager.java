@@ -6,12 +6,8 @@ package buildcraft.api.statements;
 
 import java.util.*;
 
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import buildcraft.api.core.BCLog;
 
@@ -102,6 +98,26 @@ public final class StatementManager {
         }
 
         return new ArrayList<IActionInternal>(actions);
+    }
+
+    public static List<ITriggerInternalSided> getInternalSidedTriggers(IStatementContainer container, EnumFacing side) {
+        LinkedHashSet<ITriggerInternalSided> triggers = new LinkedHashSet<ITriggerInternalSided>();
+
+        for (ITriggerProvider provider : triggerProviders) {
+            provider.addInternalSidedTriggers(triggers, container, side);
+        }
+
+        return new ArrayList<ITriggerInternalSided>(triggers);
+    }
+
+    public static List<IActionInternalSided> getInternalSidedActions(IStatementContainer container, EnumFacing side) {
+        LinkedHashSet<IActionInternalSided> actions = new LinkedHashSet<IActionInternalSided>();
+
+        for (IActionProvider provider : actionProviders) {
+            provider.addInternalSidedActions(actions, container, side);
+        }
+
+        return new ArrayList<IActionInternalSided>(actions);
     }
 
     public static IStatementParameter createParameter(String kind) {
