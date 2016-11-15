@@ -12,7 +12,9 @@ public interface IStatementParameter extends IGuiSlot {
     /** @return An itemstack to render for this parameter, or null if this should not render an itemstack. */
     ItemStack getItemStack();
 
-    void onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse);
+    /** Return true if you handled the mouse click and do not want {@link #getPossible()} to be shown, or false if you
+     * did nothing and wish to show the values of {@link #getPossible()} */
+    boolean onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse);
 
     void readFromNBT(NBTTagCompound compound);
 
@@ -20,4 +22,6 @@ public interface IStatementParameter extends IGuiSlot {
 
     /** This returns the parameter after a left rotation. Used in particular in blueprints orientation. */
     IStatementParameter rotateLeft();
+
+    IStatementParameter[] getPossible();
 }
