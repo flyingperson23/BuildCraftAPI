@@ -12,4 +12,13 @@ public class PipeAPI {
     public static PipeFlowType flowPower;
 
     public static final Map<PipeDefinition, Integer> fluidTransferValues = new HashMap<>();
+
+    public static int getFluidPerTick(PipeDefinition def) {
+        Integer from = fluidTransferValues.get(def);
+        if (from != null) {
+            return from.intValue();
+        } else {
+            return 20;
+        }
+    }
 }
