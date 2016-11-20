@@ -1,4 +1,8 @@
-package buildcraft.api;
+/** Copyright (c) 2011-2015, SpaceToad and the BuildCraft Team http://www.mod-buildcraft.com
+ *
+ * The BuildCraft API is distributed under the terms of the MIT License. Please check the contents of the license, which
+ * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
+package buildcraft.api.core;
 
 import java.util.Arrays;
 
@@ -6,8 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
-
-import buildcraft.api.core.BCLog;
 
 public class APIHelper {
     public static <T> T getInstance(String clsName, Class<T> baseVersion) {

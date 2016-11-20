@@ -2,12 +2,12 @@ package buildcraft.api.transport.neptune;
 
 import net.minecraft.util.EnumFacing;
 
-import buildcraft.api.core.IFluidFilter;
+import net.minecraftforge.fluids.FluidStack;
 
 public interface IFlowFluid {
     /** @param millibuckets
      * @param from
-     * @param filter The filter to determine what can be extracted.
+     * @param filter The fluidstack that the extracted fluid must match, or null for any fluid.
      * @return The fluidstack extracted and inserted into the pipe. */
-    int tryExtractFluid(int millibuckets, EnumFacing from, IFluidFilter filter);
+    int tryExtractFluid(int millibuckets, EnumFacing from, FluidStack filter);
 }
