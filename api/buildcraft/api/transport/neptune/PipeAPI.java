@@ -1,6 +1,6 @@
 package buildcraft.api.transport.neptune;
 
-import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.Map;
 
 public class PipeAPI {
@@ -15,7 +15,7 @@ public class PipeAPI {
      * by BC|Transport to config-defined values. */
     public static FluidTransferInfo transferInfoDefault = new FluidTransferInfo(20, 10);
 
-    public static final Map<PipeDefinition, FluidTransferInfo> fluidTransferData = new HashMap<>();
+    public static final Map<PipeDefinition, FluidTransferInfo> fluidTransferData = new IdentityHashMap<>();
 
     public static FluidTransferInfo getFluidTransferInfo(PipeDefinition def) {
         FluidTransferInfo info = fluidTransferData.get(def);
@@ -31,18 +31,17 @@ public class PipeAPI {
          * this does not affect the flow rate coming into the pipe. */
         public final int transferPerTick;
 
-        
-        // Delay is per fluid???
         /** Controls how long the pipe should delay incoming fluids by. Minimum value is 1, because of the way that
-         * fluids are handled internally. */
-        public final int transferDelay;
+         * fluids are handled internally. This value is multiplied by the fluids viscosity, and divided by 100 to give
+         * the actual delay. */
+        public final double transferDelayMultiplier;
 
         public FluidTransferInfo(int transferPerTick, int transferDelay) {
             this.transferPerTick = transferPerTick;
             if (transferDelay <= 0) {
                 transferDelay = 1;
             }
-            this.transferDelay = transferDelay;
+            this.transferDelayMultiplier = transferDelay;
         }
     }
 }
