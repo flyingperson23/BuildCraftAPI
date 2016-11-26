@@ -4,7 +4,7 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.statements;
 
-public interface IActionInternal extends IStatement {
+public interface IActionInternal extends IAction {
 
     void actionActivate(IStatementContainer source, IStatementParameter[] parameters);
 }

@@ -30,6 +30,8 @@ public final class PipeConnectionAPI {
         connections.put(block, connection);
     }
 
+    /** Ensures that a particular block will always have the default connection, no matter what the bounding box the the
+     * block is. */
     public static void registerConnectionAsNothing(Block block) {
         connections.put(block, NOTHING);
     }
