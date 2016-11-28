@@ -23,6 +23,7 @@ public final class PipeConnectionAPI {
     };
 
     /** Register a block with a custom connection. Useful if you don't own the block class or are adding it for some-one
+     * else.
      * 
      * @param block The block instance
      * @param connection The connection instance */
@@ -30,6 +31,8 @@ public final class PipeConnectionAPI {
         connections.put(block, connection);
     }
 
+    /** Ensures that a particular block will always have the default connection, no matter what the bounding box the the
+     * block is. */
     public static void registerConnectionAsNothing(Block block) {
         connections.put(block, NOTHING);
     }

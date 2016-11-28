@@ -23,5 +23,5 @@ public interface IStatementParameter extends IGuiSlot {
     /** This returns the parameter after a left rotation. Used in particular in blueprints orientation. */
     IStatementParameter rotateLeft();
 
-    IStatementParameter[] getPossible();
+    IStatementParameter[] getPossible(IStatementContainer source, IStatement stmt);
 }

@@ -85,7 +85,7 @@ public class StatementParameterItemStack implements IStatementParameter {
     }
 
     @Override
-    public IStatementParameter[] getPossible() {
+    public IStatementParameter[] getPossible(IStatementContainer source, IStatement stmt) {
         return null;
     }
 }
