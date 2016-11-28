@@ -1,5 +1,6 @@
 package buildcraft.api.transport.neptune;
 
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.AxisDirection;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.Vec3d;
@@ -24,7 +25,7 @@ public enum EnumWirePart {
     /** The bounding box that is used when adding pipe wire to a pipe */
     public final AxisAlignedBB boundingBoxPossible;
 
-    private EnumWirePart(boolean x, boolean y, boolean z) {
+    EnumWirePart(boolean x, boolean y, boolean z) {
         this.x = x ? AxisDirection.POSITIVE : AxisDirection.NEGATIVE;
         this.y = y ? AxisDirection.POSITIVE : AxisDirection.NEGATIVE;
         this.z = z ? AxisDirection.POSITIVE : AxisDirection.NEGATIVE;
@@ -39,5 +40,17 @@ public enum EnumWirePart {
         Vec3d center = new Vec3d(0.5, 0.5, 0.5);
         Vec3d edge = new Vec3d(x ? 0.75 : 0.25, y ? 0.75 : 0.25, z ? 0.75 : 0.25);
         this.boundingBoxPossible = new AxisAlignedBB(center, edge);
+    }
+
+    public AxisDirection getDirection(EnumFacing.Axis axis) {
+        switch(axis) {
+            case X:
+                return x;
+            case Y:
+                return y;
+            case Z:
+                return z;
+        }
+        return null;
     }
 }
