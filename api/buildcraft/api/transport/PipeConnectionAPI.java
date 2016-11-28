@@ -23,6 +23,7 @@ public final class PipeConnectionAPI {
     };
 
     /** Register a block with a custom connection. Useful if you don't own the block class or are adding it for some-one
+     * else.
      * 
      * @param block The block instance
      * @param connection The connection instance */
