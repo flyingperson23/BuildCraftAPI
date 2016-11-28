@@ -12,4 +12,5 @@ public interface IWireManager {
 
     boolean addPart(EnumWirePart part, EnumDyeColor colour);
 
+    boolean hasPartOfColor(EnumDyeColor color);
 }
