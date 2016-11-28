@@ -3,7 +3,15 @@ package buildcraft.api.transport.neptune;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumFacing.AxisDirection;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public enum EnumWirePart {
     EAST_UP_SOUTH(true, true, true),
@@ -52,5 +60,39 @@ public enum EnumWirePart {
                 return z;
         }
         return null;
+    }
+
+    public List<Triple<EnumFacing, BlockPos, EnumWirePart>> getAllPossibleConnections() {
+        return Arrays.stream(EnumWirePart.values())
+                .map(part -> {
+                    EnumFacing.Axis axis = null;
+                    if(this == part) {
+                        axis = null;
+                    } else if(y == part.y && z == part.z) {
+                        axis = EnumFacing.Axis.X;
+                    } else if(z == part.z && x == part.x) {
+                        axis = EnumFacing.Axis.Y;
+                    } else if(x == part.x && y == part.y) {
+                        axis = EnumFacing.Axis.Z;
+                    }
+                    return Pair.of(axis, part);
+                })
+                .filter(axisPart -> axisPart.getLeft() != null)
+                .flatMap(axisPart -> Stream.of(
+                        Pair.of(
+                                (EnumFacing) null,
+                                axisPart.getRight()
+                        ),
+                        Pair.of(
+                                EnumFacing.getFacingFromAxis(getDirection(axisPart.getLeft()), axisPart.getLeft()),
+                                axisPart.getRight()
+                        )
+                ))
+                .map(sidePart -> Triple.of(
+                        sidePart.getLeft(),
+                        sidePart.getLeft() == null ? BlockPos.ORIGIN : new BlockPos(sidePart.getLeft().getDirectionVec()),
+                        sidePart.getRight()
+                ))
+                .collect(Collectors.toList());
     }
 }
