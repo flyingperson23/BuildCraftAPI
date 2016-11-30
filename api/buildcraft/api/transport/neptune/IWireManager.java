@@ -13,4 +13,8 @@ public interface IWireManager {
     boolean addPart(EnumWirePart part, EnumDyeColor colour);
 
     boolean hasPartOfColor(EnumDyeColor color);
+
+    boolean isPowered(EnumWirePart part);
+
+    boolean isAnyPowered(EnumDyeColor color);
 }
