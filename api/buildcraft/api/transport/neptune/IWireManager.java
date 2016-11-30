@@ -6,6 +6,8 @@ public interface IWireManager {
 
     IPipeHolder getHolder();
 
+    void updateBetweens(boolean recursive);
+
     EnumDyeColor getColorOfPart(EnumWirePart part);
 
     EnumDyeColor removePart(EnumWirePart part);
