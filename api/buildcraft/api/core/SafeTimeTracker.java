@@ -33,6 +33,7 @@ public class SafeTimeTracker {
         randomRange = random;
     }
 
+    /** Return true if the internal delay has passed since last time marked was called successfully. */
     public boolean markTimeIfDelay(World world) {
         return markTimeIfDelay(world, internalDelay);
     }
