@@ -33,6 +33,8 @@ public enum EnumWirePart {
     /** The bounding box that is used when adding pipe wire to a pipe */
     public final AxisAlignedBB boundingBoxPossible;
 
+    public final Vec3d renderingScale;
+
     EnumWirePart(boolean x, boolean y, boolean z) {
         this.x = x ? AxisDirection.POSITIVE : AxisDirection.NEGATIVE;
         this.y = y ? AxisDirection.POSITIVE : AxisDirection.NEGATIVE;
@@ -48,6 +50,7 @@ public enum EnumWirePart {
         Vec3d center = new Vec3d(0.5, 0.5, 0.5);
         Vec3d edge = new Vec3d(x ? 0.75 : 0.25, y ? 0.75 : 0.25, z ? 0.75 : 0.25);
         this.boundingBoxPossible = new AxisAlignedBB(center, edge);
+        renderingScale = new Vec3d(boundingBox.maxX - boundingBox.minX, boundingBox.maxY - boundingBox.minY, boundingBox.maxZ - boundingBox.minZ).scale(32);
     }
 
     public AxisDirection getDirection(EnumFacing.Axis axis) {
