@@ -33,7 +33,8 @@ public enum EnumWirePart {
     /** The bounding box that is used when adding pipe wire to a pipe */
     public final AxisAlignedBB boundingBoxPossible;
 
-    public final Vec3d renderingScale;
+    public final double[][] poses;
+    public final double[][] texes;
 
     EnumWirePart(boolean x, boolean y, boolean z) {
         this.x = x ? AxisDirection.POSITIVE : AxisDirection.NEGATIVE;
@@ -50,7 +51,68 @@ public enum EnumWirePart {
         Vec3d center = new Vec3d(0.5, 0.5, 0.5);
         Vec3d edge = new Vec3d(x ? 0.75 : 0.25, y ? 0.75 : 0.25, z ? 0.75 : 0.25);
         this.boundingBoxPossible = new AxisAlignedBB(center, edge);
-        renderingScale = new Vec3d(boundingBox.maxX - boundingBox.minX, boundingBox.maxY - boundingBox.minY, boundingBox.maxZ - boundingBox.minZ).scale(32);
+
+        poses = getPoses(boundingBox);
+        texes = getTexes(boundingBox);
+    }
+
+    public static double[][] getPoses(AxisAlignedBB bb) {
+        return new double[][] {
+                {bb.minX, bb.maxY, bb.minZ},
+                {bb.maxX, bb.maxY, bb.minZ},
+                {bb.maxX, bb.minY, bb.minZ},
+                {bb.minX, bb.minY, bb.minZ},
+                {bb.minX, bb.minY, bb.maxZ},
+                {bb.maxX, bb.minY, bb.maxZ},
+                {bb.maxX, bb.maxY, bb.maxZ},
+                {bb.minX, bb.maxY, bb.maxZ},
+                {bb.minX, bb.minY, bb.minZ},
+                {bb.maxX, bb.minY, bb.minZ},
+                {bb.maxX, bb.minY, bb.maxZ},
+                {bb.minX, bb.minY, bb.maxZ},
+                {bb.minX, bb.maxY, bb.maxZ},
+                {bb.maxX, bb.maxY, bb.maxZ},
+                {bb.maxX, bb.maxY, bb.minZ},
+                {bb.minX, bb.maxY, bb.minZ},
+                {bb.minX, bb.minY, bb.maxZ},
+                {bb.minX, bb.maxY, bb.maxZ},
+                {bb.minX, bb.maxY, bb.minZ},
+                {bb.minX, bb.minY, bb.minZ},
+                {bb.maxX, bb.minY, bb.minZ},
+                {bb.maxX, bb.maxY, bb.minZ},
+                {bb.maxX, bb.maxY, bb.maxZ},
+                {bb.maxX, bb.minY, bb.maxZ}
+        };
+    }
+
+    public static double[][] getTexes(AxisAlignedBB bb) {
+        Vec3d renderingScale = new Vec3d(bb.maxX - bb.minX, bb.maxY - bb.minY, bb.maxZ - bb.minZ).scale(32);
+        return new double[][] {
+                {0/*                */, 0/*                */},
+                {renderingScale.xCoord, 0/*                */},
+                {renderingScale.xCoord, renderingScale.yCoord},
+                {0/*                */, renderingScale.yCoord},
+                {0/*                */, 0/*                */},
+                {renderingScale.xCoord, 0/*                */},
+                {renderingScale.xCoord, renderingScale.yCoord},
+                {0/*                */, renderingScale.yCoord},
+                {0/*                */, 0/*                */},
+                {renderingScale.xCoord, 0/*                */},
+                {renderingScale.xCoord, renderingScale.zCoord},
+                {0/*                */, renderingScale.zCoord},
+                {0/*                */, 0/*                */},
+                {renderingScale.xCoord, 0/*                */},
+                {renderingScale.xCoord, renderingScale.zCoord},
+                {0/*                */, renderingScale.zCoord},
+                {0/*                */, 0/*                */},
+                {renderingScale.yCoord, 0/*                */},
+                {renderingScale.yCoord, renderingScale.zCoord},
+                {0/*                */, renderingScale.zCoord},
+                {0/*                */, 0/*                */},
+                {renderingScale.yCoord, 0/*                */},
+                {renderingScale.yCoord, renderingScale.zCoord},
+                {0/*                */, renderingScale.zCoord}
+        };
     }
 
     public AxisDirection getDirection(EnumFacing.Axis axis) {
