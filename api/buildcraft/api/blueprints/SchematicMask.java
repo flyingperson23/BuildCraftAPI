@@ -37,7 +37,7 @@ public class SchematicMask extends SchematicBlockBase {
                 return;
             } else {
                 ItemStack stack = stacks.get(0);
-                EntityPlayer player = BuildCraftAPI.fakePlayerProvider.getBuildCraftPlayer((WorldServer) context.world()).get();
+                EntityPlayer player = BuildCraftAPI.fakePlayerProvider.getBuildCraftPlayer((WorldServer) context.world());
 
                 // force the block to be air block, in case it's just a soft
                 // block which replacement is not straightforward

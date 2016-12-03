@@ -12,5 +12,9 @@ import net.minecraft.item.ItemStack;
  * item individually. */
 public interface IStackFilter {
 
+    /** Check to see if a given stack matches this filter.
+     * 
+     * @param stack The stack to test. stack.isEmpty will always return false.
+     * @return True if it does match, false otherwise. */
     boolean matches(@Nonnull ItemStack stack);
 }

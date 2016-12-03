@@ -22,5 +22,5 @@ public interface IInjectable {
      * @param speed The speed of the item to be added (in blocks per tick) or <=0 if a defaukt should be used.
      * @return The left over stack that was not accepted. */
     @Nonnull
-    ItemStack injectItem(ItemStack stack, boolean doAdd, EnumFacing from, EnumDyeColor color, double speed);
+    ItemStack injectItem(@Nonnull ItemStack stack, boolean doAdd, EnumFacing from, EnumDyeColor color, double speed);
 }

@@ -3,6 +3,8 @@ package buildcraft.api.recipes;
 import java.io.IOException;
 import java.util.Iterator;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -13,11 +15,11 @@ import net.minecraftforge.common.util.Constants;
 
 public final class IntegrationRecipe {
     public final long requiredMicroJoules;
-    public final ItemStack target;
+    public final @Nonnull ItemStack target;
     public final NonNullList<ItemStack> toIntegrate;
     public final ItemStack output;
 
-    public IntegrationRecipe(long requiredMicroJoules, ItemStack target, NonNullList<ItemStack> toIntegrate, ItemStack output) {
+    public IntegrationRecipe(long requiredMicroJoules, @Nonnull ItemStack target, NonNullList<ItemStack> toIntegrate, ItemStack output) {
         this.requiredMicroJoules = requiredMicroJoules;
         this.target = target;
         this.toIntegrate = toIntegrate;
@@ -37,7 +39,9 @@ public final class IntegrationRecipe {
 
     public IntegrationRecipe(PacketBuffer buffer) throws IOException {
         requiredMicroJoules = buffer.readLong();
-        target = buffer.readItemStack();
+        ItemStack stack = buffer.readItemStack();
+        if (stack == null) throw new NullPointerException("stack");// should never happen
+        target = stack;
         int count = buffer.readInt();
         toIntegrate = NonNullList.withSize(count, ItemStack.EMPTY);
         for (int i = 0; i < count; i++) {
@@ -83,7 +87,7 @@ public final class IntegrationRecipe {
         if (requiredMicroJoules != that.requiredMicroJoules) {
             return false;
         }
-        if (target != null ? !ItemStack.areItemStacksEqual(target, that.target) : that.target != null) {
+        if (!ItemStack.areItemStacksEqual(target, that.target)) {
             return false;
         }
         if (toIntegrate != null && that.toIntegrate != null) {
