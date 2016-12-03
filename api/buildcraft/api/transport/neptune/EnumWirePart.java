@@ -86,7 +86,7 @@ public enum EnumWirePart {
     }
 
     public static double[][] getTexes(AxisAlignedBB bb) {
-        Vec3d renderingScale = new Vec3d(bb.maxX - bb.minX, bb.maxY - bb.minY, bb.maxZ - bb.minZ).scale(32);
+        Vec3d renderingScale = new Vec3d(bb.maxX - bb.minX, bb.maxY - bb.minY, bb.maxZ - bb.minZ).scale(16);
         return new double[][] {
                 {0/*                */, 0/*                */},
                 {renderingScale.xCoord, 0/*                */},
