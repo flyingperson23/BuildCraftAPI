@@ -22,12 +22,5 @@
  * Note that you *must* expose the base interface types as capabilities as well as the top type so if you have an
  * instance of {@link buildcraft.api.mj.IMjReceiver} then you must return it for both of the capability's
  * {@link buildcraft.api.mj.MjAPI#CAP_CONNECTOR} and {@link buildcraft.api.mj.MjAPI#CAP_RECEIVER}. A simple way to do
- * this is provided in {@link buildcraft.api.mj.MjCapabilityHelper}.
- * <p>
- * <h1>Mj Type</h1>
- * <p>
- * Machines should be exposed with an instance of {@link buildcraft.api.mj.IMjConnectorType}, the default of which are
- * provided in {@link buildcraft.api.mj.MjSimpleType}. Note that it IS an interface, so you can make your own classes or
- * enum types to properly represent the machines in your mod - provided that you return the simple type for all of
- * them. All BuildCraft machine types are provided in {@link buildcraft.api.mj.types}*/
+ * this is provided in {@link buildcraft.api.mj.MjCapabilityHelper}. */
 package buildcraft.api.mj;

@@ -7,8 +7,7 @@ import javax.annotation.Nonnull;
  * this. */
 public interface IMjConnector {
     /** Checks to see if this connector can connect to the other connector. By default this should check that the other
-     * connector is the same power system ({@link MjSimpleType#POWER_KINETIC} or {@link MjSimpleType#POWER_REDSTONE})
-     * such that receivers can only receive from
+     * connector is the same power system.
      * 
      * @param other
      * @return */
