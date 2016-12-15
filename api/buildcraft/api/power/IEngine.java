@@ -21,6 +21,6 @@ public interface IEngine {
      * @param simulate If true then just pretend you received power- don't actually change any of your internal state.
      * @return True if all the power was accepted, false if not.
      * 
-     * @see {@link buildcraft.api.mj.IMjReceiver#receivePower(long, boolean)} */
+     * @see buildcraft.api.mj.IMjReceiver#receivePower(long, boolean) */
     boolean receivePower(long microJoules, boolean simulate);
 }

@@ -16,8 +16,10 @@ public interface IStatementParameter extends IGuiSlot {
     @Nonnull
     ItemStack getItemStack();
 
-    /** Return true if you handled the mouse click and do not want {@link #getPossible()} to be shown, or false if you
-     * did nothing and wish to show the values of {@link #getPossible()} */
+    /** Return true if you handled the mouse click and do not want all possible values to be shown, or false if you
+     * did nothing and wish to show all possible values.
+     * 
+     *  @see #getPossible(IStatementContainer, IStatement)*/
     boolean onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse);
 
     void readFromNBT(NBTTagCompound compound);

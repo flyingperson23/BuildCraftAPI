@@ -10,7 +10,7 @@ import net.minecraft.util.EnumFacing;
 // TODO: Forge Capability!
 public interface IInjectable {
     /** Tests to see if this pipe can accept items from the given direction. Useless to call this if you are going to
-     * call {@link #injectItem(ItemStack, boolean, EnumFacing, EnumDyeColor)} straight after. */
+     * call {@link #injectItem(ItemStack, boolean, EnumFacing, EnumDyeColor, double)} straight after. */
     boolean canInjectItems(EnumFacing from);
 
     /** Offers an ItemStack for addition to the pipe. Will be rejected if the pipe doesn't accept items from that side.
@@ -19,7 +19,7 @@ public interface IInjectable {
      * @param doAdd If false no actual addition should take place. Implementors should simulate.
      * @param from Orientation the ItemStack is offered from.
      * @param color The color of the item to be added to the pipe, or null for no color.
-     * @param speed The speed of the item to be added (in blocks per tick) or <=0 if a defaukt should be used.
+     * @param speed The speed of the item to be added (in blocks per tick) or {@code <=0} if a default should be used.
      * @return The left over stack that was not accepted. */
     @Nonnull
     ItemStack injectItem(@Nonnull ItemStack stack, boolean doAdd, EnumFacing from, EnumDyeColor color, double speed);

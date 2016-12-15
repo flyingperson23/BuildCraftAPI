@@ -6,14 +6,17 @@ public interface IWireManager {
 
     IPipeHolder getHolder();
 
-    EnumWirePart getWireByColour(EnumDyeColor colour);
+    void updateBetweens(boolean recursive);
 
-    EnumDyeColor getWireByPart(EnumWirePart part);
+    EnumDyeColor getColorOfPart(EnumWirePart part);
 
-    EnumWirePart removeWireByColour(EnumDyeColor colour);
+    EnumDyeColor removePart(EnumWirePart part);
 
-    EnumDyeColor removeWireByPart(EnumWirePart part);
+    boolean addPart(EnumWirePart part, EnumDyeColor colour);
 
-    boolean addWire(EnumWirePart part, EnumDyeColor colour);
+    boolean hasPartOfColor(EnumDyeColor color);
 
+    boolean isPowered(EnumWirePart part);
+
+    boolean isAnyPowered(EnumDyeColor color);
 }
