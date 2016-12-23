@@ -67,7 +67,7 @@ public abstract class PipeFlow implements ICapabilityProvider {
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        return false;
+        return getCapability(capability, facing) != null;
     }
 
     @Override

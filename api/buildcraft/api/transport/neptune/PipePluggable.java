@@ -2,6 +2,8 @@ package buildcraft.api.transport.neptune;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -65,11 +67,7 @@ public abstract class PipePluggable {
         return false;
     }
 
-    public boolean hasCapability(Capability<?> cap) {
-        return false;
-    }
-
-    public <T> T getCapability(Capability<T> cap) {
+    public <T> T getCapability(@Nonnull Capability<T> cap) {
         return null;
     }
 
