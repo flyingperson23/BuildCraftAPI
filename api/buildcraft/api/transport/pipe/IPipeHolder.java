@@ -28,10 +28,13 @@ public interface IPipeHolder extends IRedstoneStatementContainer {
 
     IPipe getPipe();
 
+    @Nullable
     PipePluggable getPluggable(EnumFacing side);
 
+    @Nullable
     TileEntity getNeighbouringTile(EnumFacing side);
 
+    @Nullable
     IPipe getNeighbouringPipe(EnumFacing side);
 
     /** Gets the given capability going outwards from the pipe. This will test the

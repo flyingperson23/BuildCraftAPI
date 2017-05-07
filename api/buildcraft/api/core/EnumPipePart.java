@@ -11,9 +11,7 @@ import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 
-import io.netty.buffer.ByteBuf;
-
-public enum EnumPipePart implements IStringSerializable, INetworkLoadable_BC8<EnumPipePart> {
+public enum EnumPipePart implements IStringSerializable {
     DOWN(EnumFacing.DOWN),
     UP(EnumFacing.UP),
     NORTH(EnumFacing.NORTH),
@@ -24,7 +22,9 @@ public enum EnumPipePart implements IStringSerializable, INetworkLoadable_BC8<En
     CENTER(null);
 
     public static final EnumPipePart[] VALUES = values();
-    public static final EnumPipePart[] FACES = { DOWN, UP, NORTH, SOUTH, WEST, EAST };
+    public static final EnumPipePart[] FACES;
+    public static final EnumPipePart[] HORIZONTALS;
+
     private static final Map<EnumFacing, EnumPipePart> facingMap = Maps.newEnumMap(EnumFacing.class);
     private static final Map<String, EnumPipePart> nameMap = Maps.newHashMap();
     private static final int MAX_VALUES = values().length;
@@ -36,6 +36,16 @@ public enum EnumPipePart implements IStringSerializable, INetworkLoadable_BC8<En
             nameMap.put(part.name(), part);
             if (part.face != null) facingMap.put(part.face, part);
         }
+        FACES = fromFacingArray(EnumFacing.VALUES);
+        HORIZONTALS = fromFacingArray(EnumFacing.HORIZONTALS);
+    }
+
+    private static EnumPipePart[] fromFacingArray(EnumFacing... faces) {
+        EnumPipePart[] arr = new EnumPipePart[faces.length];
+        for (int i = 0; i < faces.length; i++) {
+            arr[i] = fromFacing(faces[i]);
+        }
+        return arr;
     }
 
     public static int ordinal(EnumFacing face) {
@@ -109,16 +119,5 @@ public enum EnumPipePart implements IStringSerializable, INetworkLoadable_BC8<En
 
     public NBTBase writeToNBT() {
         return new NBTTagString(name());
-    }
-
-    @Override
-    public EnumPipePart readFromByteBuf(ByteBuf buf) {
-        byte ord = buf.readByte();
-        return fromMeta(ord);
-    }
-
-    @Override
-    public void writeToByteBuf(ByteBuf buf) {
-        buf.writeByte(ordinal());
     }
 }
