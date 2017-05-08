@@ -44,6 +44,11 @@ public class BCBlocks {
 
     // BC Silicon
     public static final Block SILICON_LASER;
+    public static final Block SILICON_TABLE_ASSEMBLY;
+    public static final Block SILICON_TABLE_INTEGRATION;
+    public static final Block SILICON_TABLE_ADV_CRAFT;
+    public static final Block SILICON_TABLE_CHARGING;
+    public static final Block SILICON_TABLE_PROGRAMMING;
 
     // BC Transport
 
@@ -76,6 +81,11 @@ public class BCBlocks {
 
         String silicon = "silicon";
         SILICON_LASER = getRegisteredBlock(silicon, "laser");
+        SILICON_TABLE_ASSEMBLY = getRegisteredBlock(silicon, "assembly_table");
+        SILICON_TABLE_INTEGRATION = getRegisteredBlock(silicon, "integration_table");
+        SILICON_TABLE_ADV_CRAFT = getRegisteredBlock(silicon, "advanced_crafting_table");
+        SILICON_TABLE_CHARGING = getRegisteredBlock(silicon, "charging_table");
+        SILICON_TABLE_PROGRAMMING = getRegisteredBlock(silicon, "programming_table");
 
         if (DEBUG) {
             for (Block block : Block.REGISTRY) {
