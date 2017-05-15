@@ -60,4 +60,12 @@ public interface IItemTransactor {
             return ItemStack.EMPTY;
         }
     }
+
+    @FunctionalInterface
+    public interface IItemExtractable extends IItemTransactor {
+        @Override
+        default ItemStack insert(ItemStack stack, boolean allOrNone, boolean simulate) {
+            return stack;
+        }
+    }
 }
