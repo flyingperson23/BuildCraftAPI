@@ -8,6 +8,7 @@ import java.util.EnumSet;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -291,6 +292,14 @@ public abstract class PipeEventItem extends PipeEvent {
             this.orderedDestinations = orderedDestinations;
         }
 
+        public EnumSet<EnumFacing> getAllPossibleDestinations() {
+            EnumSet<EnumFacing> set = EnumSet.noneOf(EnumFacing.class);
+            for (EnumSet<EnumFacing> e : orderedDestinations) {
+                set.addAll(e);
+            }
+            return set;
+        }
+
         public ImmutableList<EnumFacing> generateRandomOrder() {
             ImmutableList.Builder<EnumFacing> builder = ImmutableList.builder();
             for (EnumSet<EnumFacing> set : orderedDestinations) {
@@ -352,7 +361,8 @@ public abstract class PipeEventItem extends PipeEvent {
         @Nonnull
         public final ItemStack stack;
         public final EnumFacing from;
-        /** An list of the destinations to try, in order. */
+        /** The list of the destinations to try, in order. */
+        @Nullable
         public List<EnumFacing> to;
 
         public ItemEntry(EnumDyeColor colour, @Nonnull ItemStack stack, EnumFacing from) {
