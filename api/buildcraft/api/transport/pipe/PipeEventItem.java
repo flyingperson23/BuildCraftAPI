@@ -1,12 +1,18 @@
 package buildcraft.api.transport.pipe;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -245,25 +251,34 @@ public abstract class PipeEventItem extends PipeEvent {
     }
 
     public static class Drop extends PipeEventItem {
-        @Nonnull
-        private ItemStack stack;
+        private final EntityItem entity;
 
-        public Drop(IPipeHolder holder, IFlowItems flow, @Nonnull ItemStack stack) {
+        public Drop(IPipeHolder holder, IFlowItems flow, EntityItem entity) {
             super(holder, flow);
-            this.stack = stack;
+            this.entity = entity;
         }
 
         @Nonnull
         public ItemStack getStack() {
-            return this.stack;
+            ItemStack item = entity.getEntityItem();
+            if (item == null) {
+                return ItemStack.EMPTY;
+            }
+            return item;
         }
 
         public void setStack(ItemStack stack) {
             if (stack == null) {
                 throw new NullPointerException("stack");
+            } else if (stack.isEmpty()) {
+                entity.setEntityItemStack(ItemStack.EMPTY);
             } else {
-                this.stack = stack;
+                entity.setEntityItemStack(stack);
             }
+        }
+
+        public EntityItem getEntity() {
+            return this.entity;
         }
     }
 
