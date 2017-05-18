@@ -16,8 +16,9 @@ public interface IFlowItems extends IInjectable {
      * @param from The direction to extract from.
      * @param colour The colour that extracted items should be painted.
      * @param filter The filter to determine what can be extracted.
+     * @param simulate TODO
      * @return The number of items extracted. */
-    int tryExtractItems(int count, EnumFacing from, EnumDyeColor colour, IStackFilter filter);
+    int tryExtractItems(int count, EnumFacing from, EnumDyeColor colour, IStackFilter filter, boolean simulate);
 
     /** Inserts an item directly into the centre of this pipe, going in the given direction. This should ONLY be called
      * from an instance of {@link PipeBehaviour}, as otherwise it can lead to problems. (For example crashing if a pipe
