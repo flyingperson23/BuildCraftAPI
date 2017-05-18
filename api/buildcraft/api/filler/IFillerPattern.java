@@ -4,9 +4,16 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.filler;
 
+import javax.annotation.Nullable;
+
+import buildcraft.api.core.IBox;
 import buildcraft.api.statements.IStatement;
+import buildcraft.api.statements.IStatementParameter;
 
 /** A type of statement that is used for filler patterns. */
 public interface IFillerPattern extends IStatement {
-    // Object getBlockOverlay();
+    /** @param box The box to create the pattern in.
+     * @return The template to fill, or null if this shouldn't make a template with the given box. */
+    @Nullable
+    FilledTemplate createTemplate(IBox box, IStatementParameter[] params);
 }
