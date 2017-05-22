@@ -8,9 +8,10 @@ import java.util.Objects;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
+import buildcraft.api.core.render.ISprite;
 
 public class StatementParameterItemStack implements IStatementParameter {
     // needed because ItemStack.EMPTY doesn't have @Nonnull applied to it :/
@@ -53,7 +54,7 @@ public class StatementParameterItemStack implements IStatementParameter {
     }
 
     @Override
-    public TextureAtlasSprite getGuiSprite() {
+    public ISprite getGuiSprite() {
         return null;
     }
 

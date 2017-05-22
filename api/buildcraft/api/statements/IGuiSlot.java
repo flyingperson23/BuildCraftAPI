@@ -1,9 +1,9 @@
 package buildcraft.api.statements;
 
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import buildcraft.api.core.render.ISprite;
 
 public interface IGuiSlot {
     /** Every parameter needs a unique tag, it should be in the format of "&lt;modid&gt;:&lt;name&gt;".
@@ -17,5 +17,5 @@ public interface IGuiSlot {
     /** @return A sprite to show in a GUI or in-world (so this must be stitched into the block texture atlas), or null
      *         if this should not render a sprite. */
     @SideOnly(Side.CLIENT)
-    TextureAtlasSprite getGuiSprite();
+    ISprite getGuiSprite();
 }
