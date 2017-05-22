@@ -6,14 +6,17 @@ package buildcraft.api.filler;
 
 import javax.annotation.Nullable;
 
-import buildcraft.api.core.IBox;
 import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.containers.IFillerStatementContainer;
 
 /** A type of statement that is used for filler patterns. */
 public interface IFillerPattern extends IStatement {
     /** @param box The box to create the pattern in.
      * @return The template to fill, or null if this shouldn't make a template with the given box. */
     @Nullable
-    FilledTemplate createTemplate(IBox box, IStatementParameter[] params);
+    FilledTemplate createTemplate(IFillerStatementContainer filler, IStatementParameter[] params);
+
+    @Override
+    IFillerPattern[] getPossible();
 }

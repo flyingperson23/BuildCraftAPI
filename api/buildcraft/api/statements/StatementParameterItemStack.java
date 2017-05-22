@@ -24,7 +24,33 @@ public class StatementParameterItemStack implements IStatementParameter {
     }
 
     @Nonnull
-    protected ItemStack stack = EMPTY_STACK;
+    protected final ItemStack stack;
+
+    public StatementParameterItemStack() {
+        stack = EMPTY_STACK;
+    }
+
+    public StatementParameterItemStack(@Nonnull ItemStack stack) {
+        this.stack = stack;
+    }
+
+    public StatementParameterItemStack(NBTTagCompound nbt) {
+        ItemStack read = new ItemStack(nbt.getCompoundTag("stack"));
+        if (read.isEmpty()) {
+            stack = EMPTY_STACK;
+        } else {
+            stack = read;
+        }
+    }
+
+    @Override
+    public void writeToNbt(NBTTagCompound compound) {
+        if (!stack.isEmpty()) {
+            NBTTagCompound tagCompound = new NBTTagCompound();
+            stack.writeToNBT(tagCompound);
+            compound.setTag("stack", tagCompound);
+        }
+    }
 
     @Override
     public TextureAtlasSprite getGuiSprite() {
@@ -37,32 +63,13 @@ public class StatementParameterItemStack implements IStatementParameter {
     }
 
     @Override
-    public boolean onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse) {
-        if (stack != null) {
-            this.stack = stack.copy();
-            this.stack.setCount(1);
+    public StatementParameterItemStack onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse) {
+        if (stack.isEmpty()) {
+            return new StatementParameterItemStack();
         } else {
-            this.stack = EMPTY_STACK;
-        }
-        return true;
-    }
-
-    @Override
-    public void writeToNBT(NBTTagCompound compound) {
-        if (!stack.isEmpty()) {
-            NBTTagCompound tagCompound = new NBTTagCompound();
-            stack.writeToNBT(tagCompound);
-            compound.setTag("stack", tagCompound);
-        }
-    }
-
-    @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        ItemStack read = new ItemStack(compound.getCompoundTag("stack"));
-        if (read.isEmpty()) {
-            stack = EMPTY_STACK;
-        } else {
-            stack = read;
+            ItemStack newStack = stack.copy();
+            newStack.setCount(1);
+            return new StatementParameterItemStack(newStack);
         }
     }
 

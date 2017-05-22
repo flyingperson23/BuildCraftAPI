@@ -4,6 +4,8 @@ import java.util.BitSet;
 
 import net.minecraft.util.math.BlockPos;
 
+import buildcraft.api.core.IBox;
+
 /** A template, to be returned by an {@link IFillerPattern}
  * <p>
  * As this is backed by a {@link BitSet} ordered [x][y][z] it is much faster to fill in the Z axis than the X axis, so
@@ -17,8 +19,8 @@ public class FilledTemplate {
     private final BitSet data;
 
     // Helper fields to make access a tiny bit quicker
-    private final int sizeX, sizeY, sizeZ, sizeYZ, sizeXYZ;
-    private final int maxX, maxY, maxZ;
+    public final int sizeX, sizeY, sizeZ, sizeYZ, sizeXYZ;
+    public final int maxX, maxY, maxZ;
 
     public FilledTemplate(BlockPos min, BlockPos max) {
         this.min = min;
@@ -35,8 +37,20 @@ public class FilledTemplate {
         maxZ = sizeZ - 1;
     }
 
+    public FilledTemplate(IBox box) {
+        this(box.min(), box.max());
+    }
+
     private int getIndexOf(int x, int y, int z) {
         return x * sizeYZ + y * sizeZ + z;
+    }
+
+    private void fillBoundedProper(int fi, int ti) {
+        data.set(fi, ti + 1);
+    }
+
+    private void clearBoundedProper(int fi, int ti) {
+        data.clear(fi, ti + 1);
     }
 
     // Getters
@@ -64,17 +78,31 @@ public class FilledTemplate {
     }
 
     public void fillVolume(BlockPos from, BlockPos to) {
-        fillVolume(from.getX(), from.getY(), from.getZ(), to.getX(), to.getY(), to.getZ());
+        fillVolume(from.getX(), to.getX(), from.getY(), to.getY(), from.getZ(), to.getZ());
     }
 
-    public void fillVolume(int fx, int fy, int fz, int tx, int ty, int tz) {
+    public void fillVolume(int fx, int tx, int fy, int ty, int fz, int tz) {
         for (int x = fx; x <= tx; x++) {
-            fillAreaYZ(x, fy, fz, ty, tz);
+            fillAreaYZ(x, fy, ty, fz, tz);
         }
     }
 
-    public void fillAreaYZ(int x, int fy, int fz, int ty, int tz) {
+    public void fillAreaXY(int fx, int tx, int fy, int ty, int z) {
+        for (int x = fx; x <= tx; x++) {
+            for (int y = fy; y <= ty; y++) {
+                fill(x, y, z);
+            }
+        }
+    }
+
+    public void fillAreaYZ(int x, int fy, int ty, int fz, int tz) {
         for (int y = fy; y <= ty; y++) {
+            fillLineZ(x, y, fz, tz);
+        }
+    }
+
+    public void fillAreaXZ(int fx, int tx, int y, int fz, int tz) {
+        for (int x = fx; x <= tx; x++) {
             fillLineZ(x, y, fz, tz);
         }
     }
@@ -87,7 +115,14 @@ public class FilledTemplate {
     /** Fills an entire plane of a particular X co-ord */
     public void fillPlaneYZ(int x) {
         validateCoord(x, 0, 0);
-        data.set(getIndexOf(x, 0, 0), getIndexOf(x, maxY, maxZ));
+        fillBoundedProper(getIndexOf(x, 0, 0), getIndexOf(x, maxY, maxZ));
+    }
+
+    public void fillPlaneXZ(int y) {
+        validateCoord(0, y, 0);
+        for (int x = 0; x < sizeX; x++) {
+            fillAxisZ(x, y);
+        }
     }
 
     /** Fills up the entire Z axis of a particular co-ord. */
@@ -95,18 +130,74 @@ public class FilledTemplate {
         fillLineZ(x, y, 0, maxZ);
     }
 
+    public void fillLineX(int fx, int tx, int y, int z) {
+        for (int x = fx; x <= tx; x++) {
+            fill(x, y, z);
+        }
+    }
+
+    public void fillLineY(int x, int fy, int ty, int z) {
+        for (int y = fy; x <= ty; y++) {
+            fill(x, y, z);
+        }
+    }
+
     /** Fills a line in the Z-axis. Likely to be faster than manually, as this delegates to the bitset impl, which can
      * set large lines at once. */
     public void fillLineZ(int x, int y, int fz, int tz) {
         validateCoord(x, y, fz);
         validateCoord(x, y, tz);
-        data.set(getIndexOf(x, y, fz), 1 + getIndexOf(x, y, tz));
+        fillBoundedProper(getIndexOf(x, y, fz), getIndexOf(x, y, tz));
     }
 
     // Clearing (Basically a direct copy of filling, but with "clear" instead of "set"|"fill"
 
+    public void clear(BlockPos pos) {
+        clear(pos.getX(), pos.getY(), pos.getZ());
+    }
+
     public void clear(int x, int y, int z) {
         data.clear(getIndexOf(x, y, z));
+    }
+
+    public void clearVolume(BlockPos from, BlockPos to) {
+        clearVolume(from.getX(), from.getY(), from.getZ(), to.getX(), to.getY(), to.getZ());
+    }
+
+    public void clearVolume(int fx, int fy, int fz, int tx, int ty, int tz) {
+        for (int x = fx; x <= tx; x++) {
+            clearAreaYZ(x, fy, fz, ty, tz);
+        }
+    }
+
+    public void clearAreaYZ(int x, int fy, int fz, int ty, int tz) {
+        for (int y = fy; y <= ty; y++) {
+            clearLineZ(x, y, fz, tz);
+        }
+    }
+
+    /** Completely fills up this template. */
+    public void clear() {
+        data.clear(0, sizeXYZ);
+    }
+
+    /** Fills an entire plane of a particular X co-ord */
+    public void clearPlaneYZ(int x) {
+        validateCoord(x, 0, 0);
+        data.clear(getIndexOf(x, 0, 0), getIndexOf(x, maxY, maxZ));
+    }
+
+    /** Fills up the entire Z axis of a particular co-ord. */
+    public void clearAxisZ(int x, int y) {
+        clearLineZ(x, y, 0, maxZ);
+    }
+
+    /** Fills a line in the Z-axis. Likely to be faster than manually, as this delegates to the bitset impl, which can
+     * set large lines at once. */
+    public void clearLineZ(int x, int y, int fz, int tz) {
+        validateCoord(x, y, fz);
+        validateCoord(x, y, tz);
+        data.clear(getIndexOf(x, y, fz), 1 + getIndexOf(x, y, tz));
     }
 
     // Internal (Validation)

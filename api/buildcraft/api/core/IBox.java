@@ -14,4 +14,8 @@ public interface IBox extends IZone {
     BlockPos min();
 
     BlockPos max();
+
+    default BlockPos size() {
+        return max().subtract(min()).add(1, 1, 1);
+    }
 }

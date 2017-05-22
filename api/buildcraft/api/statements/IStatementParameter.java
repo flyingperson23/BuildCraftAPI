@@ -16,15 +16,13 @@ public interface IStatementParameter extends IGuiSlot {
     @Nonnull
     ItemStack getItemStack();
 
-    /** Return true if you handled the mouse click and do not want all possible values to be shown, or false if you
-     * did nothing and wish to show all possible values.
+    /** Return a non-null value to be set as the statement parameter if you handled the mouse click and do not want all
+     * possible values to be shown, or null if you did nothing and wish to show all possible values.
      * 
-     *  @see #getPossible(IStatementContainer, IStatement)*/
-    boolean onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse);
+     * @see #getPossible(IStatementContainer, IStatement) */
+    IStatementParameter onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse);
 
-    void readFromNBT(NBTTagCompound compound);
-
-    void writeToNBT(NBTTagCompound compound);
+    void writeToNbt(NBTTagCompound compound);
 
     /** This returns the parameter after a left rotation. Used in particular in blueprints orientation. */
     IStatementParameter rotateLeft();
