@@ -1,11 +1,16 @@
 package buildcraft.api.schematics;
 
 import buildcraft.api.core.BuildCraftAPI;
+
+import buildcraft.lib.misc.data.InvalidInputDataException;
+
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -49,14 +54,14 @@ public class SchematicBlockFactoryRegistry {
         return FACTORIES.stream()
                 .filter(schematicBlockFactory -> schematicBlockFactory.clazz == instance.getClass())
                 .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new IllegalStateException("Didn't find a factory for " + instance.getClass()));
     }
 
-    @Nonnull
+    @Nullable
     public static SchematicBlockFactory<?> getFactoryByName(ResourceLocation name) {
         return FACTORIES.stream()
                 .filter(schematicBlockFactory -> schematicBlockFactory.name.equals(name))
                 .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+                .orElse(null);
     }
 }
