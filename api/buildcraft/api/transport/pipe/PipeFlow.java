@@ -2,6 +2,8 @@ package buildcraft.api.transport.pipe;
 
 import java.io.IOException;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
@@ -16,8 +18,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import buildcraft.api.core.EnumPipePart;
 import buildcraft.api.transport.pipe.IPipeHolder.IWriter;
 import buildcraft.api.transport.pipe.IPipeHolder.PipeMessageReceiver;
-
-import javax.annotation.Nonnull;
 
 public abstract class PipeFlow implements ICapabilityProvider {
     /** The ID for completely refreshing the state of this flow. */
