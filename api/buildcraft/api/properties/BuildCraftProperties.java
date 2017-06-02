@@ -11,7 +11,14 @@ import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 
-import buildcraft.api.enums.*;
+import buildcraft.api.enums.EnumDecoratedBlock;
+import buildcraft.api.enums.EnumEngineType;
+import buildcraft.api.enums.EnumFillerPattern;
+import buildcraft.api.enums.EnumLaserTableType;
+import buildcraft.api.enums.EnumMachineState;
+import buildcraft.api.enums.EnumOptionalSnapshotType;
+import buildcraft.api.enums.EnumPowerStage;
+import buildcraft.api.enums.EnumSpring;
 
 public final class BuildCraftProperties {
     public static final IProperty<EnumFacing> BLOCK_FACING = PropertyEnum.create("facing", EnumFacing.class, EnumFacing.Plane.HORIZONTAL.facings());

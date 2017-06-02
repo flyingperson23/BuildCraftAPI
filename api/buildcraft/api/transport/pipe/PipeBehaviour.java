@@ -1,5 +1,7 @@
 package buildcraft.api.transport.pipe;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,8 +16,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 import buildcraft.api.core.EnumPipePart;
-
-import javax.annotation.Nonnull;
 
 public abstract class PipeBehaviour implements ICapabilityProvider {
     public final IPipe pipe;

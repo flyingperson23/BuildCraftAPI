@@ -5,10 +5,10 @@ import javax.annotation.Nonnull;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 
 import buildcraft.api.transport.pipe.IPipeHolder;
 import buildcraft.api.transport.pluggable.PipePluggable;
-import net.minecraft.util.EnumHand;
 
 /** Designates an item that can be placed onto a pipe as a {@link PipePluggable}. */
 public interface IItemPluggable {

@@ -1,6 +1,9 @@
 package buildcraft.api.schematics;
 
-import buildcraft.api.core.InvalidInputDataException;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -8,10 +11,10 @@ import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
 import net.minecraftforge.fluids.FluidStack;
 
-import javax.annotation.Nonnull;
-import java.util.List;
+import buildcraft.api.core.InvalidInputDataException;
 
 public interface ISchematicEntity<S extends ISchematicEntity<S>> {
     void init(SchematicEntityContext context);

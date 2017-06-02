@@ -1,11 +1,12 @@
 package buildcraft.api.core;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
+
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-
-import javax.annotation.Nonnull;
 
 public class CapabilitiesHelper {
     public static <T> void registerCapability(Class<T> clazz) {

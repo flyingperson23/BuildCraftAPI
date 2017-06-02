@@ -3,12 +3,13 @@ package buildcraft.api.recipes;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import buildcraft.api.core.BuildCraftAPI;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+
+import buildcraft.api.core.BuildCraftAPI;
 
 /** Provides an immutable assembly recipe */
 public final class AssemblyRecipe implements Comparable<AssemblyRecipe> {

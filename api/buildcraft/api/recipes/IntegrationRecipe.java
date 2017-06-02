@@ -3,12 +3,13 @@ package buildcraft.api.recipes;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import buildcraft.api.core.BuildCraftAPI;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+
+import buildcraft.api.core.BuildCraftAPI;
 
 public final class IntegrationRecipe {
     public final @Nonnull ResourceLocation name;
