@@ -9,9 +9,14 @@ addons:
     packages:
       - oracle-java8-installer
 
-
-install: ./gradlew setupCiWorkspace -S
-script: ./gradlew build
+jobs:
+  include:
+    - stage: build
+      install: ./gradlew setupCiWorkspace -S
+      script: ./gradlew build
+    - stage: checkstyle
+      install: echo "skipping default ./gradlew assemble"
+      script: ./gradlew checkstyle
 
 env:
   global:
