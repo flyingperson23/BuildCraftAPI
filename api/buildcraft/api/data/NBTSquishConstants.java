@@ -19,6 +19,9 @@ public class NBTSquishConstants {
     public static final int BUILDCRAFT_V1 = 2;
     public static final int BUILDCRAFT_V1_COMPRESSED = 3;
 
+    /** The magic identifier for this type of file. First byte is BC, second is A1. */
+    public static final int BUILDCRAFT_MAGIC = 0xbca1;
+
     // The flags used by BUILDCRAFT_V1 to check the existence of each dictionary
     public static final int FLAG_HAS_BYTES = 1 << 0;
     public static final int FLAG_HAS_SHORTS = 1 << 1;
