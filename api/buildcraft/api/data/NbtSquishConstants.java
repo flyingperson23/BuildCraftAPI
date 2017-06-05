@@ -1,9 +1,11 @@
 package buildcraft.api.data;
 
+import java.util.zip.GZIPInputStream;
+
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class NBTSquishConstants {
+public class NbtSquishConstants {
     /** Default written NBT Tag type- this is provided by
      * {@link CompressedStreamTools#write(NBTTagCompound, java.io.DataOutput)} and
      * {@link CompressedStreamTools#read(java.io.DataInput, net.minecraft.nbt.NBTSizeTracker)}.
@@ -19,8 +21,15 @@ public class NBTSquishConstants {
     public static final int BUILDCRAFT_V1 = 2;
     public static final int BUILDCRAFT_V1_COMPRESSED = 3;
 
+    public static final int BUILDCRAFT_MAGIC_1 = 0xbc;
+    public static final int BUILDCRAFT_MAGIC_2 = 0xa1;
     /** The magic identifier for this type of file. First byte is BC, second is A1. */
-    public static final int BUILDCRAFT_MAGIC = 0xbca1;
+    public static final int BUILDCRAFT_MAGIC = (BUILDCRAFT_MAGIC_1 << 8) | BUILDCRAFT_MAGIC_2;
+
+    // GZIP uses the opposite byte order to us, so swap it around for us
+    public static final int GZIP_MAGIC_1 = GZIPInputStream.GZIP_MAGIC & 0xff;
+    public static final int GZIP_MAGIC_2 = GZIPInputStream.GZIP_MAGIC >> 8;
+    public static final int GZIP_MAGIC = (GZIP_MAGIC_1 << 8) | GZIP_MAGIC_2;
 
     // The flags used by BUILDCRAFT_V1 to check the existence of each dictionary
     public static final int FLAG_HAS_BYTES = 1 << 0;
