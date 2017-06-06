@@ -1,5 +1,7 @@
 package buildcraft.api.recipes;
 
+import java.util.List;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -12,10 +14,10 @@ import net.minecraft.util.ResourceLocation;
 import buildcraft.api.core.BuildCraftAPI;
 
 public final class IntegrationRecipe {
-    public final @Nonnull ResourceLocation name;
+    public final ResourceLocation name;
     public final long requiredMicroJoules;
-    public final @Nonnull StackDefinition target;
-    public final @Nonnull ImmutableList<StackDefinition> toIntegrate;
+    public final StackDefinition target;
+    public final ImmutableList<StackDefinition> toIntegrate;
     public final @Nonnull ItemStack output;
     /**
      * Additional tag used to restore network-transmitted recipe to same state
@@ -24,24 +26,24 @@ public final class IntegrationRecipe {
      */
     public final @Nullable NBTTagCompound recipeTag;
 
-    public IntegrationRecipe(@Nonnull ResourceLocation name, long requiredMicroJoules, @Nonnull StackDefinition target, @Nonnull ImmutableList<StackDefinition> toIntegrate, @Nonnull ItemStack output, @Nullable NBTTagCompound recipeTag) {
+    public IntegrationRecipe(ResourceLocation name, long requiredMicroJoules, StackDefinition target, List<StackDefinition> toIntegrate, @Nonnull ItemStack output, @Nullable NBTTagCompound recipeTag) {
         this.name = name;
         this.requiredMicroJoules = requiredMicroJoules;
         this.target = target;
-        this.toIntegrate = toIntegrate;
+        this.toIntegrate = ImmutableList.copyOf(toIntegrate);
         this.output = output;
         this.recipeTag = recipeTag;
     }
 
-    public IntegrationRecipe(@Nonnull String name, long requiredMicroJoules, @Nonnull StackDefinition target, @Nonnull ImmutableList<StackDefinition> toIntegrate, @Nonnull ItemStack output, @Nullable NBTTagCompound recipeTag) {
+    public IntegrationRecipe(String name, long requiredMicroJoules, StackDefinition target, List<StackDefinition> toIntegrate, @Nonnull ItemStack output, @Nullable NBTTagCompound recipeTag) {
         this(BuildCraftAPI.nameToResourceLocation(name), requiredMicroJoules, target, toIntegrate, output, recipeTag);
     }
 
-    public IntegrationRecipe(@Nonnull ResourceLocation name, long requiredMicroJoules, @Nonnull StackDefinition target, @Nonnull ImmutableList<StackDefinition> toIntegrate, @Nonnull ItemStack output) {
+    public IntegrationRecipe(ResourceLocation name, long requiredMicroJoules, StackDefinition target, List<StackDefinition> toIntegrate, @Nonnull ItemStack output) {
         this(name, requiredMicroJoules, target, toIntegrate, output, null);
     }
 
-    public IntegrationRecipe(@Nonnull String name, long requiredMicroJoules, @Nonnull StackDefinition target, @Nonnull ImmutableList<StackDefinition> toIntegrate, @Nonnull ItemStack output) {
+    public IntegrationRecipe(String name, long requiredMicroJoules, StackDefinition target, List<StackDefinition> toIntegrate, @Nonnull ItemStack output) {
         this(name, requiredMicroJoules, target, toIntegrate, output, null);
     }
 
