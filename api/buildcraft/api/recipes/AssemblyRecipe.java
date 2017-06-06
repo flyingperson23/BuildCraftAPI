@@ -1,5 +1,8 @@
 package buildcraft.api.recipes;
 
+import java.util.Collection;
+import java.util.Set;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -13,9 +16,9 @@ import buildcraft.api.core.BuildCraftAPI;
 
 /** Provides an immutable assembly recipe */
 public final class AssemblyRecipe implements Comparable<AssemblyRecipe> {
-    public final @Nonnull ResourceLocation name;
+    public final ResourceLocation name;
     public final long requiredMicroJoules;
-    public final @Nonnull ImmutableSet<StackDefinition> requiredStacks;
+    public final ImmutableSet<StackDefinition> requiredStacks;
     public final @Nonnull ItemStack output;
     /**
      * Additional tag used to restore network-transmitted recipe to same state.<br>
@@ -24,23 +27,23 @@ public final class AssemblyRecipe implements Comparable<AssemblyRecipe> {
      */
     public final @Nullable NBTTagCompound recipeTag;
 
-    public AssemblyRecipe(@Nonnull ResourceLocation name, long requiredMicroJoules, @Nonnull ImmutableSet<StackDefinition> requiredStacks, @Nonnull ItemStack output, @Nullable NBTTagCompound recipeTag) {
+    public AssemblyRecipe(ResourceLocation name, long requiredMicroJoules, Set<StackDefinition> requiredStacks, @Nonnull ItemStack output, @Nullable NBTTagCompound recipeTag) {
         this.name = name;
         this.requiredMicroJoules = requiredMicroJoules;
-        this.requiredStacks = requiredStacks;
+        this.requiredStacks = ImmutableSet.copyOf(requiredStacks);
         this.output = output;
         this.recipeTag = recipeTag;
     }
 
-    public AssemblyRecipe(@Nonnull String name, long requiredMicroJoules, @Nonnull ImmutableSet<StackDefinition> requiredStacks, @Nonnull ItemStack output, @Nullable NBTTagCompound recipeTag) {
+    public AssemblyRecipe(String name, long requiredMicroJoules, Set<StackDefinition> requiredStacks, @Nonnull ItemStack output, @Nullable NBTTagCompound recipeTag) {
         this(BuildCraftAPI.nameToResourceLocation(name), requiredMicroJoules, requiredStacks, output, recipeTag);
     }
 
-    public AssemblyRecipe(@Nonnull ResourceLocation name, long requiredMicroJoules, @Nonnull ImmutableSet<StackDefinition> requiredStacks, @Nonnull ItemStack output) {
+    public AssemblyRecipe(ResourceLocation name, long requiredMicroJoules, Set<StackDefinition> requiredStacks, @Nonnull ItemStack output) {
         this(name, requiredMicroJoules, requiredStacks, output, null);
     }
 
-    public AssemblyRecipe(@Nonnull String name, long requiredMicroJoules, @Nonnull ImmutableSet<StackDefinition> requiredStacks, @Nonnull ItemStack output) {
+    public AssemblyRecipe(String name, long requiredMicroJoules, Set<StackDefinition> requiredStacks, @Nonnull ItemStack output) {
         this(name, requiredMicroJoules, requiredStacks, output, null);
     }
 
