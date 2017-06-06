@@ -1,6 +1,5 @@
 package buildcraft.api.recipes;
 
-import java.util.Collection;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
