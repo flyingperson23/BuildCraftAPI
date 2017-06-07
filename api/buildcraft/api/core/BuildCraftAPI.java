@@ -4,7 +4,6 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.core;
 
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -15,12 +14,12 @@ import net.minecraft.block.Block;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.ModContainer;
 
 public final class BuildCraftAPI {
-
-    public static IBCFakePlayer fakePlayerProvider;
+    public static IFakePlayerProvider fakePlayerProvider;
 
     public static final Set<Block> softBlocks = Sets.newHashSet();
     public static final HashMap<String, IWorldProperty> worldProperties = Maps.newHashMap();
@@ -29,13 +28,11 @@ public final class BuildCraftAPI {
     private BuildCraftAPI() {}
 
     public static String getVersion() {
-        try {
-            Class<?> clazz = Class.forName("buildcraft.core.Version");
-            Method method = clazz.getDeclaredMethod("getVersion");
-            return String.valueOf(method.invoke(null));
-        } catch (Exception e) {
-            return "UNKNOWN VERSION";
+        ModContainer container = Loader.instance().getIndexedModList().get("buildcraftlib");
+        if (container != null) {
+            return container.getDisplayVersion();
         }
+        return "UNKNOWN VERSION";
     }
 
     public static IWorldProperty getWorldProperty(String name) {

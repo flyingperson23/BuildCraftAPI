@@ -1,17 +1,20 @@
 package buildcraft.api.schematics;
 
-import buildcraft.api.core.BuildCraftAPI;
-import com.google.common.collect.ImmutableList;
-import net.minecraft.block.Block;
-import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.block.Block;
+import net.minecraft.util.ResourceLocation;
+
+import buildcraft.api.core.BuildCraftAPI;
 
 public class SchematicBlockFactoryRegistry {
     private static final Set<SchematicBlockFactory<?>> FACTORIES = new TreeSet<>();
@@ -49,14 +52,14 @@ public class SchematicBlockFactoryRegistry {
         return FACTORIES.stream()
                 .filter(schematicBlockFactory -> schematicBlockFactory.clazz == instance.getClass())
                 .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new IllegalStateException("Didn't find a factory for " + instance.getClass()));
     }
 
-    @Nonnull
+    @Nullable
     public static SchematicBlockFactory<?> getFactoryByName(ResourceLocation name) {
         return FACTORIES.stream()
                 .filter(schematicBlockFactory -> schematicBlockFactory.name.equals(name))
                 .findFirst()
-                .orElseThrow(NoSuchElementException::new);
+                .orElse(null);
     }
 }

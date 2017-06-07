@@ -1,8 +1,8 @@
 package buildcraft.api.enums;
 
-import net.minecraft.util.IStringSerializable;
-
 import java.util.Locale;
+
+import net.minecraft.util.IStringSerializable;
 
 public enum EnumOptionalSnapshotType implements IStringSerializable {
     NONE(null),

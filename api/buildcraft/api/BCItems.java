@@ -38,8 +38,7 @@ public class BCItems {
 
     // BC Builders
     public static final Item BUILDERS_SINGLE_SCHEMATIC;
-    public static final Item BUILDERS_BLUEPRINT;
-    public static final Item BUILDERS_TEMPLATE;
+    public static final Item BUILDERS_SNAPSHOT;
 
     // BC Energy
     public static final Item ENERGY_GLOB_OF_OIL;
@@ -75,7 +74,7 @@ public class BCItems {
     public static final Item TRANSPORT_PIPE_DIAMOND_ITEM;
 
     // Set of items scanned
-    private static final Set<String> SCANNED = DEBUG ? new HashSet<String>() : null;
+    private static final Set<String> SCANNED = DEBUG ? new HashSet<>() : null;
 
     static {
         if (!Loader.instance().hasReachedState(LoaderState.INITIALIZATION)) {
@@ -101,8 +100,7 @@ public class BCItems {
 
         final String builders = "builders";
         BUILDERS_SINGLE_SCHEMATIC = getRegisteredItem(builders, "single_schematic");
-        BUILDERS_BLUEPRINT = getRegisteredItem(builders, "blueprint");
-        BUILDERS_TEMPLATE = getRegisteredItem(builders, "template");
+        BUILDERS_SNAPSHOT = getRegisteredItem(builders, "snapshot");
 
         final String energy = "energy";
         ENERGY_GLOB_OF_OIL = getRegisteredItem(energy, "glob_oil");

@@ -1,4 +1,4 @@
-package buildcraft.api.permission;
+package buildcraft.api.core;
 
 import com.mojang.authlib.GameProfile;
 

@@ -53,7 +53,9 @@ public enum EnumPipePart implements IStringSerializable {
     }
 
     public static EnumPipePart fromFacing(EnumFacing face) {
-        if (face == null) return EnumPipePart.CENTER;
+        if (face == null) {
+            return EnumPipePart.CENTER;
+        }
         return facingMap.get(face);
     }
 
@@ -62,11 +64,13 @@ public enum EnumPipePart implements IStringSerializable {
     }
 
     public static EnumPipePart fromMeta(int meta) {
-        if (meta < 0 || meta >= MAX_VALUES) return EnumPipePart.CENTER;
+        if (meta < 0 || meta >= MAX_VALUES) {
+            return EnumPipePart.CENTER;
+        }
         return VALUES[meta];
     }
 
-    private EnumPipePart(EnumFacing face) {
+    EnumPipePart(EnumFacing face) {
         this.face = face;
     }
 
@@ -100,19 +104,25 @@ public enum EnumPipePart implements IStringSerializable {
     }
 
     public EnumPipePart opposite() {
-        if (this == CENTER) return CENTER;
+        if (this == CENTER) {
+            return CENTER;
+        }
         return fromFacing(face.getOpposite());
     }
 
     public static EnumPipePart readFromNBT(NBTBase base) {
-        if (base == null) return CENTER;
+        if (base == null) {
+            return CENTER;
+        }
         if (base instanceof NBTTagString) {
             NBTTagString nbtString = (NBTTagString) base;
             String string = nbtString.getString();
-            return nameMap.containsKey(string) ? nameMap.get(string) : CENTER;
+            return nameMap.getOrDefault(string, CENTER);
         } else {
             byte ord = ((NBTPrimitive) base).getByte();
-            if (ord < 0 || ord > 6) return CENTER;
+            if (ord < 0 || ord > 6) {
+                return CENTER;
+            }
             return values()[ord];
         }
     }

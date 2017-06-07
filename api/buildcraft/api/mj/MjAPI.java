@@ -1,15 +1,17 @@
 package buildcraft.api.mj;
 
-import buildcraft.api.core.APIHelper;
-import buildcraft.api.core.CapabilitiesHelper;
+import java.text.DecimalFormat;
+
+import javax.annotation.Nonnull;
+
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 
-import javax.annotation.Nonnull;
-import java.text.DecimalFormat;
+import buildcraft.api.core.CapabilitiesHelper;
 
 public class MjAPI {
 
@@ -27,7 +29,7 @@ public class MjAPI {
     /** The decimal format used to display values of MJ to the player. Note that this */
     public static final DecimalFormat MJ_DISPLAY_FORMAT = new DecimalFormat("#,##0.##");
 
-    public static final IMjEffectManager EFFECT_MANAGER = APIHelper.getInstance("", IMjEffectManager.class, NullaryEffectManager.INSTANCE);
+    public static IMjEffectManager EFFECT_MANAGER = NullaryEffectManager.INSTANCE;
 
     // ###############
     //
@@ -38,38 +40,6 @@ public class MjAPI {
     /** Formats a given MJ value to a player-oriented string. Note that this does not append "MJ" to the value. */
     public static String formatMj(long microMj) {
         return formatMjInternal(microMj / (double) MJ);
-    }
-
-    /** Formats a given MJ value to a player-oriented string. Note that this DOES append "*MJ" to the value. This does
-     * however shorten it down to a small length, and displays "µ", "m", "K" or "M" or "G" before the MJ depending on
-     * how big or small the value is. */
-    public static String formatMjShort(long microJoules) {
-        if (microJoules == 0) {
-            return "0 MJ";
-        }
-        long limit = 1;
-        final long nextUnitCap = 800;
-        if (microJoules < nextUnitCap * limit) {// micro MJ
-            return formatMjInternal(microJoules) + " µMJ";
-        }
-        limit *= 1000;
-        if (microJoules < nextUnitCap * limit) { // milli MJ
-            return formatMjInternal(microJoules / (double) limit) + " mMJ";
-        }
-        limit *= 1000;
-        if (microJoules < nextUnitCap * limit) { // MJ
-            return formatMjInternal(microJoules / (double) limit) + " MJ";
-        }
-        limit *= 1000;
-        if (microJoules < nextUnitCap * limit) {// kilo MJ
-            return formatMjInternal(microJoules / (double) limit) + " KMJ";
-        }
-        limit *= 1000;
-        if (microJoules < nextUnitCap * limit) {// mega MJ
-            return formatMjInternal(microJoules / (double) limit) + " MMJ";
-        }
-        limit *= 1000;
-        return formatMjInternal(microJoules / (double) limit) + " GMJ";
     }
 
     private static String formatMjInternal(double val) {

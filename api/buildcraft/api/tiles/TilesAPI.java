@@ -1,10 +1,11 @@
 package buildcraft.api.tiles;
 
-import buildcraft.api.core.CapabilitiesHelper;
+import javax.annotation.Nonnull;
+
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 
-import javax.annotation.Nonnull;
+import buildcraft.api.core.CapabilitiesHelper;
 
 public class TilesAPI {
     @Nonnull

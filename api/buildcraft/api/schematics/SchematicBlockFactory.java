@@ -1,10 +1,11 @@
 package buildcraft.api.schematics;
 
-import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+
+import javax.annotation.Nonnull;
+
+import net.minecraft.util.ResourceLocation;
 
 public class SchematicBlockFactory<S extends ISchematicBlock<S>> implements Comparable<SchematicBlockFactory> {
     @Nonnull
