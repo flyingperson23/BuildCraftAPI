@@ -14,6 +14,9 @@ import buildcraft.api.statements.containers.IFillerStatementContainer;
 /** A type of statement that is used for filler patterns. */
 public interface IFillerPattern extends IStatement {
     /** @param filler The filler to create the pattern for.
+     *            <br>
+     *            NOTE: This method should never be called when {@link IFillerStatementContainer#hasBox()} returns
+     *            false
      * @return The template to fill, or null if this shouldn't make a template for the given filer. */
     @Nullable
     FilledTemplate createTemplate(IFillerStatementContainer filler, IStatementParameter[] params);

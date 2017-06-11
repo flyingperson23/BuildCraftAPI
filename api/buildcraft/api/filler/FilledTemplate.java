@@ -204,13 +204,16 @@ public class FilledTemplate {
 
     private void validateCoord(int x, int y, int z) {
         if (x < 0 || x >= sizeX) {
-            throw new IllegalArgumentException("X value was not in the correct range! (x = " + x + ", sizeX = " + sizeX + ")");
+            throw new IllegalArgumentException(
+                "X value was not in the correct range! (x = " + x + ", sizeX = " + sizeX + ")");
         }
         if (y < 0 || y >= sizeY) {
-            throw new IllegalArgumentException("Y value was not in the correct range! (y = " + y + ", sizeY = " + sizeY + ")");
+            throw new IllegalArgumentException(
+                "Y value was not in the correct range! (y = " + y + ", sizeY = " + sizeY + ")");
         }
         if (z < 0 || z >= sizeZ) {
-            throw new IllegalArgumentException("Z value was not in the correct range! (z = " + z + ", sizeZ = " + sizeZ + ")");
+            throw new IllegalArgumentException(
+                "Z value was not in the correct range! (z = " + z + ", sizeZ = " + sizeZ + ")");
         }
     }
 }

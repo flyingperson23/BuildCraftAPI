@@ -20,7 +20,8 @@ public interface IStatementParameter extends IGuiSlot {
      * possible values to be shown, or null if you did nothing and wish to show all possible values.
      * 
      * @see #getPossible(IStatementContainer, IStatement) */
-    IStatementParameter onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse);
+    IStatementParameter onClick(IStatementContainer source, IStatement stmt, ItemStack stack,
+        StatementMouseClick mouse);
 
     void writeToNbt(NBTTagCompound compound);
 
@@ -28,4 +29,16 @@ public interface IStatementParameter extends IGuiSlot {
     IStatementParameter rotateLeft();
 
     IStatementParameter[] getPossible(IStatementContainer source, IStatement stmt);
+
+    /** Checks to see if this parameter is a parameter for the given statement, in the given index. This is called when
+     * the main statement is changed (for example when the player selects a new statement via a GUI).
+     * 
+     * @param statment
+     * @param index
+     * @return A parameter suitable for the statement, or null if this could not be changed. NOTE: it is EXTEREMLY
+     *         important that the statement agrees with the returned statement, as otherwise it will crash! It is much
+     *         safer to return null than to blindly return a value. */
+    default IStatementParameter convertForNewStatement(IStatement statment, int index) {
+        return null;
+    }
 }
