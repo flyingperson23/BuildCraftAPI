@@ -4,6 +4,7 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.statements;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
@@ -19,6 +21,7 @@ public final class StatementManager {
 
     public static Map<String, IStatement> statements = new HashMap<>();
     public static Map<String, IParameterReader> parameters = new HashMap<>();
+    public static Map<String, IParamReaderBuf> paramsBuf = new HashMap<>();
     private static List<ITriggerProvider> triggerProviders = new LinkedList<>();
     private static List<IActionProvider> actionProviders = new LinkedList<>();
 
@@ -29,6 +32,11 @@ public final class StatementManager {
     @FunctionalInterface
     public interface IParameterReader {
         IStatementParameter readFromNbt(NBTTagCompound nbt);
+    }
+
+    @FunctionalInterface
+    public interface IParamReaderBuf {
+        IStatementParameter readFromBuf(PacketBuffer buffer) throws IOException;
     }
 
     /** Deactivate constructor */
@@ -51,11 +59,21 @@ public final class StatementManager {
     }
 
     public static void registerParameter(IParameterReader reader) {
-        registerParameter(reader.readFromNbt(new NBTTagCompound()).getUniqueTag(), reader);
+        registerParameter(reader, buf -> reader.readFromNbt(buf.readCompoundTag()));
+    }
+
+    public static void registerParameter(IParameterReader reader, IParamReaderBuf bufReader) {
+        String name = reader.readFromNbt(new NBTTagCompound()).getUniqueTag();
+        registerParameter(name, reader);
+        registerParameter(name, bufReader);
     }
 
     public static void registerParameter(String name, IParameterReader reader) {
         parameters.put(name, reader);
+    }
+
+    public static void registerParameter(String name, IParamReaderBuf reader) {
+        paramsBuf.put(name, reader);
     }
 
     public static List<ITriggerExternal> getExternalTriggers(EnumFacing side, TileEntity entity) {

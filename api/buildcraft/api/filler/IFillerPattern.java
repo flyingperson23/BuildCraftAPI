@@ -27,5 +27,5 @@ public interface IFillerPattern extends IStatement {
     /** Note that this sprite *must* be stitched to the texture atlas, as it is drawn on the side of the filler
      * block. */
     @Override
-    ISprite getGuiSprite();
+    ISprite getSprite();
 }

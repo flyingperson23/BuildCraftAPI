@@ -54,7 +54,7 @@ public class StatementParameterItemStack implements IStatementParameter {
     }
 
     @Override
-    public ISprite getGuiSprite() {
+    public ISprite getSprite() {
         return null;
     }
 
@@ -111,7 +111,7 @@ public class StatementParameterItemStack implements IStatementParameter {
     }
 
     @Override
-    public IStatementParameter[] getPossible(IStatementContainer source, IStatement stmt) {
+    public IStatementParameter[] getPossible(IStatementContainer source) {
         return null;
     }
 }

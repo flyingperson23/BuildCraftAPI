@@ -1,21 +1,24 @@
 package buildcraft.api.statements;
 
+import javax.annotation.Nullable;
+
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import buildcraft.api.core.render.ISprite;
 
 public interface IGuiSlot {
-    /** Every parameter needs a unique tag, it should be in the format of "&lt;modid&gt;:&lt;name&gt;".
+    /** Every statement needs a unique tag, it should be in the format of "&lt;modid&gt;:&lt;name&gt;".
      *
      * @return the unique id */
     String getUniqueTag();
 
-    /** Return the parameter description in the UI */
+    /** Return the description in the UI */
     String getDescription();
 
     /** @return A sprite to show in a GUI or in-world (so this must be stitched into the block texture atlas), or null
      *         if this should not render a sprite. */
     @SideOnly(Side.CLIENT)
-    ISprite getGuiSprite();
+    @Nullable
+    ISprite getSprite();
 }
