@@ -46,7 +46,16 @@ public interface IStatementParameter extends IGuiSlot {
     /** This returns the parameter after a left rotation. Used in particular in blueprints orientation. */
     IStatementParameter rotateLeft();
 
+    /** @return An array of all the possible alternative params for this state. Note that the return array may contain
+     *         null if you want to space out the values. */
     IStatementParameter[] getPossible(IStatementContainer source);
+
+    /** @return True if the possible array is set up specially for a direction, or false if they are not. This affects
+     *         the selection hover layout. If this returns false then {@link #getPossible(IStatementContainer)} will be
+     *         offset up by one, null added to 0, and all other nulls removed. */
+    default boolean isPossibleOrdered() {
+        return false;
+    }
 
     /** Checks to see if this parameter is a parameter for the given statement, in the given index. This is called when
      * the main statement is changed (for example when the player selects a new statement via a GUI).

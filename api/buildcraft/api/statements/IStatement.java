@@ -23,4 +23,8 @@ public interface IStatement extends IGuiSlot {
     /** This returns a group of related statements. For example "redstone signal input" should probably return an array
      * of "RS_SIGNAL_ON" and "RS_SIGNAL_OFF". It is recommended to return an array containing this object. */
     IStatement[] getPossible();
+    
+    default boolean isPossibleOrdered() {
+        return false;
+    }
 }
