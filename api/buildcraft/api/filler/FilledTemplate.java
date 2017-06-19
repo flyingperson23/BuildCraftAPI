@@ -25,7 +25,7 @@ public class FilledTemplate {
     public FilledTemplate(BlockPos min, BlockPos max) {
         this.min = min;
         this.max = max;
-        this.size = max.subtract(min);
+        this.size = max.subtract(min).add(1, 1, 1);
         sizeX = size.getX();
         sizeY = size.getY();
         sizeZ = size.getZ();
