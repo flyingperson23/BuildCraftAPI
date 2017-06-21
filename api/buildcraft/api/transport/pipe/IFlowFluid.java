@@ -18,7 +18,7 @@ public interface IFlowFluid {
     FluidStack tryExtractFluid(int millibuckets, EnumFacing from, FluidStack filter);
 
     /** Advanced version of {@link #tryExtractFluid(int, EnumFacing, FluidStack)}. Note that this only works for
-     * instances of {@link IFluidHandler} that ALSO extends IFluidHandlerAdv
+     * instances of {@link IFluidHandler} that ALSO extends {@link IFluidHandlerAdv}
      * 
      * @param millibuckets
      * @param from
