@@ -29,7 +29,7 @@ public class FilledTemplate {
         sizeX = size.getX();
         sizeY = size.getY();
         sizeZ = size.getZ();
-        sizeYZ = sizeX * sizeY;
+        sizeYZ = sizeY * sizeZ;
         sizeXYZ = sizeX * sizeYZ;
         this.data = new BitSet(sizeXYZ);
         maxX = sizeX - 1;
