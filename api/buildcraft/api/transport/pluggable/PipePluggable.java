@@ -143,7 +143,7 @@ public abstract class PipePluggable {
         return 0;
     }
 
-    public boolean canConnectForRedstone(@Nullable EnumFacing to) {
+    public boolean canConnectToRedstone(@Nullable EnumFacing to) {
         return false;
     }
 }
