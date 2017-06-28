@@ -142,4 +142,8 @@ public abstract class PipePluggable {
     public float getExplosionResistance(@Nullable Entity exploder, Explosion explosion) {
         return 0;
     }
+
+    public boolean canConnectForRedstone(@Nullable EnumFacing to) {
+        return false;
+    }
 }
