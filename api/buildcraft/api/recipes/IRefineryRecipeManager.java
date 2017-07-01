@@ -9,16 +9,16 @@ import javax.annotation.Nullable;
 import net.minecraftforge.fluids.FluidStack;
 
 public interface IRefineryRecipeManager {
-    IHeatableRecipe createHeatingRecipe(FluidStack in, FluidStack out, int heatFrom, int heatTo, int ticks);
+    IHeatableRecipe createHeatingRecipe(FluidStack in, FluidStack out, int heatFrom, int heatTo);
 
-    default IHeatableRecipe addHeatableRecipe(FluidStack in, FluidStack out, int heatFrom, int heatTo, int ticks) {
-        return getHeatableRegistry().addRecipe(createHeatingRecipe(in, out, heatFrom, heatTo, ticks));
+    default IHeatableRecipe addHeatableRecipe(FluidStack in, FluidStack out, int heatFrom, int heatTo) {
+        return getHeatableRegistry().addRecipe(createHeatingRecipe(in, out, heatFrom, heatTo));
     }
 
-    ICoolableRecipe createCoolableRecipe(FluidStack in, FluidStack out, int heatFrom, int heatTo, int ticks);
+    ICoolableRecipe createCoolableRecipe(FluidStack in, FluidStack out, int heatFrom, int heatTo);
 
-    default ICoolableRecipe addCoolableRecipe(FluidStack in, FluidStack out, int heatFrom, int heatTo, int ticks) {
-        return getCoolableRegistry().addRecipe(createCoolableRecipe(in, out, heatFrom, heatTo, ticks));
+    default ICoolableRecipe addCoolableRecipe(FluidStack in, FluidStack out, int heatFrom, int heatTo) {
+        return getCoolableRegistry().addRecipe(createCoolableRecipe(in, out, heatFrom, heatTo));
     }
 
     IDistillationRecipe createDistillationRecipe(FluidStack in, FluidStack outGas, FluidStack outLiquid, long powerRequired);
@@ -59,8 +59,6 @@ public interface IRefineryRecipeManager {
     }
 
     interface IHeatExchangerRecipe extends IRefineryRecipe {
-        int ticks();
-
         @Nullable
         FluidStack out();
 
