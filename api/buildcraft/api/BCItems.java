@@ -156,7 +156,7 @@ public class BCItems {
         }
         if (DEBUG) {
             if (Loader.isModLoaded(modid)) {
-                BCLog.logger.info("[api.items] Did not find the item " + regName + " dispute the appropriate mod being loaded (" + modid + ")");
+                BCLog.logger.info("[api.items] Did not find the item " + regName + " despite the appropriate mod being loaded (" + modid + ")");
             } else {
                 BCLog.logger.info("[api.items] Did not find the item " + regName + " probably because the mod is not loaded (" + modid + ")");
             }
