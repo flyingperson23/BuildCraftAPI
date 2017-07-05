@@ -24,14 +24,14 @@ public interface IRefineryRecipeManager {
     IDistillationRecipe createDistillationRecipe(FluidStack in, FluidStack outGas, FluidStack outLiquid, long powerRequired);
 
     default IDistillationRecipe addDistillationRecipe(FluidStack in, FluidStack outGas, FluidStack outLiquid, long powerRequired) {
-        return getDistilationRegistry().addRecipe(createDistillationRecipe(in, outGas, outLiquid, powerRequired));
+        return getDistillationRegistry().addRecipe(createDistillationRecipe(in, outGas, outLiquid, powerRequired));
     }
 
     IRefineryRegistry<IHeatableRecipe> getHeatableRegistry();
 
     IRefineryRegistry<ICoolableRecipe> getCoolableRegistry();
 
-    IRefineryRegistry<IDistillationRecipe> getDistilationRegistry();
+    IRefineryRegistry<IDistillationRecipe> getDistillationRegistry();
 
     interface IRefineryRegistry<R extends IRefineryRecipe> {
         /** @return an unmodifiable collection containing all of the distillation recipes that satisfy the given
