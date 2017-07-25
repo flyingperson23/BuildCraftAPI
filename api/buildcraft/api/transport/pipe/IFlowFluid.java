@@ -24,8 +24,9 @@ public interface IFlowFluid {
      * @param millibuckets
      * @param from
      * @param filter A filter to try and match fluids.
+     * @param simulate TODO
      * @return The fluidstack extracted and inserted into the pipe. If {@link ActionResult#getType()} equals
      *         {@link EnumActionResult#PASS} then it means that the {@link IFluidHandler} didn't implement
      *         {@link IFluidHandlerAdv} and you should call the basic version, if you can. */
-    ActionResult<FluidStack> tryExtractFluidAdv(int millibuckets, EnumFacing from, IFluidFilter filter);
+    ActionResult<FluidStack> tryExtractFluidAdv(int millibuckets, EnumFacing from, IFluidFilter filter, boolean simulate);
 }
