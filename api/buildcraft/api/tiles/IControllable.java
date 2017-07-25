@@ -15,14 +15,11 @@ public interface IControllable {
         public static final Mode[] VALUES = values();
     }
 
-    /** Get the current control mode of the Tile Entity.
-     *
-     * @return */
     Mode getControlMode();
 
-    /** Set the mode of the Tile Entity.
-     * 
-     * @param mode
-     * @return True if this control mode is accepted. */
-    boolean setControlMode(Mode mode, boolean simulate);
+    void setControlMode(Mode mode);
+
+    default boolean acceptsControlMode(Mode mode) {
+        return mode != null;
+    }
 }
