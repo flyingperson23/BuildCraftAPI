@@ -131,13 +131,17 @@ public class FilledTemplate {
     }
 
     public void fillLineX(int fx, int tx, int y, int z) {
+        validateCoord(fx, y, z);
+        validateCoord(tx, y, z);
         for (int x = fx; x <= tx; x++) {
             fill(x, y, z);
         }
     }
 
     public void fillLineY(int x, int fy, int ty, int z) {
-        for (int y = fy; x <= ty; y++) {
+        validateCoord(x, fy, z);
+        validateCoord(x, ty, z);
+        for (int y = fy; y <= ty; y++) {
             fill(x, y, z);
         }
     }
