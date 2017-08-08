@@ -125,6 +125,14 @@ public class FilledTemplate {
         }
     }
 
+    public void fillAxisX(int y, int z) {
+        fillLineX(0, maxX, y, z);
+    }
+
+    public void fillAxisY(int x, int z) {
+        fillLineY(x, 0, maxY, z);
+    }
+
     /** Fills up the entire Z axis of a particular co-ord. */
     public void fillAxisZ(int x, int y) {
         fillLineZ(x, y, 0, maxZ);

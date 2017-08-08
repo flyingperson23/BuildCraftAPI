@@ -27,7 +27,7 @@ public interface IStatementParameter extends IGuiSlot {
     IStatementParameter onClick(IStatementContainer source, IStatement stmt, ItemStack stack,
         StatementMouseClick mouse);
 
-    void writeToNbt(NBTTagCompound compound);
+    void writeToNbt(NBTTagCompound nbt);
 
     /** Writes this parameter to the given {@link PacketBuffer}. The default implementation writes out the value of
      * {@link #writeToNbt(NBTTagCompound)}, and that will be passed back into
