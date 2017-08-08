@@ -16,7 +16,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import buildcraft.api.core.InvalidInputDataException;
 
-public interface ISchematicEntity<S extends ISchematicEntity<S>> {
+public interface ISchematicEntity {
     void init(SchematicEntityContext context);
 
     Vec3d getPos();
@@ -27,7 +27,7 @@ public interface ISchematicEntity<S extends ISchematicEntity<S>> {
     @Nonnull
     List<FluidStack> computeRequiredFluids(SchematicEntityContext context);
 
-    S getRotated(Rotation rotation);
+    ISchematicEntity getRotated(Rotation rotation);
 
     Entity build(World world, BlockPos basePos);
 
