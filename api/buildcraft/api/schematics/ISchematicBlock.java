@@ -15,7 +15,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 import buildcraft.api.core.InvalidInputDataException;
 
-public interface ISchematicBlock<S extends ISchematicBlock<S>> {
+public interface ISchematicBlock {
     void init(SchematicBlockContext context);
 
     boolean isAir();
@@ -29,7 +29,7 @@ public interface ISchematicBlock<S extends ISchematicBlock<S>> {
     @Nonnull
     List<FluidStack> computeRequiredFluids(SchematicBlockContext context);
 
-    S getRotated(Rotation rotation);
+    ISchematicBlock getRotated(Rotation rotation);
 
     boolean canBuild(World world, BlockPos blockPos);
 
