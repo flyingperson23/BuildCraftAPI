@@ -16,6 +16,7 @@ public final class FacadeAPI {
     public static final String NBT_CUSTOM_ITEM_STACK = "item_stack";
 
     public static IFacadeItem facadeItem;
+    public static IFacadeRegistry registry;
 
     private FacadeAPI() {
 
