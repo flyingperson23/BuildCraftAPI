@@ -228,4 +228,25 @@ public class FilledTemplate {
                 "Z value was not in the correct range! (z = " + z + ", sizeZ = " + sizeZ + ")");
         }
     }
+
+    /** @return A massivly long (potentially) string, which is sliced section of this template. Better for debugging. */
+    @Override
+    public String toString() {
+        StringBuilder str = new StringBuilder();
+        for (int y = 0; y < sizeY; y++) {
+            str.append("====\n");
+            for (int x = 0; x < sizeX; x++) {
+                for (int z = 0; z < sizeZ; z++) {
+                    if (get(x, y, z)) {
+                        str.append('X');
+                    } else {
+                        str.append(' ');
+                    }
+                }
+                str.append("\n");
+            }
+        }
+        str.append("====\n");
+        return str.toString();
+    }
 }
