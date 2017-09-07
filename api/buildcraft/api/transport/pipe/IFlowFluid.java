@@ -1,5 +1,7 @@
 package buildcraft.api.transport.pipe;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -27,4 +29,12 @@ public interface IFlowFluid {
      *         {@link EnumActionResult#PASS} then it means that the {@link IFluidHandler} didn't implement
      *         {@link IFluidHandlerAdv} and you should call the basic version, if you can. */
     ActionResult<FluidStack> tryExtractFluidAdv(int millibuckets, EnumFacing from, IFluidFilter filter);
+
+    /** Attempts to insert a fluid directly into the pipe. Note that this will fail if the pipe currently contains a
+     * different fluid type.
+     * 
+     * @param from The side that the fluid should *not* go in, or null if the fluid may flow in any direction.
+     * 
+     * @return The amount of fluid that was accepted, or 0 if no fluid was accepted. */
+    int insertFluidsForce(FluidStack fluid, @Nullable EnumFacing from, boolean simulate);
 }
