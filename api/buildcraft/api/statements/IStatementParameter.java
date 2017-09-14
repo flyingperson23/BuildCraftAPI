@@ -20,6 +20,10 @@ public interface IStatementParameter extends IGuiSlot {
     @Nonnull
     ItemStack getItemStack();
 
+    default DrawType getDrawType() {
+        return DrawType.SPRITE_STACK;
+    }
+
     /** Return a non-null value to be set as the statement parameter if you handled the mouse click and do not want all
      * possible values to be shown, or null if you did nothing and wish to show all possible values.
      * 
@@ -55,5 +59,29 @@ public interface IStatementParameter extends IGuiSlot {
      *         offset up by one, null added to 0, and all other nulls removed. */
     default boolean isPossibleOrdered() {
         return false;
+    }
+
+    public enum DrawType {
+        /** Draws the sprite, as returned by {@link IStatementParameter#getSprite()}. */
+        SPRITE_ONLY,
+
+        /** Draws the {@link ItemStack}, as returned by {@link IStatementParameter#getItemStack()}. */
+        STACK_ONLY,
+
+        /** Only draws the {@link ItemStack}, as returned by {@link IStatementParameter#getItemStack()}, except if
+         * {@link ItemStack#isEmpty()} returns true, in which case this a question mark will be drawn. */
+        STACK_ONLY_OR_QUESTION_MARK,
+
+        /** Draws {@link #SPRITE_ONLY}, but then also draws {@link #STACK_ONLY} */
+        SPRITE_STACK,
+
+        /** Draws {@link #SPRITE_ONLY}, but then also draws {@link #STACK_ONLY_OR_QUESTION_MARK} */
+        SPRITE_STACK_OR_QUESTION_MARK,
+
+        /** Draws {@link #STACK_ONLY}, but then also draws {@link #SPRITE_ONLY} */
+        STACK_SPRITE,
+
+        /** Draws {@link #STACK_ONLY_OR_QUESTION_MARK}, but then also draws {@link #SPRITE_ONLY} */
+        STACK_OR_QUESTION_MARK_THEN_SPRITE
     }
 }
