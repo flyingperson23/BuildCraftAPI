@@ -2,6 +2,7 @@ package buildcraft.api.transport.pipe;
 
 import java.util.IdentityHashMap;
 import java.util.Map;
+
 import javax.annotation.Nonnull;
 
 import net.minecraftforge.common.capabilities.Capability;
@@ -36,16 +37,16 @@ public final class PipeApi {
     public static final Map<PipeDefinition, PowerTransferInfo> powerTransferData = new IdentityHashMap<>();
 
     @Nonnull
-    public static Capability<IPipeHolder> CAP_PIPE_HOLDER;
+    public static final Capability<IPipeHolder> CAP_PIPE_HOLDER;
 
     @Nonnull
-    public static Capability<IPipe> CAP_PIPE;
+    public static final Capability<IPipe> CAP_PIPE;
 
     @Nonnull
-    public static Capability<PipePluggable> CAP_PLUG;
+    public static final Capability<PipePluggable> CAP_PLUG;
 
     @Nonnull
-    public static Capability<IInjectable> CAP_INJECTABLE;
+    public static final Capability<IInjectable> CAP_INJECTABLE;
 
     public static FluidTransferInfo getFluidTransferInfo(PipeDefinition def) {
         FluidTransferInfo info = fluidTransferData.get(def);
@@ -134,7 +135,7 @@ public final class PipeApi {
     @CapabilityInject(IInjectable.class)
     private static Capability<IInjectable> capInjectable;
 
-    public static void initCapabilites() {
+    static {
         CapabilitiesHelper.registerCapability(IPipe.class);
         CapabilitiesHelper.registerCapability(IPipeHolder.class);
         CapabilitiesHelper.registerCapability(IInjectable.class);
