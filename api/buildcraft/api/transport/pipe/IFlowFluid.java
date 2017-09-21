@@ -14,14 +14,27 @@ import buildcraft.api.core.IFluidHandlerAdv;
 import buildcraft.api.transport.pluggable.PipePluggable;
 
 public interface IFlowFluid {
+    /** @deprecated use the version below with a simulate paramater. */
+    @Nullable
+    @Deprecated
+    default FluidStack tryExtractFluid(int millibuckets, EnumFacing from, FluidStack filter) {
+        return tryExtractFluid(millibuckets, from, filter, false);
+    }
+
     /** @param millibuckets
      * @param from
      * @param filter The fluidstack that the extracted fluid must match, or null for any fluid.
      * @return The fluidstack extracted and inserted into the pipe. */
     @Nullable
-    FluidStack tryExtractFluid(int millibuckets, EnumFacing from, FluidStack filter);
+    FluidStack tryExtractFluid(int millibuckets, EnumFacing from, FluidStack filter, boolean simulate);
 
-    /** Advanced version of {@link #tryExtractFluid(int, EnumFacing, FluidStack)}. Note that this only works for
+    /** @deprecated use the version below with a simulate paramater. */
+    @Deprecated
+    default ActionResult<FluidStack> tryExtractFluidAdv(int millibuckets, EnumFacing from, IFluidFilter filter) {
+        return tryExtractFluidAdv(millibuckets, from, filter, false);
+    }
+
+    /** Advanced version of {@link #tryExtractFluid(int, EnumFacing, FluidStack, boolean)}. Note that this only works for
      * instances of {@link IFluidHandler} that ALSO extends {@link IFluidHandlerAdv}
      * 
      * @param millibuckets
@@ -30,7 +43,7 @@ public interface IFlowFluid {
      * @return The fluidstack extracted and inserted into the pipe. If {@link ActionResult#getType()} equals
      *         {@link EnumActionResult#PASS} then it means that the {@link IFluidHandler} didn't implement
      *         {@link IFluidHandlerAdv} and you should call the basic version, if you can. */
-    ActionResult<FluidStack> tryExtractFluidAdv(int millibuckets, EnumFacing from, IFluidFilter filter);
+    ActionResult<FluidStack> tryExtractFluidAdv(int millibuckets, EnumFacing from, IFluidFilter filter, boolean simulate);
 
     /** Attempts to insert a fluid directly into the pipe. Note that this will fail if the pipe currently contains a
      * different fluid type.
