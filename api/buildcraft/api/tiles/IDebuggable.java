@@ -19,6 +19,5 @@ public interface IDebuggable {
      * @param side same as for {@link #getDebugInfo(List, List, EnumFacing)} */
     @SideOnly(Side.CLIENT)
     default void getClientDebugInfo(List<String> left, List<String> right, EnumFacing side) {
-        getDebugInfo(left, right, side);
     }
 }
