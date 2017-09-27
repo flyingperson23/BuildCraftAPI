@@ -1,6 +1,10 @@
 package buildcraft.api.statements;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
+
+import com.google.common.collect.ImmutableList;
 
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -13,8 +17,13 @@ public interface IGuiSlot {
      * @return the unique id */
     String getUniqueTag();
 
-    /** Return the description in the UI */
+    /** Return the description in the UI. */
     String getDescription();
+
+    /** @return The full tooltip for the UI. */
+    default List<String> getTooltip() {
+        return ImmutableList.of(getDescription());
+    }
 
     /** @return A sprite to show in a GUI or in-world (so this must be stitched into the block texture atlas), or null
      *         if this should not render a sprite. */

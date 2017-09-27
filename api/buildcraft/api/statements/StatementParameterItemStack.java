@@ -4,12 +4,20 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.statements;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.annotation.Nonnull;
 
+import com.google.common.collect.ImmutableList;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.text.TextFormatting;
+
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import buildcraft.api.core.render.ISprite;
 
@@ -65,7 +73,8 @@ public class StatementParameterItemStack implements IStatementParameter {
     }
 
     @Override
-    public StatementParameterItemStack onClick(IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse) {
+    public StatementParameterItemStack onClick(IStatementContainer source, IStatement stmt, ItemStack stack,
+        StatementMouseClick mouse) {
         if (stack.isEmpty()) {
             return new StatementParameterItemStack();
         } else {
@@ -80,7 +89,8 @@ public class StatementParameterItemStack implements IStatementParameter {
         if (object instanceof StatementParameterItemStack) {
             StatementParameterItemStack param = (StatementParameterItemStack) object;
 
-            return ItemStack.areItemStacksEqual(stack, param.stack) && ItemStack.areItemStackTagsEqual(stack, param.stack);
+            return ItemStack.areItemStacksEqual(stack, param.stack)
+                && ItemStack.areItemStackTagsEqual(stack, param.stack);
         } else {
             return false;
         }
@@ -98,6 +108,22 @@ public class StatementParameterItemStack implements IStatementParameter {
         } else {
             return stack.getDisplayName();
         }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public List<String> getTooltip() {
+        if (stack.isEmpty()) {
+            return ImmutableList.of();
+        }
+        List<String> tooltip = stack.getTooltip(Minecraft.getMinecraft().player, false);
+        if (!tooltip.isEmpty()) {
+            tooltip.set(0, stack.getRarity().rarityColor + tooltip.get(0));
+            for (int i = 1; i < tooltip.size(); i++) {
+                tooltip.set(i, TextFormatting.GRAY + tooltip.get(i));
+            }
+        }
+        return tooltip;
     }
 
     @Override
