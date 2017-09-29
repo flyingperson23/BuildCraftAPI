@@ -3,7 +3,6 @@ package buildcraft.api.recipes;
 import javax.annotation.Nonnull;
 
 import com.google.common.collect.ImmutableList;
-import com.sun.istack.internal.NotNull;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -29,7 +28,7 @@ public abstract class IntegrationRecipe {
      * @param output The generated outputted, determined by getOutput
      * @return The components to use up
      */
-    public abstract ImmutableList<IngredientStack> getRequirements(@NotNull ItemStack output);
+    public abstract ImmutableList<IngredientStack> getRequirements(@Nonnull ItemStack output);
 
     /**
      * Determines the amount of MJ required to integrate
