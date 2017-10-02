@@ -93,8 +93,8 @@ public abstract class PipePluggable {
     /** Called whenever this pluggable is removed from the pipe. */
     public void onRemove() {}
 
-    /** @param toDrop A list containing all the items to drop (so you should add your items to this list) * */
-    public void getDrops(NonNullList<ItemStack> toDrop) {
+    /** @param toDrop A list containing all the items to drop (so you should add your items to this list) */
+    public void addDrops(NonNullList<ItemStack> toDrop, int fortune) {
         ItemStack stack = getPickStack();
         if (!stack.isEmpty()) {
             toDrop.add(stack);
