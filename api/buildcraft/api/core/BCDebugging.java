@@ -4,8 +4,10 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.core;
 
+import java.lang.reflect.Method;
 import java.util.Locale;
 
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 /** Provides a way to quickly enable or disable certain debug conditions via VM arguments or whether the client/server
@@ -37,6 +39,17 @@ public class BCDebugging {
         // - "log" Major debug options are turned on. Registry setup + API usage etc
         // - "all" All possible debug options are turned on. Lots of spam. Not recommended.
 
+        boolean isDev;
+        try {
+            Method getTileEntity = World.class.getDeclaredMethod("getTileEntity", BlockPos.class);
+            BCLog.logger.info("[debugger] Method found: World.getTileEntity = " + getTileEntity);
+            isDev = true;
+        } catch (Throwable ignored) {
+            // If it didn't find it then we aren't in a dev environment
+            isDev = false;
+        }
+        BCLog.logger.debug("Not a dev environment!");
+
         String value = System.getProperty("buildcraft.debug");
         if ("enable".equals(value)) DEBUG_STATUS = DebugStatus.ENABLE;
         else if ("all".equals(value)) DEBUG_STATUS = DebugStatus.ALL;
@@ -47,13 +60,6 @@ public class BCDebugging {
             // Some debugging options are more than just logging, so we will differentiate between them
             DEBUG_STATUS = DebugStatus.LOGGING_ONLY;
         } else {
-            boolean isDev = false;
-            try {
-                World.class.getDeclaredField("rand");
-                isDev = true;
-            } catch (Throwable ignored) {
-                // Ignore it
-            }
             if (isDev) {
                 DEBUG_STATUS = DebugStatus.ENABLE;
             } else {
@@ -63,8 +69,7 @@ public class BCDebugging {
         }
 
         if (DEBUG_STATUS == DebugStatus.ALL) {
-            BCLog.logger
-                .info("[debugger] Debugging automatically enabled for ALL of buildcraft. Prepare for log spam.");
+            BCLog.logger.info("[debugger] Debugging automatically enabled for ALL of buildcraft. Prepare for log spam.");
         } else if (DEBUG_STATUS == DebugStatus.LOGGING_ONLY) {
             BCLog.logger.info("[debugger] Debugging automatically enabled for some non-spammy parts of buildcraft.");
         } else if (DEBUG_STATUS == DebugStatus.ENABLE) {
