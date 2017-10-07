@@ -68,14 +68,10 @@ public class BCDebugging {
         } else if (DEBUG_STATUS == DebugStatus.LOGGING_ONLY) {
             BCLog.logger.info("[debugger] Debugging automatically enabled for some non-spammy parts of buildcraft.");
         } else if (DEBUG_STATUS == DebugStatus.ENABLE) {
-            BCLog.logger.info(
-                "[debugger] Debugging not automatically enabled for all of buildcraft. Logging all possible debug options.");
-            BCLog.logger.info(
-                "              To enable it for only logging messages add \"-Dbuildcraft.debug=log\" to your launch VM arguments");
-            BCLog.logger.info(
-                "              To enable it for ALL debugging \"-Dbuildcraft.debug=all\" to your launch VM arguments");
-            BCLog.logger.info(
-                "              To remove this message and all future ones add \"-Dbuildcraft.debug=disable\" to your launch VM arguments");
+            BCLog.logger.info("[debugger] Debugging not automatically enabled for all of buildcraft. Logging all possible debug options.");
+            BCLog.logger.info("              To enable it for only logging messages add \"-Dbuildcraft.debug=log\" to your launch VM arguments");
+            BCLog.logger.info("              To enable it for ALL debugging \"-Dbuildcraft.debug=all\" to your launch VM arguments");
+            BCLog.logger.info("              To remove this message and all future ones add \"-Dbuildcraft.debug=disable\" to your launch VM arguments");
         }
 
         DebugLevel.COMPLEX.isAllOn = DEBUG_STATUS == DebugStatus.ALL;
