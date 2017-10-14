@@ -48,7 +48,7 @@ public class BCDebugging {
             // If it didn't find it then we aren't in a dev environment
             isDev = false;
         }
-        BCLog.logger.debug("Not a dev environment!");
+        BCLog.logger.info("[debugger] Not a dev environment!");
 
         String value = System.getProperty("buildcraft.debug");
         if ("enable".equals(value)) DEBUG_STATUS = DebugStatus.ENABLE;
@@ -108,7 +108,7 @@ public class BCDebugging {
         if ("complex".equals(actual) || type.name.equals(actual)) {
             BCLog.logger.info("[debugger] Debugging enabled for \"" + option + "\" (" + type + ").");
             return true;
-        } else {
+        } else if (DEBUG_STATUS != DebugStatus.NONE) {
             StringBuilder log = new StringBuilder();
             log.append("[debugger] To enable debugging for ");
             log.append(option);
