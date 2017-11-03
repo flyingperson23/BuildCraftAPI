@@ -20,11 +20,21 @@ public interface IFilledTemplate {
 
     void set(int x, int y, int z, boolean value);
 
-    default void setAreaXY(int fromX, int toX, int fromY, int toY, int z, boolean value) {
+    default void setLineX(int fromX, int toX, int y, int z, boolean value) {
+        for (int x = fromX; x <= toX; x++) {
+            set(x, y, z, value);
+        }
+    }
+
+    default void setLineY(int x, int fromY, int toY, int z, boolean value) {
         for (int y = fromY; y <= toY; y++) {
-            for (int x = fromX; x <= toX; x++) {
-                set(x, y, z, value);
-            }
+            set(x, y, z, value);
+        }
+    }
+
+    default void setLineZ(int x, int y, int fromZ, int toZ, boolean value) {
+        for (int z = fromZ; z <= toZ; z++) {
+            set(x, y, z, value);
         }
     }
 
@@ -44,22 +54,24 @@ public interface IFilledTemplate {
         }
     }
 
-    default void setLineX(int fromX, int toX, int y, int z, boolean value) {
-        for (int x = fromX; x <= toX; x++) {
-            set(x, y, z, value);
-        }
-    }
-
-    default void setLineY(int x, int fromY, int toY, int z, boolean value) {
+    default void setAreaXY(int fromX, int toX, int fromY, int toY, int z, boolean value) {
         for (int y = fromY; y <= toY; y++) {
-            set(x, y, z, value);
+            for (int x = fromX; x <= toX; x++) {
+                set(x, y, z, value);
+            }
         }
     }
 
-    default void setLineZ(int x, int y, int fromZ, int toZ, boolean value) {
-        for (int z = fromZ; z <= toZ; z++) {
-            set(x, y, z, value);
-        }
+    default void setPlaneYZ(int x, boolean value) {
+        setAreaYZ(x, 0, getMax().getY(), 0, getMax().getZ(), value);
+    }
+
+    default void setPlaneXZ(int y, boolean value) {
+        setAreaXZ(0, getMax().getX(), y, 0, getMax().getZ(), value);
+    }
+
+    default void setPlaneXY(int z, boolean value) {
+        setAreaXY(0, getMax().getX(), 0, getMax().getY(), z, value);
     }
 
     default void setAll(boolean value) {
