@@ -4,6 +4,8 @@ import java.util.Collection;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.util.math.BlockPos;
+
 import buildcraft.api.statements.IStatement;
 
 public interface IFillerRegistry {
@@ -14,4 +16,6 @@ public interface IFillerRegistry {
     IFillerPattern getPattern(String name);
 
     Collection<IFillerPattern> getPatterns();
+
+    IFilledTemplate createFilledTemplate(BlockPos pos, BlockPos size);
 }

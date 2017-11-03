@@ -4,9 +4,6 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.filler;
 
-import java.util.function.BiFunction;
-import java.util.function.Function;
-
 import javax.annotation.Nullable;
 
 import net.minecraft.util.math.BlockPos;
@@ -22,13 +19,11 @@ public interface IFillerPattern extends IStatement {
      *            <br>
      *            NOTE: This method should never be called when {@link IFillerStatementContainer#hasBox()} returns
      *            false
-     * @param createFilledTemplate (pos, size) -> filledTemplate
-     * @return The template to fill (should be created with {@code createFilledTemplate}),
+     * @return The template to fill (should be created with
+     * {@link IFillerRegistry#createFilledTemplate(BlockPos, BlockPos)}),
      * or {@code null} if this shouldn't make a template for the given filer. */
     @Nullable
-    IFilledTemplate createTemplate(IFillerStatementContainer filler,
-                                   BiFunction<BlockPos, BlockPos, IFilledTemplate> createFilledTemplate,
-                                   IStatementParameter[] params);
+    IFilledTemplate createTemplate(IFillerStatementContainer filler, IStatementParameter[] params);
 
     @Override
     IFillerPattern[] getPossible();
