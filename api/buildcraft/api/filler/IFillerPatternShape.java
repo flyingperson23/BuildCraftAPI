@@ -4,6 +4,7 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.filler;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import javax.annotation.Nullable;
@@ -25,9 +26,9 @@ public interface IFillerPatternShape extends IFillerPattern {
     @Nullable
     @Override
     default IFilledTemplate createTemplate(IFillerStatementContainer filler,
-                                           Function<BlockPos, IFilledTemplate> createFilledTemplate,
+                                           BiFunction<BlockPos, BlockPos, IFilledTemplate> createFilledTemplate,
                                            IStatementParameter[] params) {
-        IFilledTemplate template = createFilledTemplate.apply(filler.getBox().size());
+        IFilledTemplate template = createFilledTemplate.apply(filler.getBox().min(), filler.getBox().size());
         if (!fillTemplate(template, params)) {
             return null;
         }
