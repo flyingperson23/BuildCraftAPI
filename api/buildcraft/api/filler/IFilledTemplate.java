@@ -1,9 +1,5 @@
 package buildcraft.api.filler;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import net.minecraft.util.math.BlockPos;
 
 /**
@@ -82,27 +78,5 @@ public interface IFilledTemplate {
                 }
             }
         }
-    }
-
-    /**
-     * Should be used in {@link Object#toString()}
-     */
-    default String createString() {
-        List<String> zParts = new ArrayList<>();
-        for (int z = 0; z < getSize().getZ(); z++) {
-            List<String> yParts = new ArrayList<>();
-            for (int y = 0; y < getSize().getY(); y++) {
-                List<String> xParts = new ArrayList<>();
-                for (int x = 0; x < getSize().getX(); x++) {
-                    xParts.add(get(x, y, z) ? "#" : " ");
-                }
-                yParts.add(String.join("", xParts));
-            }
-            zParts.add(String.join("\n", yParts));
-        }
-        return String.join(
-            "\n" + String.join("", Collections.nCopies(getSize().getX(), "-")) + "\n",
-            zParts
-        );
     }
 }
