@@ -4,17 +4,29 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.filler;
 
+import java.util.function.Function;
+
+import javax.annotation.Nullable;
+
+import net.minecraft.util.math.BlockPos;
+
 import buildcraft.api.core.render.ISprite;
 import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementParameter;
+import buildcraft.api.statements.containers.IFillerStatementContainer;
 
 /** A type of statement that is used for filler patterns. */
 public interface IFillerPattern extends IStatement {
-    /**
-     * @param filledTemplate empty template
-     * @return {@code true} if the template filled, or {@code false} if this shouldn't make a template for the given params.
-     */
-    boolean fillTemplate(IFilledTemplate filledTemplate, IStatementParameter[] params);
+    /** @param filler The filler to create the pattern for.
+     *            <br>
+     *            NOTE: This method should never be called when {@link IFillerStatementContainer#hasBox()} returns
+     *            false
+     * @return The template to fill (should be created with {@code createFilledTemplate}),
+     * or {@code null} if this shouldn't make a template for the given filer. */
+    @Nullable
+    IFilledTemplate createTemplate(IFillerStatementContainer filler,
+                                   Function<BlockPos, IFilledTemplate> createFilledTemplate,
+                                   IStatementParameter[] params);
 
     @Override
     IFillerPattern[] getPossible();
