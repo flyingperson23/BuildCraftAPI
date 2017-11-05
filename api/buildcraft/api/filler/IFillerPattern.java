@@ -6,6 +6,8 @@ package buildcraft.api.filler;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.util.math.BlockPos;
+
 import buildcraft.api.core.render.ISprite;
 import buildcraft.api.statements.IStatement;
 import buildcraft.api.statements.IStatementParameter;
@@ -17,9 +19,11 @@ public interface IFillerPattern extends IStatement {
      *            <br>
      *            NOTE: This method should never be called when {@link IFillerStatementContainer#hasBox()} returns
      *            false
-     * @return The template to fill, or null if this shouldn't make a template for the given filer. */
+     * @return The template to fill (should be created with
+     * {@link IFillerRegistry#createFilledTemplate(BlockPos, BlockPos)}),
+     * or {@code null} if this shouldn't make a template for the given filer. */
     @Nullable
-    FilledTemplate createTemplate(IFillerStatementContainer filler, IStatementParameter[] params);
+    IFilledTemplate createTemplate(IFillerStatementContainer filler, IStatementParameter[] params);
 
     @Override
     IFillerPattern[] getPossible();
