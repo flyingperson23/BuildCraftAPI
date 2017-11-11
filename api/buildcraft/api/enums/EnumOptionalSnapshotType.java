@@ -4,6 +4,10 @@ import java.util.Locale;
 
 import net.minecraft.util.IStringSerializable;
 
+/**
+ * @deprecated This shouldn't work this way.
+ */
+@Deprecated
 public enum EnumOptionalSnapshotType implements IStringSerializable {
     NONE(null),
     TEMPLATE(EnumSnapshotType.TEMPLATE),

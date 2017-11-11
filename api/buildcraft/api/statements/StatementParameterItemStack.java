@@ -12,6 +12,7 @@ import javax.annotation.Nonnull;
 import com.google.common.collect.ImmutableList;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
@@ -103,20 +104,15 @@ public class StatementParameterItemStack implements IStatementParameter {
 
     @Override
     public String getDescription() {
-        if (stack.isEmpty()) {
-            return "";
-        } else {
-            return stack.getDisplayName();
-        }
+        throw new UnsupportedOperationException("Don't call getDescription directly!");
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     public List<String> getTooltip() {
         if (stack.isEmpty()) {
             return ImmutableList.of();
         }
-        List<String> tooltip = stack.getTooltip(Minecraft.getMinecraft().player, false);
+        List<String> tooltip = stack.getTooltip(null, ITooltipFlag.TooltipFlags.NORMAL);
         if (!tooltip.isEmpty()) {
             tooltip.set(0, stack.getRarity().rarityColor + tooltip.get(0));
             for (int i = 1; i < tooltip.size(); i++) {

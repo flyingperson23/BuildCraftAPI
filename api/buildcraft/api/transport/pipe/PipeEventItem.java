@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -261,7 +260,7 @@ public abstract class PipeEventItem extends PipeEvent {
 
         @Nonnull
         public ItemStack getStack() {
-            ItemStack item = entity.getEntityItem();
+            ItemStack item = entity.getItem();
             return item.isEmpty() ? ItemStack.EMPTY : item;
         }
 
@@ -269,9 +268,9 @@ public abstract class PipeEventItem extends PipeEvent {
             if (stack == null) {
                 throw new NullPointerException("stack");
             } else if (stack.isEmpty()) {
-                entity.setEntityItemStack(ItemStack.EMPTY);
+                entity.setItem(ItemStack.EMPTY);
             } else {
-                entity.setEntityItemStack(stack);
+                entity.setItem(stack);
             }
         }
 
