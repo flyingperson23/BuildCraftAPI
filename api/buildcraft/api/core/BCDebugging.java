@@ -47,8 +47,8 @@ public class BCDebugging {
         } catch (Throwable ignored) {
             // If it didn't find it then we aren't in a dev environment
             isDev = false;
+            BCLog.logger.info("[debugger] Not a dev environment!");
         }
-        BCLog.logger.info("[debugger] Not a dev environment!");
 
         String value = System.getProperty("buildcraft.debug");
         if ("enable".equals(value)) DEBUG_STATUS = DebugStatus.ENABLE;
