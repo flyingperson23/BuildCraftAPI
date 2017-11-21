@@ -22,7 +22,11 @@ public interface IGuiSlot {
 
     /** @return The full tooltip for the UI. */
     default List<String> getTooltip() {
-        return ImmutableList.of(getDescription());
+        String desc = getDescription();
+        if (desc == null) {
+            return ImmutableList.of();
+        }
+        return ImmutableList.of(desc);
     }
 
     /** @return A sprite to show in a GUI or in-world (so this must be stitched into the block texture atlas), or null
