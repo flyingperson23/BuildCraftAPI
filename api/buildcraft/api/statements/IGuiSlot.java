@@ -19,9 +19,11 @@ public interface IGuiSlot {
 
     /** Return the description in the UI. Note that this should NEVER be called directly, instead this acts as a bridge
      * for {@link #getTooltip()}. (As such this might return null or throw an exception) */
+    @SideOnly(Side.CLIENT)
     String getDescription();
 
     /** @return The full tooltip for the UI. */
+    @SideOnly(Side.CLIENT)
     default List<String> getTooltip() {
         String desc = getDescription();
         if (desc == null) {

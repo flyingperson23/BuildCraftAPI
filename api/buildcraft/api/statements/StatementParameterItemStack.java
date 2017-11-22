@@ -16,6 +16,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
 
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 import buildcraft.api.core.render.ISprite;
 
 public class StatementParameterItemStack implements IStatementParameter {
@@ -99,11 +102,13 @@ public class StatementParameterItemStack implements IStatementParameter {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public String getDescription() {
         throw new UnsupportedOperationException("Don't call getDescription directly!");
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public List<String> getTooltip() {
         if (stack.isEmpty()) {
             return ImmutableList.of();
