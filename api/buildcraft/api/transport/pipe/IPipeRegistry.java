@@ -18,7 +18,9 @@ public interface IPipeRegistry {
     IItemPipe getItemForPipe(PipeDefinition definition);
 
     /** Creates an {@link IItemPipe} for the given {@link PipeDefinition}. If the {@link PipeDefinition} has been
-     * registered with {@link #registerPipe(PipeDefinition)} then it will also be registered. */
+     * registered with {@link #registerPipe(PipeDefinition)} then it will also be registered with
+     * {@link #setItemForPipe(PipeDefinition, IItemPipe)}. The returned item will be automatically registered with
+     * forge. */
     IItemPipe createItemForPipe(PipeDefinition definition);
 
     Iterable<PipeDefinition> getAllRegisteredPipes();
