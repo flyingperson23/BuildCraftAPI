@@ -1,13 +1,11 @@
 package buildcraft.api;
 
-import java.util.Arrays;
 import java.util.Locale;
-import java.util.function.Predicate;
 
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 
-public enum EnumBuildCraftModule {
+public enum EnumBuildCraftModule implements IBuildCraftMod {
     LIB,
     // Base module for all BC.
     CORE,
@@ -23,22 +21,31 @@ public enum EnumBuildCraftModule {
 
     public static final EnumBuildCraftModule[] VALUES = values();
 
-    public static boolean isBuildCraftMod(String modid) {
-        return Arrays.stream(VALUES).map(EnumBuildCraftModule::getModid).anyMatch(Predicate.isEqual(modid));
+    public final String name = name().toLowerCase(Locale.ROOT);
+    public final String modId = "buildcraft" + name;
+    public final boolean loaded;
+
+    private EnumBuildCraftModule() {
+        loaded = Loader.isModLoaded(modId);
     }
 
-    public String getName() {
-        return name().toLowerCase(Locale.ROOT);
-    }
-
-    public String getModid() {
-        return "buildcraft" + getName();
-    }
-
-    public boolean isLoaded() {
-        if (!Loader.instance().hasReachedState(LoaderState.CONSTRUCTING)) {
-            throw new RuntimeException("Accessed isLoaded method too early! You can only use it from construction onwards!");
+    static {
+        if (!Loader.instance().hasReachedState(LoaderState.PREINITIALIZATION)) {
+            throw new RuntimeException("You can only use EnumBuidCraftModule from pre-init onwards!");
         }
-        return Loader.isModLoaded(getModid());
+    }
+
+    public static boolean isBuildCraftMod(String testModId) {
+        for (EnumBuildCraftModule mod : VALUES) {
+            if (mod.modId.equals(testModId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String getNetworkName() {
+        return modId;
     }
 }
