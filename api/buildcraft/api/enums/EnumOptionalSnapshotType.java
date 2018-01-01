@@ -4,9 +4,10 @@ import java.util.Locale;
 
 import net.minecraft.util.IStringSerializable;
 
-import buildcraft.api.properties.BuildCraftProperties;
-
-/** This shouldn't be used for anything other than {@link BuildCraftProperties#SNAPSHOT_TYPE}. */
+/**
+ * Version of {@link EnumSnapshotType} with {@link EnumOptionalSnapshotType#NONE} value.
+ * Shouldn't be used where it's possible to use {@link EnumSnapshotType}.
+ */
 public enum EnumOptionalSnapshotType implements IStringSerializable {
     NONE(null),
     TEMPLATE(EnumSnapshotType.TEMPLATE),
