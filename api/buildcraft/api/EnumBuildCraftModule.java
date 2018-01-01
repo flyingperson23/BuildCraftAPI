@@ -20,18 +20,22 @@ public enum EnumBuildCraftModule implements IBuildCraftMod {
     COMPAT;
 
     public static final EnumBuildCraftModule[] VALUES = values();
+    private static boolean hasChecked = false;
 
     public final String name = name().toLowerCase(Locale.ROOT);
     public final String modId = "buildcraft" + name;
-    public final boolean loaded;
+    private boolean loaded;
 
-    private EnumBuildCraftModule() {
-        loaded = Loader.isModLoaded(modId);
-    }
-
-    static {
+    private static void check() {
+        if (hasChecked) {
+            return;
+        }
+        hasChecked = true;
         if (!Loader.instance().hasReachedState(LoaderState.PREINITIALIZATION)) {
-            throw new RuntimeException("You can only use EnumBuidCraftModule from pre-init onwards!");
+            throw new RuntimeException("You can only use EnumBuidCraftModule.isLoaded from pre-init onwards!");
+        }
+        for (EnumBuildCraftModule module : VALUES) {
+            module.loaded = Loader.isModLoaded(module.modId);
         }
     }
 
@@ -47,5 +51,10 @@ public enum EnumBuildCraftModule implements IBuildCraftMod {
     @Override
     public String getNetworkName() {
         return modId;
+    }
+
+    public boolean isLoaded() {
+        check();
+        return loaded;
     }
 }
