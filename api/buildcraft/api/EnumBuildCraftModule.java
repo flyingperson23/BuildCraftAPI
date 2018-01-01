@@ -22,11 +22,11 @@ public enum EnumBuildCraftModule implements IBuildCraftMod {
     public static final EnumBuildCraftModule[] VALUES = values();
     private static boolean hasChecked = false;
 
-    public final String name = name().toLowerCase(Locale.ROOT);
-    public final String modId = "buildcraft" + name;
+    public final String lowerCaseName = name().toLowerCase(Locale.ROOT);
+    private final String modId = "buildcraft" + lowerCaseName;
     private boolean loaded;
 
-    private static void check() {
+    private static void checkLoadStatus() {
         if (hasChecked) {
             return;
         }
@@ -49,12 +49,12 @@ public enum EnumBuildCraftModule implements IBuildCraftMod {
     }
 
     @Override
-    public String getNetworkName() {
+    public String getModId() {
         return modId;
     }
 
     public boolean isLoaded() {
-        check();
+        checkLoadStatus();
         return loaded;
     }
 }
