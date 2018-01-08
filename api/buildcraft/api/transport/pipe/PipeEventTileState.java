@@ -23,8 +23,8 @@ public abstract class PipeEventTileState extends PipeEvent {
     }
 
     /** Fired in {@link TileEntity#onChunkUnload()} */
-    public static class OnChunkUnload extends PipeEventTileState {
-        public OnChunkUnload(IPipeHolder holder) {
+    public static class ChunkUnload extends PipeEventTileState {
+        public ChunkUnload(IPipeHolder holder) {
             super(holder);
         }
     }
