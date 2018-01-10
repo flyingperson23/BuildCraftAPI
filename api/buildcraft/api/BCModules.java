@@ -5,7 +5,7 @@ import java.util.Locale;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 
-public enum EnumBuildCraftModule implements IBuildCraftMod {
+public enum BCModules implements IBuildCraftMod {
     LIB,
     // Base module for all BC.
     CORE,
@@ -19,7 +19,7 @@ public enum EnumBuildCraftModule implements IBuildCraftMod {
     // Optional module for compatibility with other mods
     COMPAT;
 
-    public static final EnumBuildCraftModule[] VALUES = values();
+    public static final BCModules[] VALUES = values();
     private static boolean hasChecked = false;
 
     public final String lowerCaseName = name().toLowerCase(Locale.ROOT);
@@ -34,13 +34,13 @@ public enum EnumBuildCraftModule implements IBuildCraftMod {
         if (!Loader.instance().hasReachedState(LoaderState.PREINITIALIZATION)) {
             throw new RuntimeException("You can only use EnumBuidCraftModule.isLoaded from pre-init onwards!");
         }
-        for (EnumBuildCraftModule module : VALUES) {
+        for (BCModules module : VALUES) {
             module.loaded = Loader.isModLoaded(module.modId);
         }
     }
 
-    public static boolean isBuildCraftMod(String testModId) {
-        for (EnumBuildCraftModule mod : VALUES) {
+    public static boolean isBcMod(String testModId) {
+        for (BCModules mod : VALUES) {
             if (mod.modId.equals(testModId)) {
                 return true;
             }
