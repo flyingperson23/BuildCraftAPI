@@ -9,7 +9,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 
 import buildcraft.api.core.CapabilitiesHelper;
 
@@ -54,9 +53,14 @@ public class MjAPI {
 
     public enum NullaryEffectManager implements IMjEffectManager {
         INSTANCE;
-        @Override public void createPowerLossEffect(World world, Vec3d center, long microJoulesLost) {}
-        @Override public void createPowerLossEffect(World world, Vec3d center, EnumFacing direction, long microJoulesLost) {}
-        @Override public void createPowerLossEffect(World world, Vec3d center, Vec3d direction, long microJoulesLost) {}
+        @Override
+        public void createPowerLossEffect(World world, Vec3d center, long microJoulesLost) {}
+
+        @Override
+        public void createPowerLossEffect(World world, Vec3d center, EnumFacing direction, long microJoulesLost) {}
+
+        @Override
+        public void createPowerLossEffect(World world, Vec3d center, Vec3d direction, long microJoulesLost) {}
     }
     // @formatter:on
 
@@ -81,40 +85,12 @@ public class MjAPI {
     @Nonnull
     public static final Capability<IMjPassiveProvider> CAP_PASSIVE_PROVIDER;
 
-    // ####################
-    //
-    // Internal API logic
-    //
-    // ###################
-
-    // Private fields for the registrations -- this allows us to make the actual fields @Nonnull as we check later
-    @CapabilityInject(IMjConnector.class)
-    private static final Capability<IMjConnector> CAP_CONNECTOR_FIRST = null;
-
-    @CapabilityInject(IMjReceiver.class)
-    private static final Capability<IMjReceiver> CAP_RECEIVER_FIRST = null;
-
-    @CapabilityInject(IMjRedstoneReceiver.class)
-    private static final Capability<IMjRedstoneReceiver> CAP_REDSTONE_RECEIVER_FIRST = null;
-
-    @CapabilityInject(IMjReadable.class)
-    private static final Capability<IMjReadable> CAP_READABLE_FIRST = null;
-
-    @CapabilityInject(IMjPassiveProvider.class)
-    private static final Capability<IMjPassiveProvider> CAP_PASSIVE_PROVIDER_FIRST = null;
-
     static {
-        CapabilitiesHelper.registerCapability(IMjConnector.class);
-        CapabilitiesHelper.registerCapability(IMjReceiver.class);
-        CapabilitiesHelper.registerCapability(IMjRedstoneReceiver.class);
-        CapabilitiesHelper.registerCapability(IMjReadable.class);
-        CapabilitiesHelper.registerCapability(IMjPassiveProvider.class);
-
-        CAP_CONNECTOR = CapabilitiesHelper.ensureRegistration(CAP_CONNECTOR_FIRST, IMjConnector.class);
-        CAP_RECEIVER = CapabilitiesHelper.ensureRegistration(CAP_RECEIVER_FIRST, IMjReceiver.class);
-        CAP_REDSTONE_RECEIVER = CapabilitiesHelper.ensureRegistration(CAP_REDSTONE_RECEIVER_FIRST, IMjRedstoneReceiver.class);
-        CAP_READABLE = CapabilitiesHelper.ensureRegistration(CAP_READABLE_FIRST, IMjReadable.class);
-        CAP_PASSIVE_PROVIDER = CapabilitiesHelper.ensureRegistration(CAP_PASSIVE_PROVIDER_FIRST, IMjPassiveProvider.class);
+        CAP_CONNECTOR = CapabilitiesHelper.registerCapability(IMjConnector.class);
+        CAP_RECEIVER = CapabilitiesHelper.registerCapability(IMjReceiver.class);
+        CAP_REDSTONE_RECEIVER = CapabilitiesHelper.registerCapability(IMjRedstoneReceiver.class);
+        CAP_READABLE = CapabilitiesHelper.registerCapability(IMjReadable.class);
+        CAP_PASSIVE_PROVIDER = CapabilitiesHelper.registerCapability(IMjPassiveProvider.class);
     }
 
     private static long getMjValue() {

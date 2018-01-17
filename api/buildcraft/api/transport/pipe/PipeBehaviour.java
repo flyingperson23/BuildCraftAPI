@@ -1,5 +1,7 @@
 package buildcraft.api.transport.pipe;
 
+import java.io.IOException;
+
 import javax.annotation.Nonnull;
 
 import net.minecraft.entity.Entity;
@@ -38,7 +40,7 @@ public abstract class PipeBehaviour implements ICapabilityProvider {
 
     public void writePayload(PacketBuffer buffer, Side side) {}
 
-    public void readPayload(PacketBuffer buffer, Side side, MessageContext ctx) {}
+    public void readPayload(PacketBuffer buffer, Side side, MessageContext ctx) throws IOException {}
 
     public int getTextureIndex(EnumFacing face) {
         return 0;
@@ -54,7 +56,8 @@ public abstract class PipeBehaviour implements ICapabilityProvider {
         return true;
     }
 
-    public boolean onPipeActivate(EntityPlayer player, RayTraceResult trace, float hitX, float hitY, float hitZ, EnumPipePart part) {
+    public boolean onPipeActivate(EntityPlayer player, RayTraceResult trace, float hitX, float hitY, float hitZ,
+        EnumPipePart part) {
         return false;
     }
 
