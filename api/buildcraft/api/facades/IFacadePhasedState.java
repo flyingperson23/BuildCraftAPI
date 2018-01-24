@@ -7,8 +7,6 @@ import net.minecraft.item.EnumDyeColor;
 public interface IFacadePhasedState {
     IFacadeState getState();
 
-    boolean isHollow();
-
     @Nullable
     EnumDyeColor getActiveColor();
 }
