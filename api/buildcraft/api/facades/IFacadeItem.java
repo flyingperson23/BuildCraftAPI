@@ -26,7 +26,7 @@ public interface IFacadeItem {
 
     /** @param facade The {@link IFacade} instance. NOTE: This MUST be an object returned from
      *            {@link IFacadeRegistry#createBasicFacade(IFacadeState, boolean)} or
-     *            {@link IFacadeRegistry#createPhasedFacade(IFacadePhasedState[])}, otherwise a
+     *            {@link IFacadeRegistry#createPhasedFacade(IFacadePhasedState[], boolean)}, otherwise a
      *            {@link ClassCastException} will be thrown! */
     ItemStack createFacadeStack(IFacade facade);
 
