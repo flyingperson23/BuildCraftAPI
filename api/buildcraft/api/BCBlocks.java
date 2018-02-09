@@ -1,12 +1,14 @@
 package buildcraft.api;
 
+import buildcraft.api.core.BCDebugging;
 import net.minecraft.block.Block;
-
-import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class BCBlocks {
 
-    @ObjectHolder("buildcraftcore")
+    private static final boolean DEBUG = BCDebugging.shouldDebugLog("api.blocks");
+
+    @GameRegistry.ObjectHolder("buildcraftcore")
     public static class Core {
         public static final Block SPRING = null;
         public static final Block DECORATED = null;
@@ -15,7 +17,7 @@ public class BCBlocks {
         public static final Block MARKER_PATH = null;
     }
 
-    @ObjectHolder("buildcraftbuilders")
+    @GameRegistry.ObjectHolder("buildcraftbuilders")
     public static class Builders {
         public static final Block ARCHITECT = null;
         public static final Block BUILDER = null;
@@ -26,12 +28,12 @@ public class BCBlocks {
         public static final Block FRAME = null;
     }
 
-    @ObjectHolder("buildcraftenergy")
+    @GameRegistry.ObjectHolder("buildcraftenergy")
     public static class Energy {
         // Fluid blocks can be accessed ~somewhere else~
     }
 
-    @ObjectHolder("buildcraftfactory")
+    @GameRegistry.ObjectHolder("buildcraftfactory")
     public static class Factory {
         public static final Block AUTOWORKBENCH_ITEM = null;
         public static final Block MINING_WELL = null;
@@ -45,13 +47,13 @@ public class BCBlocks {
         public static final Block HEAT_EXCHANGE = null;
     }
 
-    @ObjectHolder("buildcrafttransport")
+    @GameRegistry.ObjectHolder("buildcrafttransport")
     public static class Transport {
         public static final Block FILTERED_BUFFER = null;
         public static final Block PIPE_HOLDER = null;
     }
 
-    @ObjectHolder("buildcraftsilicon")
+    @GameRegistry.ObjectHolder("buildcraftsilicon")
     public static class Silicon {
         public static final Block LASER = null;
         public static final Block ASSEMBLY_TABLE = null;
@@ -61,7 +63,7 @@ public class BCBlocks {
         public static final Block PROGRAMMING_TABLE = null;
     }
 
-    @ObjectHolder("buildcraftrobotics")
+    @GameRegistry.ObjectHolder("buildcraftrobotics")
     public static class Robotics {
 
     }

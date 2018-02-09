@@ -164,11 +164,7 @@ public abstract class DockingStation {
     }
 
     public boolean linkIsDocked() {
-        if (robotTaking() != null) {
-            return robotTaking().getDockingStation() == this;
-        } else {
-            return false;
-        }
+        return robotTaking() != null && robotTaking().getDockingStation() == this;
     }
 
     public boolean canRelease() {

@@ -8,7 +8,7 @@ import net.minecraftforge.items.IItemHandler;
 public interface IItemHandlerFiltered extends IItemHandler {
 
     /** @param slot the slot to test
-     * @return The filter in that slot. Will be {@link ItemStack#EMPTY} if this is not filtered to a single item (for
+     * @return The filter in that slot. Will be null if this is not filtered to a single item (for
      *         example if this will match against a few stacks, or nothing is allowed). Will be equal to
      *         {@link #getStackInSlot(int)} if the slot currently contains an item. */
     default ItemStack getFilter(int slot) {

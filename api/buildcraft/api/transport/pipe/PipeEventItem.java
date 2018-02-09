@@ -9,6 +9,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import buildcraft.api.items.BCStackHelper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
@@ -54,7 +55,7 @@ public abstract class PipeEventItem extends PipeEvent {
             this.colour = colour;
             this.from = from;
             this.attempting = attempting;
-            this.accepted = attempting.getCount();
+            this.accepted = attempting.stackSize;
         }
 
         /** Stops the item from being accepted. */
@@ -196,7 +197,7 @@ public abstract class PipeEventItem extends PipeEvent {
                 case 1:
                     return ImmutableList.of(allowed);
             }
-            outer_loop: while (true) {
+            outer_loop: {
                 int val = priority[0];
                 for (int i = 1; i < priority.length; i++) {
                     if (priority[i] != val) {
@@ -258,19 +259,15 @@ public abstract class PipeEventItem extends PipeEvent {
             this.entity = entity;
         }
 
-        @Nonnull
         public ItemStack getStack() {
-            ItemStack item = entity.getItem();
-            return item.isEmpty() ? ItemStack.EMPTY : item;
+            return entity.getEntityItem();
         }
 
         public void setStack(ItemStack stack) {
-            if (stack == null) {
-                throw new NullPointerException("stack");
-            } else if (stack.isEmpty()) {
-                entity.setItem(ItemStack.EMPTY);
+            if (BCStackHelper.isEmpty(stack)) {
+                entity.setEntityItemStack(null);
             } else {
-                entity.setItem(stack);
+                entity.setEntityItemStack(stack);
             }
         }
 

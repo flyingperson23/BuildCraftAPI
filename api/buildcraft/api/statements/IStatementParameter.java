@@ -4,7 +4,7 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.statements;
 
-import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -15,9 +15,9 @@ import buildcraft.api.statements.StatementManager.IParameterReader;
 
 public interface IStatementParameter extends IGuiSlot {
 
-    /** @return An {@link ItemStack} to render for this parameter, or {@link ItemStack#EMPTY} if this should not render
+    /** @return An {@link ItemStack} to render for this parameter, or null if this should not render
      *         an {@link ItemStack}. */
-    @Nonnull
+    @Nullable
     ItemStack getItemStack();
 
     default DrawType getDrawType() {
@@ -61,7 +61,7 @@ public interface IStatementParameter extends IGuiSlot {
         return false;
     }
 
-    public enum DrawType {
+    enum DrawType {
         /** Draws the sprite, as returned by {@link IStatementParameter#getSprite()}. */
         SPRITE_ONLY,
 
@@ -69,7 +69,7 @@ public interface IStatementParameter extends IGuiSlot {
         STACK_ONLY,
 
         /** Only draws the {@link ItemStack}, as returned by {@link IStatementParameter#getItemStack()}, except if
-         * {@link ItemStack#isEmpty()} returns true, in which case this a question mark will be drawn. */
+         * null returns true, in which case this a question mark will be drawn. */
         STACK_ONLY_OR_QUESTION_MARK,
 
         /** Draws {@link #SPRITE_ONLY}, but then also draws {@link #STACK_ONLY} */

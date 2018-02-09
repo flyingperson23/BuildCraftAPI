@@ -120,8 +120,6 @@ public final class PipeApi {
         }
     }
 
-    // Internals
-
     static {
         CAP_PIPE = CapabilitiesHelper.registerCapability(IPipe.class);
         CAP_PLUG = CapabilitiesHelper.registerCapability(PipePluggable.class);

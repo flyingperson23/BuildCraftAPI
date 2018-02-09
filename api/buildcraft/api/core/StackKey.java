@@ -79,12 +79,7 @@ public final class StackKey {
                 return false;
             }
         }
-        if (fluidStack != null) {
-            if (!fluidStack.isFluidEqual(k.fluidStack) || fluidStack.amount != k.fluidStack.amount) {
-                return false;
-            }
-        }
-        return true;
+        return fluidStack == null || fluidStack.isFluidEqual(k.fluidStack) && fluidStack.amount == k.fluidStack.amount;
     }
 
     @Override
@@ -105,13 +100,7 @@ public final class StackKey {
     }
 
     private boolean objectsEqual(Object o1, Object o2) {
-        if (o1 == null && o2 == null) {
-            return true;
-        } else if (o1 == null || o2 == null) {
-            return false;
-        } else {
-            return o1.equals(o2);
-        }
+        return o1 == null && o2 == null || o1 != null && o2 != null && o1.equals(o2);
     }
 
     private int objectHashCode(Object o) {

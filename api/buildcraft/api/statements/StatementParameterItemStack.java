@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import com.google.common.collect.ImmutableList;
 
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextFormatting;
@@ -22,21 +22,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import buildcraft.api.core.render.ISprite;
 
 public class StatementParameterItemStack implements IStatementParameter {
-    // needed because ItemStack.EMPTY doesn't have @Nonnull applied to it :/
-    @Nonnull
-    private static final ItemStack EMPTY_STACK;
-
-    static {
-        ItemStack stack = ItemStack.EMPTY;
-        if (stack == null) throw new Error("Somehow ItemStack.EMPTY was null!");
-        EMPTY_STACK = stack;
-    }
-
-    @Nonnull
+    @Nullable
     protected final ItemStack stack;
 
     public StatementParameterItemStack() {
-        stack = EMPTY_STACK;
+        stack = null;
     }
 
     public StatementParameterItemStack(@Nonnull ItemStack stack) {
@@ -44,17 +34,12 @@ public class StatementParameterItemStack implements IStatementParameter {
     }
 
     public StatementParameterItemStack(NBTTagCompound nbt) {
-        ItemStack read = new ItemStack(nbt.getCompoundTag("stack"));
-        if (read.isEmpty()) {
-            stack = EMPTY_STACK;
-        } else {
-            stack = read;
-        }
+        stack = ItemStack.loadItemStackFromNBT(nbt.getCompoundTag("stack"));
     }
 
     @Override
     public void writeToNbt(NBTTagCompound compound) {
-        if (!stack.isEmpty()) {
+        if (stack != null) {
             NBTTagCompound tagCompound = new NBTTagCompound();
             stack.writeToNBT(tagCompound);
             compound.setTag("stack", tagCompound);
@@ -67,7 +52,7 @@ public class StatementParameterItemStack implements IStatementParameter {
     }
 
     @Override
-    @Nonnull
+    @Nullable
     public ItemStack getItemStack() {
         return stack;
     }
@@ -75,11 +60,11 @@ public class StatementParameterItemStack implements IStatementParameter {
     @Override
     public StatementParameterItemStack onClick(IStatementContainer source, IStatement stmt, ItemStack stack,
         StatementMouseClick mouse) {
-        if (stack.isEmpty()) {
+        if (stack == null) {
             return new StatementParameterItemStack();
         } else {
             ItemStack newStack = stack.copy();
-            newStack.setCount(1);
+            newStack.stackSize = 1;
             return new StatementParameterItemStack(newStack);
         }
     }
@@ -110,10 +95,10 @@ public class StatementParameterItemStack implements IStatementParameter {
     @Override
     @SideOnly(Side.CLIENT)
     public List<String> getTooltip() {
-        if (stack.isEmpty()) {
+        if (stack == null) {
             return ImmutableList.of();
         }
-        List<String> tooltip = stack.getTooltip(null, ITooltipFlag.TooltipFlags.NORMAL);
+        List<String> tooltip = stack.getTooltip(null, false);
         if (!tooltip.isEmpty()) {
             tooltip.set(0, stack.getRarity().rarityColor + tooltip.get(0));
             for (int i = 1; i < tooltip.size(); i++) {

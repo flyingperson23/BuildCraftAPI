@@ -38,7 +38,7 @@ public class CapabilitiesHelper {
     /** Registers a given type with {@link #registerCapability(CheckedStorage, Callable)}, but with a
      * {@link ThrowingStorage} and a factory that throws an {@link UnsupportedOperationException} instead of creating a
      * new capability instance.
-     * 
+     *
      * @param clazz The type that all instances must derive from.
      * @return The registered {@link Capability} */
     @Nonnull
@@ -49,7 +49,7 @@ public class CapabilitiesHelper {
     }
 
     /** Registers a given type with the {@link CapabilityManager}, but also returns the capability instance.
-     * 
+     *
      * @param storage The storage for the capability. This must extend {@link CheckedStorage} in order to allow the
      *            internal mechanisms to ensure that nothing went wrong during our meddling into forge.
      * @param factory The factory for the capability.
@@ -62,7 +62,7 @@ public class CapabilitiesHelper {
     /** A type of {@link IStorage} that contains the class that it would store. Used by the internal mechanisms of
      * {@link CapabilitiesHelper} to ensure that everything registers properly. A default always-throwing implementation
      * is {@link ThrowingStorage}.
-     * 
+     *
      * @param <T> The type of this storage */
     public static abstract class CheckedStorage<T> implements IStorage<T> {
 
@@ -127,7 +127,7 @@ public class CapabilitiesHelper {
         }
         if (!(obj instanceof Capability)) {
             throw new Error("We must have the wrong map! providers.get(key) returned " + obj.getClass()
-                + " rather than " + Capability.class);
+                    + " rather than " + Capability.class);
         }
         Capability<?> cap = (Capability<?>) obj;
         // Ensure that the given cap is actually *our* capability
@@ -136,12 +136,12 @@ public class CapabilitiesHelper {
         IStorage<?> cStorage = cap.getStorage();
         if (!(cStorage instanceof CheckedStorage)) {
             throw new IllegalStateException(
-                "Returned capability storage has a different storage class than expected! " + cStorage.getClass());
+                    "Returned capability storage has a different storage class than expected! " + cStorage.getClass());
         }
         CheckedStorage<?> vStorage = (CheckedStorage<?>) cStorage;
         if (vStorage.clazz != clazz) {
             throw new IllegalStateException(
-                "Returned capability storage has a different class than expected! " + vStorage.clazz + " vs " + clazz);
+                    "Returned capability storage has a different class than expected! " + vStorage.clazz + " vs " + clazz);
         }
         return (Capability<T>) cap;
     }

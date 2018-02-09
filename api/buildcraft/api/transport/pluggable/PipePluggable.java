@@ -1,12 +1,12 @@
 package buildcraft.api.transport.pluggable;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,7 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -96,18 +95,18 @@ public abstract class PipePluggable {
     public void onRemove() {}
 
     /** @param toDrop A list containing all the items to drop (so you should add your items to this list) */
-    public void addDrops(NonNullList<ItemStack> toDrop, int fortune) {
+    public void addDrops(List<ItemStack> toDrop, int fortune) {
         ItemStack stack = getPickStack();
-        if (!stack.isEmpty()) {
+        if (stack != null) {
             toDrop.add(stack);
         }
     }
 
     /** Called whenever this pluggable is picked by the player (similar to Block.getPickBlock)
      * 
-     * @return The stack that should be picked, or ItemStack.EMPTY if no stack can be picked from this pluggable. */
+     * @return The stack that should be picked, or null if no stack can be picked from this pluggable. */
     public ItemStack getPickStack() {
-        return ItemStack.EMPTY;
+        return null;
     }
 
     public boolean onPluggableActivate(EntityPlayer player, RayTraceResult trace, float hitX, float hitY, float hitZ) {
@@ -129,12 +128,6 @@ public abstract class PipePluggable {
     }
 
     /** PipePluggable version of
-     * {@link Block#canBeConnectedTo(net.minecraft.world.IBlockAccess, net.minecraft.util.math.BlockPos, EnumFacing)}. */
-    public boolean canBeConnected() {
-        return false;
-    }
-
-    /** PipePluggable version of
      * {@link net.minecraft.block.state.IBlockState#isSideSolid(IBlockAccess, BlockPos, EnumFacing)}  */
     public boolean isSideSolid() {
         return false;
@@ -149,9 +142,4 @@ public abstract class PipePluggable {
         return false;
     }
 
-    /** PipePluggable version of
-     * {@link net.minecraft.block.state.IBlockState#getBlockFaceShape(IBlockAccess, BlockPos, EnumFacing)}  */
-    public BlockFaceShape getBlockFaceShape() {
-        return BlockFaceShape.UNDEFINED;
-    }
 }

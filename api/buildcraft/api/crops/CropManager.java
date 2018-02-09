@@ -6,7 +6,6 @@ import java.util.List;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -58,10 +57,7 @@ public final class CropManager {
                 return true;
             }
         }
-        if (defaultHandler.isSeed(seed) && defaultHandler.canSustainPlant(world, seed, pos)) {
-            return defaultHandler.plantCrop(world, player, seed, pos);
-        }
-        return false;
+        return defaultHandler.isSeed(seed) && defaultHandler.canSustainPlant(world, seed, pos) && defaultHandler.plantCrop(world, player, seed, pos);
     }
 
     public static boolean isMature(IBlockAccess blockAccess, IBlockState state, BlockPos pos) {
@@ -73,7 +69,7 @@ public final class CropManager {
         return defaultHandler.isMature(blockAccess, state, pos);
     }
 
-    public static boolean harvestCrop(World world, BlockPos pos, NonNullList<ItemStack> drops) {
+    public static boolean harvestCrop(World world, BlockPos pos, List<ItemStack> drops) {
         IBlockState state = world.getBlockState(pos);
         for (ICropHandler cropHandler : handlers) {
             if (cropHandler.isMature(world, state, pos)) {

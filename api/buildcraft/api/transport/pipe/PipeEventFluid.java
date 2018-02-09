@@ -187,7 +187,7 @@ public abstract class PipeEventFluid extends PipeEvent {
             if (allowed.size() == 1) {
                 return allowed;
             }
-            outer_loop: while (true) {
+            outer_loop: {
                 int val = priority[0];
                 for (int i = 1; i < priority.length; i++) {
                     if (priority[i] != val) {

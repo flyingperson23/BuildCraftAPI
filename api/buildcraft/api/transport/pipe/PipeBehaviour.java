@@ -1,7 +1,5 @@
 package buildcraft.api.transport.pipe;
 
-import java.io.IOException;
-
 import javax.annotation.Nonnull;
 
 import net.minecraft.entity.Entity;
@@ -11,7 +9,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.RayTraceResult;
 
 import net.minecraftforge.common.capabilities.Capability;
@@ -20,6 +17,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 import buildcraft.api.core.EnumPipePart;
+
+import java.io.IOException;
+import java.util.List;
 
 public abstract class PipeBehaviour implements ICapabilityProvider {
     public final IPipe pipe;
@@ -57,7 +57,7 @@ public abstract class PipeBehaviour implements ICapabilityProvider {
     }
 
     public boolean onPipeActivate(EntityPlayer player, RayTraceResult trace, float hitX, float hitY, float hitZ,
-        EnumPipePart part) {
+                                  EnumPipePart part) {
         return false;
     }
 
@@ -75,5 +75,5 @@ public abstract class PipeBehaviour implements ICapabilityProvider {
         return null;
     }
 
-    public void addDrops(NonNullList<ItemStack> toDrop, int fortune) {}
+    public void addDrops(List<ItemStack> toDrop, int fortune) {}
 }

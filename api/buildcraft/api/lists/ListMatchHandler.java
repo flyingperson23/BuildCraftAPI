@@ -4,7 +4,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
+
+import java.util.List;
 
 public abstract class ListMatchHandler {
     public enum Type {
@@ -24,7 +25,7 @@ public abstract class ListMatchHandler {
      * @return A List (even empty!) if the examples satisfy this handler, null if iteration and .matches should be used
      *         instead. */
     @Nullable
-    public NonNullList<ItemStack> getClientExamples(Type type, @Nonnull ItemStack stack) {
+    public List<ItemStack> getClientExamples(Type type, @Nonnull ItemStack stack) {
         return null;
     }
 }

@@ -38,7 +38,8 @@ public class SchematicEntityFactoryRegistry {
         registerFactory(
             name,
             priority,
-            context -> entities.contains(EntityList.getKey(context.entity)),
+            //TODO Properly fix this, was EntityList.getEntity, returns resource location
+            context -> entities.contains(EntityList.getEntityString(context.entity)),
             supplier
         );
     }
