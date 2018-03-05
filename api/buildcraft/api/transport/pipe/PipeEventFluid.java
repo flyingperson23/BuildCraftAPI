@@ -21,6 +21,8 @@ public abstract class PipeEventFluid extends PipeEvent {
         this.flow = flow;
     }
 
+    /** @deprecated Because cancellation is going to be removed (at some point in the future) */
+    @Deprecated
     protected PipeEventFluid(boolean canBeCancelled, IPipeHolder holder, IFlowFluid flow) {
         super(canBeCancelled, holder);
         this.flow = flow;
