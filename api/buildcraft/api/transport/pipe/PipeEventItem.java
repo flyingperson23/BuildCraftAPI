@@ -19,8 +19,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
-import buildcraft.lib.misc.StackUtil;
-
 public abstract class PipeEventItem extends PipeEvent {
 
     public final IFlowItems flow;
@@ -325,7 +323,7 @@ public abstract class PipeEventItem extends PipeEvent {
         @Nonnull
         public ItemStack getStack() {
             ItemStack item = entity.getItem();
-            return item.isEmpty() ? StackUtil.EMPTY : item;
+            return item.isEmpty() ? ItemStack.EMPTY : item;
         }
 
         public void setStack(ItemStack stack) {
