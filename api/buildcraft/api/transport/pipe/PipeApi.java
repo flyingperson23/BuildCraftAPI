@@ -19,6 +19,7 @@ public final class PipeApi {
     public static IPipeRegistry pipeRegistry;
     public static IPluggableRegistry pluggableRegistry;
     public static IStripesRegistry stripeRegistry;
+    public static IPipeExtensionManager extensionManager;
     public static PipeFlowType flowStructure;
     public static PipeFlowType flowItems;
     public static PipeFlowType flowFluids;
