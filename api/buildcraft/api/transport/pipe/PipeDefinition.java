@@ -1,5 +1,8 @@
 package buildcraft.api.transport.pipe;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
@@ -13,6 +16,8 @@ public final class PipeDefinition {
     public final PipeFlowType flowType;
     public final String[] textures;
     public final int itemTextureTop, itemTextureCenter, itemTextureBottom;
+    public final boolean canBeColoured;
+    private EnumPipeColourType colourType;
 
     public PipeDefinition(PipeDefinitionBuilder builder) {
         this.identifier = builder.identifier;
@@ -26,6 +31,23 @@ public final class PipeDefinition {
         this.itemTextureTop = builder.itemTextureTop;
         this.itemTextureCenter = builder.itemTextureCenter;
         this.itemTextureBottom = builder.itemTextureBottom;
+        this.canBeColoured = builder.canBeColoured;
+        this.colourType = builder.colourType;
+    }
+
+    @Nonnull
+    public EnumPipeColourType getColourType() {
+        if (colourType != null) {
+            return colourType;
+        }
+        if (flowType.fallbackColourType != null) {
+            return flowType.fallbackColourType;
+        }
+        return EnumPipeColourType.TRANSLUCENT;
+    }
+
+    public void setColourType(@Nullable EnumPipeColourType colourType) {
+        this.colourType = colourType;
     }
 
     @FunctionalInterface
@@ -48,10 +70,13 @@ public final class PipeDefinition {
         public int itemTextureTop = 0;
         public int itemTextureCenter = 0;
         public int itemTextureBottom = 0;
+        public boolean canBeColoured;
+        public EnumPipeColourType colourType;
 
         public PipeDefinitionBuilder() {}
 
-        public PipeDefinitionBuilder(ResourceLocation identifier, IPipeCreator logicConstructor, IPipeLoader logicLoader, PipeFlowType flowType) {
+        public PipeDefinitionBuilder(ResourceLocation identifier, IPipeCreator logicConstructor,
+            IPipeLoader logicLoader, PipeFlowType flowType) {
             this.identifier = identifier;
             this.logicConstructor = logicConstructor;
             this.logicLoader = logicLoader;
@@ -69,7 +94,8 @@ public final class PipeDefinition {
         private static String getActiveModId() {
             ModContainer mod = Loader.instance().activeModContainer();
             if (mod == null) {
-                throw new IllegalStateException("Cannot interact with PipeDefinition outside of an actively scoped mod!");
+                throw new IllegalStateException(
+                    "Cannot interact with PipeDefinition outside of an actively scoped mod!");
             }
             return mod.getModId();
         }
@@ -131,6 +157,37 @@ public final class PipeDefinition {
             logicConstructor = creator;
             logicLoader = loader;
             return this;
+        }
+
+        public PipeDefinitionBuilder disableColouring() {
+            canBeColoured = false;
+            return this;
+        }
+
+        public PipeDefinitionBuilder enableColouring(EnumPipeColourType type) {
+            canBeColoured = true;
+            colourType = type;
+            return this;
+        }
+
+        public PipeDefinitionBuilder enableColouring() {
+            return enableColouring(null);
+        }
+
+        public PipeDefinitionBuilder enableTranslucentColouring() {
+            return enableColouring(EnumPipeColourType.TRANSLUCENT);
+        }
+
+        public PipeDefinitionBuilder enableBorderColouring() {
+            return enableColouring(EnumPipeColourType.BORDER_OUTER);
+        }
+
+        public PipeDefinitionBuilder enableInnerBorderColouring() {
+            return enableColouring(EnumPipeColourType.BORDER_INNER);
+        }
+
+        public PipeDefinitionBuilder enableCustomColouring() {
+            return enableColouring(EnumPipeColourType.CUSTOM);
         }
 
         public PipeDefinitionBuilder flowItem() {

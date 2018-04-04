@@ -1,6 +1,5 @@
 package buildcraft.api.transport.pipe;
 
-
 import net.minecraft.client.renderer.BufferBuilder;
 
 public interface IPipeFlowRenderer<F extends PipeFlow> {
