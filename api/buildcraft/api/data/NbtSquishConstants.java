@@ -1,9 +1,9 @@
 package buildcraft.api.data;
 
-import java.util.zip.GZIPInputStream;
-
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.zip.GZIPInputStream;
 
 public class NbtSquishConstants {
     /** Default written NBT Tag type- this is provided by

@@ -1,22 +1,17 @@
 package buildcraft.api.transport.pipe;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 import buildcraft.api.items.BCStackHelper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.*;
 
 public abstract class PipeEventItem extends PipeEvent {
 
@@ -27,6 +22,8 @@ public abstract class PipeEventItem extends PipeEvent {
         this.flow = flow;
     }
 
+    /** @deprecated Because cancellation is going to be removed (at some point in the future) */
+    @Deprecated
     protected PipeEventItem(boolean canBeCancelled, IPipeHolder holder, IFlowItems flow) {
         super(canBeCancelled, holder);
         this.flow = flow;
@@ -120,6 +117,63 @@ public abstract class PipeEventItem extends PipeEvent {
         }
     }
 
+    /** Fired whenever the item exists from this pipe in a normal manner (inserted into another pipe or inventory, this
+     * does not overlap with {@link Drop}.) NOTE: This event is fired *after* the item has been ejected, not before, so
+     * modifying {@link Ejected#inserted} won't do anything. You are free to modify {@link Ejected#excess} however. */
+    public static abstract class Ejected extends PipeEventItem {
+        /** The stack that has been inserted */
+        public final ItemStack inserted;
+
+        /** The stack that was refused by the inventory or pipe. */
+        @Nonnull
+        private ItemStack excess;
+
+        /** The side that the item has been ejected to. */
+        public final EnumFacing to;
+
+        protected Ejected(IPipeHolder holder, IFlowItems flow, ItemStack inserted, ItemStack excess, EnumFacing to) {
+            super(holder, flow);
+            this.inserted = inserted;
+            this.excess = excess;
+            this.to = to;
+        }
+
+        @Nonnull
+        public ItemStack getExcess() {
+            return this.excess;
+        }
+
+        public void setExcess(ItemStack stack) {
+            if (stack == null) {
+                throw new NullPointerException("stack");
+            } else {
+                this.excess = stack;
+            }
+        }
+
+        /** Fired when an item is injected into a pipe. (Refer to {@link Ejected} for more details) */
+        public static class IntoPipe extends Ejected {
+            public final IFlowItems otherPipe;
+
+            public IntoPipe(IPipeHolder holder, IFlowItems flow, ItemStack inserted, ItemStack excess, EnumFacing to,
+                            IFlowItems otherPipe) {
+                super(holder, flow, inserted, excess, to);
+                this.otherPipe = otherPipe;
+            }
+        }
+
+        /** Fired when an item is injected into a tile entity. (Refer to {@link Ejected} for more details) */
+        public static class IntoTile extends Ejected {
+            public final TileEntity tile;
+
+            public IntoTile(IPipeHolder holder, IFlowItems flow, ItemStack inserted, ItemStack excess, EnumFacing to,
+                            TileEntity tile) {
+                super(holder, flow, inserted, excess, to);
+                this.tile = tile;
+            }
+        }
+    }
+
     // ############################
     //
     // Destination related
@@ -196,8 +250,9 @@ public abstract class PipeEventItem extends PipeEvent {
                     return ImmutableList.of();
                 case 1:
                     return ImmutableList.of(allowed);
+                default:
             }
-            outer_loop: {
+            outer_loop: while (true) {
                 int val = priority[0];
                 for (int i = 1; i < priority.length; i++) {
                     if (priority[i] != val) {
@@ -265,7 +320,7 @@ public abstract class PipeEventItem extends PipeEvent {
 
         public void setStack(ItemStack stack) {
             if (BCStackHelper.isEmpty(stack)) {
-                entity.setEntityItemStack(null);
+                entity.setDead();
             } else {
                 entity.setEntityItemStack(stack);
             }

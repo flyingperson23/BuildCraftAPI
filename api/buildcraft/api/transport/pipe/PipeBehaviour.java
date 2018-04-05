@@ -1,5 +1,8 @@
 package buildcraft.api.transport.pipe;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.annotation.Nonnull;
 
 import net.minecraft.entity.Entity;
@@ -17,9 +20,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
 import buildcraft.api.core.EnumPipePart;
-
-import java.io.IOException;
-import java.util.List;
 
 public abstract class PipeBehaviour implements ICapabilityProvider {
     public final IPipe pipe;
@@ -42,8 +42,14 @@ public abstract class PipeBehaviour implements ICapabilityProvider {
 
     public void readPayload(PacketBuffer buffer, Side side, MessageContext ctx) throws IOException {}
 
+    /** @deprecated Replaced by {@link #getTextureData(EnumFacing)}. */
+    @Deprecated
     public int getTextureIndex(EnumFacing face) {
         return 0;
+    }
+
+    public PipeFaceTex getTextureData(EnumFacing face) {
+        return PipeFaceTex.get(getTextureIndex(face));
     }
 
     // Event handling

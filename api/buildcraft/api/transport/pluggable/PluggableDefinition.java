@@ -1,13 +1,13 @@
 package buildcraft.api.transport.pluggable;
 
-import javax.annotation.Nullable;
-
+import buildcraft.api.core.InvalidInputDataException;
+import buildcraft.api.transport.pipe.IPipeHolder;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
-import buildcraft.api.transport.pipe.IPipeHolder;
+import javax.annotation.Nullable;
 
 public final class PluggableDefinition {
     public final ResourceLocation identifier;
@@ -36,7 +36,8 @@ public final class PluggableDefinition {
         return reader.readFromNbt(this, holder, side, nbt);
     }
 
-    public PipePluggable loadFromBuffer(IPipeHolder holder, EnumFacing side, PacketBuffer buffer) {
+    public PipePluggable loadFromBuffer(IPipeHolder holder, EnumFacing side, PacketBuffer buffer)
+            throws InvalidInputDataException {
         return loader.loadFromBuffer(this, holder, side, buffer);
     }
 
@@ -44,23 +45,30 @@ public final class PluggableDefinition {
 
     @FunctionalInterface
     public interface IPluggableNbtReader {
-        PipePluggable readFromNbt(PluggableDefinition definition, IPipeHolder holder, EnumFacing side, NBTTagCompound nbt);
+        /** Reads the pipe pluggable from NBT. Unlike {@link IPluggableNetLoader} (which is allowed to fail and throw an
+         * exception if the wrong data is given) this should make a best effort to read the pluggable from nbt, or fall
+         * back to sensible defaults. */
+        PipePluggable readFromNbt(PluggableDefinition definition, IPipeHolder holder, EnumFacing side,
+           NBTTagCompound nbt);
     }
 
     @FunctionalInterface
     public interface IPluggableNetLoader {
-        PipePluggable loadFromBuffer(PluggableDefinition definition, IPipeHolder holder, EnumFacing side, PacketBuffer buffer);
+        PipePluggable loadFromBuffer(PluggableDefinition definition, IPipeHolder holder, EnumFacing side,
+           PacketBuffer buffer) throws InvalidInputDataException;
     }
 
     @FunctionalInterface
     public interface IPluggableCreator extends IPluggableNbtReader, IPluggableNetLoader {
         @Override
-        default PipePluggable loadFromBuffer(PluggableDefinition definition, IPipeHolder holder, EnumFacing side, PacketBuffer buffer) {
+        default PipePluggable loadFromBuffer(PluggableDefinition definition, IPipeHolder holder, EnumFacing side,
+            PacketBuffer buffer) {
             return createSimplePluggable(definition, holder, side);
         }
 
         @Override
-        default PipePluggable readFromNbt(PluggableDefinition definition, IPipeHolder holder, EnumFacing side, NBTTagCompound nbt) {
+        default PipePluggable readFromNbt(PluggableDefinition definition, IPipeHolder holder, EnumFacing side,
+            NBTTagCompound nbt) {
             return createSimplePluggable(definition, holder, side);
         }
 

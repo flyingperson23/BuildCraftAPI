@@ -87,20 +87,6 @@ processResources
     }
 }
 
-compileJava {
-    options.compilerArgs << "-Xmaxerrs" << "2000"
-    options.compilerArgs << "-Xmaxwarns" << "2"
-    options.compilerArgs << "-Xlint:all"
-    options.compilerArgs << "-Xdiags:verbose"
-    options.compilerArgs << "-encoding" << "UTF-8"
-}
-
-javadoc {
-    options.setUse(true)
-    options.addStringsOption("Xmaxerrs").setValue(["2000"])
-    options.addStringsOption("Xmaxwarns").setValue(["2"])
-}
-
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir

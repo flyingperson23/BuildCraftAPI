@@ -1,12 +1,12 @@
 package buildcraft.api.enums;
 
-import java.util.Locale;
-
+import buildcraft.api.BCItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
 
-import buildcraft.api.BCItems;
+import javax.annotation.Nullable;
+import java.util.Locale;
 
 public enum EnumRedstoneChipset implements IStringSerializable {
     RED,
@@ -17,11 +17,11 @@ public enum EnumRedstoneChipset implements IStringSerializable {
 
     private final String name = name().toLowerCase(Locale.ROOT);
 
+    @Nullable
     public ItemStack getStack(int stackSize) {
         Item chipset = BCItems.Silicon.REDSTONE_CHIPSET;
-        if (chipset == null) {
-            return null;
-        }
+        if (chipset == null)
+            throw null;
 
         return new ItemStack(chipset, stackSize, ordinal());
     }

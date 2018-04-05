@@ -1,10 +1,10 @@
 package buildcraft.api.transport;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+
+import javax.annotation.Nullable;
 
 /** Interface for pipes to implement if they can accept items in a similar fashion to BC pipes. */
 public interface IInjectable {

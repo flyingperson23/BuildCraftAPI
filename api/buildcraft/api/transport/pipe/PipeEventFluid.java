@@ -1,16 +1,13 @@
 package buildcraft.api.transport.pipe;
 
+import com.google.common.collect.Lists;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.fluids.FluidStack;
+
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
-
-import javax.annotation.Nonnull;
-
-import com.google.common.collect.Lists;
-
-import net.minecraft.util.EnumFacing;
-
-import net.minecraftforge.fluids.FluidStack;
 
 public abstract class PipeEventFluid extends PipeEvent {
 
@@ -21,6 +18,8 @@ public abstract class PipeEventFluid extends PipeEvent {
         this.flow = flow;
     }
 
+    /** @deprecated Because cancellation is going to be removed (at some point in the future) */
+    @Deprecated
     protected PipeEventFluid(boolean canBeCancelled, IPipeHolder holder, IFlowFluid flow) {
         super(canBeCancelled, holder);
         this.flow = flow;

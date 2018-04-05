@@ -1,11 +1,8 @@
 package buildcraft.api.transport.pluggable;
 
-import java.io.IOException;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
+import buildcraft.api.items.BCStackHelper;
+import buildcraft.api.transport.pipe.IPipeHolder;
+import buildcraft.api.transport.pipe.IPipeHolder.PipeMessageReceiver;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,15 +17,16 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import buildcraft.api.transport.pipe.IPipeHolder;
-import buildcraft.api.transport.pipe.IPipeHolder.PipeMessageReceiver;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.util.List;
 
 public abstract class PipePluggable {
     public final PluggableDefinition definition;
@@ -84,7 +82,7 @@ public abstract class PipePluggable {
     }
 
     /** Gets the {@link Capability} that is accessible from the pipe that this is attached to.
-     * 
+     *
      * @param cap
      * @return */
     public <T> T getInternalCapability(@Nonnull Capability<T> cap) {
@@ -97,14 +95,14 @@ public abstract class PipePluggable {
     /** @param toDrop A list containing all the items to drop (so you should add your items to this list) */
     public void addDrops(List<ItemStack> toDrop, int fortune) {
         ItemStack stack = getPickStack();
-        if (stack != null) {
+        if (!BCStackHelper.isEmpty(stack)) {
             toDrop.add(stack);
         }
     }
 
     /** Called whenever this pluggable is picked by the player (similar to Block.getPickBlock)
-     * 
-     * @return The stack that should be picked, or null if no stack can be picked from this pluggable. */
+     *
+     * @return The stack that should be picked, or ItemStack.EMPTY if no stack can be picked from this pluggable. */
     public ItemStack getPickStack() {
         return null;
     }
@@ -120,11 +118,15 @@ public abstract class PipePluggable {
 
     /** Called if the {@link IPluggableStaticBaker} returns quads with tint indexes set to
      * <code>data * 6 + key.side.ordinal()</code>. <code>"data"</code> is passed in here as <code>"tintIndex"</code>.
-     * 
+     *
      * @return The tint index to render the quad with, or -1 for default. */
     @SideOnly(Side.CLIENT)
     public int getBlockColor(int tintIndex) {
         return -1;
+    }
+
+    public boolean canBeConnected() {
+        return false;
     }
 
     /** PipePluggable version of

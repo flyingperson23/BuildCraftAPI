@@ -1,20 +1,19 @@
 package buildcraft.api.facades;
 
-import java.util.Collection;
+import net.minecraft.item.EnumDyeColor;
 
 import javax.annotation.Nullable;
-
-import net.minecraft.item.EnumDyeColor;
+import java.util.Collection;
 
 public interface IFacadeRegistry {
 
     Collection<? extends IFacadeState> getValidFacades();
 
-    IFacadePhasedState createPhasedState(IFacadeState state, boolean isHollow, @Nullable EnumDyeColor activeColor);
+    IFacadePhasedState createPhasedState(IFacadeState state, @Nullable EnumDyeColor activeColor);
 
-    IFacade createPhasedFacade(IFacadePhasedState[] states);
+    IFacade createPhasedFacade(IFacadePhasedState[] states, boolean isHollow);
 
     default IFacade createBasicFacade(IFacadeState state, boolean isHollow) {
-        return createPhasedFacade(new IFacadePhasedState[] { createPhasedState(state, isHollow, null) });
+        return createPhasedFacade(new IFacadePhasedState[] { createPhasedState(state, null) }, isHollow);
     }
 }

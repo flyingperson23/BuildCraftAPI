@@ -1,24 +1,23 @@
 package buildcraft.api.transport.pipe;
 
-import java.util.IdentityHashMap;
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-
-import net.minecraftforge.common.capabilities.Capability;
-
 import buildcraft.api.core.CapabilitiesHelper;
 import buildcraft.api.mj.MjAPI;
 import buildcraft.api.transport.IInjectable;
 import buildcraft.api.transport.IStripesRegistry;
 import buildcraft.api.transport.pluggable.IPluggableRegistry;
 import buildcraft.api.transport.pluggable.PipePluggable;
+import net.minecraftforge.common.capabilities.Capability;
+
+import javax.annotation.Nonnull;
+import java.util.IdentityHashMap;
+import java.util.Map;
 
 /** The central holding class for all pipe related registers and methods. */
 public final class PipeApi {
     public static IPipeRegistry pipeRegistry;
     public static IPluggableRegistry pluggableRegistry;
     public static IStripesRegistry stripeRegistry;
+    public static IPipeExtensionManager extensionManager;
     public static PipeFlowType flowStructure;
     public static PipeFlowType flowItems;
     public static PipeFlowType flowFluids;

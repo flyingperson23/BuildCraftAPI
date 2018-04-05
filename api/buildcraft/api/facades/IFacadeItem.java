@@ -4,15 +4,16 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.facades;
 
-import javax.annotation.Nullable;
-
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public interface IFacadeItem {
 
     @Nullable
-    default FacadeType getFacadeType(ItemStack stack) {
+    default FacadeType getFacadeType(@Nonnull ItemStack stack) {
         IFacade facade = getFacade(stack);
         if (facade == null) {
             return null;
@@ -20,15 +21,15 @@ public interface IFacadeItem {
         return facade.getType();
     }
 
-    @Nullable
+    @Nonnull
     ItemStack getFacadeForBlock(IBlockState state);
 
     /** @param facade The {@link IFacade} instance. NOTE: This MUST be an object returned from
      *            {@link IFacadeRegistry#createBasicFacade(IFacadeState, boolean)} or
-     *            {@link IFacadeRegistry#createPhasedFacade(IFacadePhasedState[])}, otherwise a
+     *            {@link IFacadeRegistry#createPhasedFacade(IFacadePhasedState[], boolean)}, otherwise a
      *            {@link ClassCastException} will be thrown! */
     ItemStack createFacadeStack(IFacade facade);
 
     @Nullable
-    IFacade getFacade(ItemStack facade);
+    IFacade getFacade(@Nonnull ItemStack facade);
 }

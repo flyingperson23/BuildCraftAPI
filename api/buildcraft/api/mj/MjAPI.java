@@ -1,16 +1,13 @@
 package buildcraft.api.mj;
 
-import java.text.DecimalFormat;
-
-import javax.annotation.Nonnull;
-
+import buildcraft.api.core.CapabilitiesHelper;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-
 import net.minecraftforge.common.capabilities.Capability;
 
-import buildcraft.api.core.CapabilitiesHelper;
+import javax.annotation.Nonnull;
+import java.text.DecimalFormat;
 
 public class MjAPI {
 
