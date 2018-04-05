@@ -23,7 +23,7 @@ public class PipeFaceTex {
 
     private final int hash;
 
-    public static PipeFaceTex get(int[] textures, int[] colours) {
+    public static PipeFaceTex get(int[] textures, int... colours) {
         switch (textures.length) {
             case 0: {
                 return NO_SPRITE;
@@ -53,7 +53,7 @@ public class PipeFaceTex {
         return new PipeFaceTex(singleTexture);
     }
 
-    private PipeFaceTex(int[] textures, int[] colours) {
+    private PipeFaceTex(int[] textures, int... colours) {
         this.textures = textures;
         this.colours = colours;
         for (int i = 0; i < colours.length; i++) {
