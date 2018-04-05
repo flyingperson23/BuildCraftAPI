@@ -42,8 +42,14 @@ public abstract class PipeBehaviour implements ICapabilityProvider {
 
     public void readPayload(PacketBuffer buffer, Side side, MessageContext ctx) throws IOException {}
 
+    /** @deprecated Replaced by {@link #getTextureData(EnumFacing)}. */
+    @Deprecated
     public int getTextureIndex(EnumFacing face) {
         return 0;
+    }
+
+    public PipeFaceTex getTextureData(EnumFacing face) {
+        return PipeFaceTex.get(getTextureIndex(face));
     }
 
     // Event handling
