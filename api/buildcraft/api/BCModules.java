@@ -2,6 +2,9 @@ package buildcraft.api;
 
 import java.util.Locale;
 
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.util.ResourceLocation;
+
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.LoaderState;
 
@@ -56,5 +59,17 @@ public enum BCModules implements IBuildCraftMod {
     public boolean isLoaded() {
         checkLoadStatus();
         return loaded;
+    }
+
+    public ResourceLocation createLocation(String path) {
+        return new ResourceLocation(getModId(), path);
+    }
+
+    public ModelResourceLocation createModelLocation(String path, String variant) {
+        return new ModelResourceLocation(getModId() + ":" + path + "#" + variant);
+    }
+
+    public ModelResourceLocation createModelLocation(String pathAndVariant) {
+        return new ModelResourceLocation(getModId() + ":" + pathAndVariant);
     }
 }
