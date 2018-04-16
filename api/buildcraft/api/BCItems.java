@@ -54,7 +54,9 @@ public class BCItems {
 
     @ObjectHolder("buildcrafttransport")
     public static class Transport {
+        public static final Item PLUG_BLOCKER = null;
 
+        public static final Item PIPE_STRUCTURE = null;
     }
 
     @ObjectHolder("buildcraftsilicon")
