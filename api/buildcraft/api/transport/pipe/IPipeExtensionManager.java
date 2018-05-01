@@ -4,11 +4,12 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.transport.pipe;
 
-import buildcraft.api.transport.IStripesActivator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import buildcraft.api.transport.IStripesActivator;
 
 public interface IPipeExtensionManager {
 

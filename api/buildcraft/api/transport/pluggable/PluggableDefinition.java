@@ -1,13 +1,14 @@
 package buildcraft.api.transport.pluggable;
 
-import buildcraft.api.core.InvalidInputDataException;
-import buildcraft.api.transport.pipe.IPipeHolder;
+import javax.annotation.Nullable;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nullable;
+import buildcraft.api.core.InvalidInputDataException;
+import buildcraft.api.transport.pipe.IPipeHolder;
 
 public final class PluggableDefinition {
     public final ResourceLocation identifier;

@@ -1,17 +1,20 @@
 package buildcraft.api.transport.pipe;
 
-import buildcraft.api.items.BCStackHelper;
+import java.util.*;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.*;
+import buildcraft.api.items.BCStackHelper;
 
 public abstract class PipeEventItem extends PipeEvent {
 

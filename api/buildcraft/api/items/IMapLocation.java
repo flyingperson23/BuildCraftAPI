@@ -1,13 +1,14 @@
 package buildcraft.api.items;
 
-import buildcraft.api.core.IBox;
-import buildcraft.api.core.IZone;
+import javax.annotation.Nonnull;
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
-import javax.annotation.Nonnull;
-import java.util.List;
+import buildcraft.api.core.IBox;
+import buildcraft.api.core.IZone;
 
 /** Created by asie on 2/28/15. */
 public interface IMapLocation extends INamedItem {

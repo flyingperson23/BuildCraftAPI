@@ -1,8 +1,8 @@
 package buildcraft.api.items;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.Objects;
+
+import net.minecraft.item.ItemStack;
 
 public class BCStackHelper {
 

@@ -1,12 +1,12 @@
 package buildcraft.api.enums;
 
+import javax.annotation.Nullable;
+import java.util.Locale;
+
 import buildcraft.api.BCItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-
-import javax.annotation.Nullable;
-import java.util.Locale;
 
 public enum EnumRedstoneChipset implements IStringSerializable {
     RED,

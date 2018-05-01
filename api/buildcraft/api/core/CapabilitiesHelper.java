@@ -1,5 +1,10 @@
 package buildcraft.api.core;
 
+import javax.annotation.Nonnull;
+import java.lang.reflect.Field;
+import java.util.IdentityHashMap;
+import java.util.concurrent.Callable;
+
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -7,10 +12,6 @@ import net.minecraftforge.common.capabilities.Capability.IStorage;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 
-import javax.annotation.Nonnull;
-import java.lang.reflect.Field;
-import java.util.IdentityHashMap;
-import java.util.concurrent.Callable;
 
 /** Forge has a wonderful system for capabilities, which provides a better way of managing mod compat even if the target
  * mod isn't loaded. Said system uses ASM data to inject capabilities into every mod, which makes it a matter of

@@ -4,13 +4,14 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.statements;
 
-import buildcraft.api.statements.StatementManager.IParamReaderBuf;
-import buildcraft.api.statements.StatementManager.IParameterReader;
+import javax.annotation.Nullable;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
 
-import javax.annotation.Nullable;
+import buildcraft.api.statements.StatementManager.IParamReaderBuf;
+import buildcraft.api.statements.StatementManager.IParameterReader;
 
 public interface IStatementParameter extends IGuiSlot {
 

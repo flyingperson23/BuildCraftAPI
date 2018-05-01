@@ -1,10 +1,10 @@
 package buildcraft.api.items;
 
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.IFluidTank;
-
-import java.util.List;
 
 public class FluidItemDrops {
 

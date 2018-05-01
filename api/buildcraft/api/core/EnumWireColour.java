@@ -1,10 +1,11 @@
 package buildcraft.api.core;
 
-import net.minecraft.item.EnumDyeColor;
-
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.Set;
+
+import net.minecraft.item.EnumDyeColor;
+
 
 /** A subset of colours from {@link EnumDyeColor} that are suitable for use in LED's or wires (or equivalent). In other
  * words they must all be uniquely identifiable from both their lit and dark colours, and not look similar to other

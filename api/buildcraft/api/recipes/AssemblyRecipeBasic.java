@@ -11,14 +11,13 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Nonnull;
-
-import buildcraft.api.items.BCStackHelper;
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import buildcraft.api.core.BuildCraftAPI;
+import buildcraft.api.items.BCStackHelper;
 
 /**
  * @deprecated TEMPORARY CLASS DO NOT USE!

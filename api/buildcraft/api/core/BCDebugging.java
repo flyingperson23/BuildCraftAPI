@@ -4,11 +4,12 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.core;
 
+import java.lang.reflect.Method;
+import java.util.Locale;
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.lang.reflect.Method;
-import java.util.Locale;
 
 /** Provides a way to quickly enable or disable certain debug conditions via VM arguments or whether the client/server
  * is in a dev environment */

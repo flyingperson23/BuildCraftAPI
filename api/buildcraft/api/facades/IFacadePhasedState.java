@@ -1,8 +1,8 @@
 package buildcraft.api.facades;
 
-import net.minecraft.item.EnumDyeColor;
-
 import javax.annotation.Nullable;
+
+import net.minecraft.item.EnumDyeColor;
 
 public interface IFacadePhasedState {
     IFacadeState getState();

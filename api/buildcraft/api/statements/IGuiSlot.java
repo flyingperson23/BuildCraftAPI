@@ -1,13 +1,16 @@
 package buildcraft.api.statements;
 
-import buildcraft.api.core.IConvertable;
-import buildcraft.api.core.render.ISprite;
+import java.util.List;
+
+import javax.annotation.Nullable;
 import com.google.common.collect.ImmutableList;
+
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nullable;
-import java.util.List;
+import buildcraft.api.core.IConvertable;
+import buildcraft.api.core.render.ISprite;
+
 
 public interface IGuiSlot extends IConvertable {
     /** Every statement needs a unique tag, it should be in the format of "&lt;modid&gt;:&lt;name&gt;".

@@ -1,8 +1,11 @@
 package buildcraft.api.transport.pluggable;
 
-import buildcraft.api.items.BCStackHelper;
-import buildcraft.api.transport.pipe.IPipeHolder;
-import buildcraft.api.transport.pipe.IPipeHolder.PipeMessageReceiver;
+import java.io.IOException;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,10 +26,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.io.IOException;
-import java.util.List;
+import buildcraft.api.items.BCStackHelper;
+import buildcraft.api.transport.pipe.IPipeHolder;
+import buildcraft.api.transport.pipe.IPipeHolder.PipeMessageReceiver;
 
 public abstract class PipePluggable {
     public final PluggableDefinition definition;

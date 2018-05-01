@@ -1,18 +1,13 @@
 package buildcraft.api.recipes;
 
-import buildcraft.api.core.BuildCraftAPI;
-import buildcraft.api.items.BCStackHelper;
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableSet;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+
 
 /**
  * @deprecated TEMPORARY CLASS DO NOT USE!

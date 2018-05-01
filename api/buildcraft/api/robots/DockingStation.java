@@ -4,10 +4,8 @@
  * of the license located in http://www.mod-buildcraft.com/MMPL-1.0.txt */
 package buildcraft.api.robots;
 
-import buildcraft.api.core.BCLog;
-import buildcraft.api.core.EnumPipePart;
-import buildcraft.api.statements.StatementSlot;
-import buildcraft.api.transport.IInjectable;
+import java.util.Arrays;
+
 import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -15,7 +13,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
-import java.util.Arrays;
+import buildcraft.api.core.BCLog;
+import buildcraft.api.core.EnumPipePart;
+import buildcraft.api.statements.StatementSlot;
+import buildcraft.api.transport.IInjectable;
 
 public abstract class DockingStation {
     public EnumFacing side;

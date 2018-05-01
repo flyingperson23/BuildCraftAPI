@@ -4,11 +4,11 @@
  * should be located as "LICENSE.API" in the BuildCraft source code distribution. */
 package buildcraft.api.facades;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemStack;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
 
 public interface IFacadeItem {
 
