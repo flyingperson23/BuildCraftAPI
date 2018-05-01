@@ -16,6 +16,7 @@ public final class PipeDefinition {
     public final PipeFlowType flowType;
     public final String[] textures;
     public final int itemTextureTop, itemTextureCenter, itemTextureBottom;
+    public final PipeFaceTex itemModelTop, itemModelCenter, itemModelBottom;
     public final boolean canBeColoured;
     private EnumPipeColourType colourType;
 
@@ -31,6 +32,9 @@ public final class PipeDefinition {
         this.itemTextureTop = builder.itemTextureTop;
         this.itemTextureCenter = builder.itemTextureCenter;
         this.itemTextureBottom = builder.itemTextureBottom;
+        this.itemModelBottom = builder.itemModelBottom;
+        this.itemModelCenter = builder.itemModelCenter;
+        this.itemModelTop = builder.itemModelTop;
         this.canBeColoured = builder.canBeColoured;
         this.colourType = builder.colourType;
     }
@@ -67,9 +71,11 @@ public final class PipeDefinition {
         public IPipeCreator logicConstructor;
         public IPipeLoader logicLoader;
         public PipeFlowType flowType;
-        public int itemTextureTop = 0;
-        public int itemTextureCenter = 0;
-        public int itemTextureBottom = 0;
+        @Deprecated
+        public int itemTextureTop = 0, itemTextureCenter = 0, itemTextureBottom = 0;
+        public PipeFaceTex itemModelTop = PipeFaceTex.get(0);
+        public PipeFaceTex itemModelCenter = PipeFaceTex.get(0);
+        public PipeFaceTex itemModelBottom = PipeFaceTex.get(0);
         public boolean canBeColoured;
         public EnumPipeColourType colourType;
 
@@ -140,6 +146,9 @@ public final class PipeDefinition {
         }
 
         public PipeDefinitionBuilder itemTex(int all) {
+            itemModelBottom = PipeFaceTex.get(all);
+            itemModelCenter = itemModelBottom;
+            itemModelTop = itemModelBottom;
             itemTextureTop = all;
             itemTextureCenter = all;
             itemTextureBottom = all;
@@ -147,6 +156,9 @@ public final class PipeDefinition {
         }
 
         public PipeDefinitionBuilder itemTex(int top, int center, int bottom) {
+            itemModelBottom = PipeFaceTex.get(bottom);
+            itemModelCenter = PipeFaceTex.get(center);
+            itemModelTop = PipeFaceTex.get(top);
             itemTextureTop = top;
             itemTextureCenter = center;
             itemTextureBottom = bottom;

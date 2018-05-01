@@ -138,17 +138,13 @@ public abstract class PipeEventItem extends PipeEvent {
             this.to = to;
         }
 
-        @Nonnull
+        @Nullable
         public ItemStack getExcess() {
             return this.excess;
         }
 
         public void setExcess(ItemStack stack) {
-            if (stack == null) {
-                throw new NullPointerException("stack");
-            } else {
-                this.excess = stack;
-            }
+            this.excess = stack;
         }
 
         /** Fired when an item is injected into a pipe. (Refer to {@link Ejected} for more details) */
