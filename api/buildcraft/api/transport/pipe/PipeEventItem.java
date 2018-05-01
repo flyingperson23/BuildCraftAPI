@@ -1,17 +1,26 @@
 package buildcraft.api.transport.pipe;
 
-import buildcraft.api.items.BCStackHelper;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.*;
+import buildcraft.api.items.BCStackHelper;
+
 
 public abstract class PipeEventItem extends PipeEvent {
 
@@ -138,17 +147,13 @@ public abstract class PipeEventItem extends PipeEvent {
             this.to = to;
         }
 
-        @Nonnull
+        @Nullable
         public ItemStack getExcess() {
             return this.excess;
         }
 
         public void setExcess(ItemStack stack) {
-            if (stack == null) {
-                throw new NullPointerException("stack");
-            } else {
-                this.excess = stack;
-            }
+            this.excess = stack;
         }
 
         /** Fired when an item is injected into a pipe. (Refer to {@link Ejected} for more details) */

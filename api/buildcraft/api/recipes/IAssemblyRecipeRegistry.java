@@ -1,7 +1,8 @@
 package buildcraft.api.recipes;
 
-import javax.annotation.Nonnull;
 import java.util.Iterator;
+
+import javax.annotation.Nonnull;
 
 public interface IAssemblyRecipeRegistry extends IAssemblyRecipeProvider {
     void addRecipe(@Nonnull AssemblyRecipe recipe);

@@ -1,9 +1,10 @@
 package buildcraft.api.facades;
 
-import net.minecraft.item.EnumDyeColor;
+import java.util.Collection;
 
 import javax.annotation.Nullable;
-import java.util.Collection;
+
+import net.minecraft.item.EnumDyeColor;
 
 public interface IFacadeRegistry {
 

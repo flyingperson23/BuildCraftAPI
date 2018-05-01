@@ -1,9 +1,9 @@
 package buildcraft.api.transport.pluggable;
 
+import java.util.Objects;
+
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-
-import java.util.Objects;
 
 public abstract class PluggableModelKey {
     public final BlockRenderLayer layer;

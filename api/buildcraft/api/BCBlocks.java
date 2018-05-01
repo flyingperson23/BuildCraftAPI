@@ -1,14 +1,27 @@
 package buildcraft.api;
 
-import buildcraft.api.core.BCDebugging;
 import net.minecraft.block.Block;
+
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
 public class BCBlocks {
 
-    private static final boolean DEBUG = BCDebugging.shouldDebugLog("api.blocks");
+    @ObjectHolder("buildcraftcore")
+    public static class Core {
+        @GameRegistry.ObjectHolder("spring")
+        public static final Block SPRING = null;
+        @GameRegistry.ObjectHolder("decorated")
+        public static final Block DECORATED = null;
+        @GameRegistry.ObjectHolder("engine")
+        public static final Block ENGINE = null;
+        @GameRegistry.ObjectHolder("marker_volume")
+        public static final Block MARKER_VOLUME = null;
+        @GameRegistry.ObjectHolder("marker_path")
+        public static final Block MARKER_PATH = null;
+    }
 
-    @GameRegistry.ObjectHolder("buildcraftbuilders")
+    @ObjectHolder("buildcraftbuilders")
     public static class Builders {
         @GameRegistry.ObjectHolder("architect")
         public static final Block ARCHITECT = null;
@@ -26,28 +39,12 @@ public class BCBlocks {
         public static final Block FRAME = null;
     }
 
-    @GameRegistry.ObjectHolder("buildcraftcore")
-    public static class Core {
-        @GameRegistry.ObjectHolder("spring")
-        public static final Block SPRING = null;
-        @GameRegistry.ObjectHolder("decorated")
-        public static final Block DECORATED = null;
-        @GameRegistry.ObjectHolder("engine")
-        public static final Block ENGINE = null;
-        @GameRegistry.ObjectHolder("marker_volume")
-        public static final Block MARKER_VOLUME = null;
-        @GameRegistry.ObjectHolder("marker_path")
-        public static final Block MARKER_PATH = null;
-        @GameRegistry.ObjectHolder("power_tester")
-        public static final Block POWER_TESTER = null;
-    }
-
-    @GameRegistry.ObjectHolder("buildcraftenergy")
+    @ObjectHolder("buildcraftenergy")
     public static class Energy {
         // Fluid blocks can be accessed ~somewhere else~
     }
 
-    @GameRegistry.ObjectHolder("buildcraftfactory")
+    @ObjectHolder("buildcraftfactory")
     public static class Factory {
         @GameRegistry.ObjectHolder("autoworkbench_item")
         public static final Block AUTOWORKBENCH_ITEM = null;
@@ -71,12 +68,15 @@ public class BCBlocks {
         public static final Block HEAT_EXCHANGE = null;
     }
 
-    @GameRegistry.ObjectHolder("buildcraftrobotics")
-    public static class Robotics {
-
+    @ObjectHolder("buildcrafttransport")
+    public static class Transport {
+        @GameRegistry.ObjectHolder("filtered_buffer")
+        public static final Block FILTERED_BUFFER = null;
+        @GameRegistry.ObjectHolder("pipe_holder")
+        public static final Block PIPE_HOLDER = null;
     }
 
-    @GameRegistry.ObjectHolder("buildcraftsilicon")
+    @ObjectHolder("buildcraftsilicon")
     public static class Silicon {
         @GameRegistry.ObjectHolder("laser")
         public static final Block LASER = null;
@@ -92,11 +92,8 @@ public class BCBlocks {
         public static final Block PROGRAMMING_TABLE = null;
     }
 
-    @GameRegistry.ObjectHolder("buildcrafttransport")
-    public static class Transport {
-        @GameRegistry.ObjectHolder("filtered_buffer")
-        public static final Block FILTERED_BUFFER = null;
-        @GameRegistry.ObjectHolder("pipe_holder")
-        public static final Block PIPE_HOLDER = null;
+    @ObjectHolder("buildcraftrobotics")
+    public static class Robotics {
+
     }
 }

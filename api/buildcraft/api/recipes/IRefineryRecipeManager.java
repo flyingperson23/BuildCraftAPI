@@ -1,11 +1,12 @@
 package buildcraft.api.recipes;
 
-import net.minecraftforge.fluids.FluidStack;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
+
+import javax.annotation.Nullable;
+
+import net.minecraftforge.fluids.FluidStack;
 
 public interface IRefineryRecipeManager {
     IHeatableRecipe createHeatingRecipe(FluidStack in, FluidStack out, int heatFrom, int heatTo);

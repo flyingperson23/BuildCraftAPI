@@ -1,20 +1,23 @@
 package buildcraft.api.recipes;
 
-import buildcraft.api.core.BuildCraftAPI;
-import com.google.common.collect.ImmutableList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import com.google.common.collect.ImmutableSet;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
+import buildcraft.api.core.BuildCraftAPI;
 
 public final class IntegrationRecipe {
     public final ResourceLocation name;
     public final long requiredMicroJoules;
     public final StackDefinition target;
-    public final ImmutableList<StackDefinition> toIntegrate;
+    public final ImmutableSet<StackDefinition> toIntegrate;
     public final @Nonnull ItemStack output;
     /**
      * Additional tag used to restore network-transmitted recipe to same state
@@ -27,7 +30,7 @@ public final class IntegrationRecipe {
         this.name = name;
         this.requiredMicroJoules = requiredMicroJoules;
         this.target = target;
-        this.toIntegrate = ImmutableList.copyOf(toIntegrate);
+        this.toIntegrate = ImmutableSet.copyOf(toIntegrate);
         this.output = output;
         this.recipeTag = recipeTag;
     }
