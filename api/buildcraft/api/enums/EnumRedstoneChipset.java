@@ -4,10 +4,11 @@ import java.util.Locale;
 
 import javax.annotation.Nullable;
 
-import buildcraft.api.BCItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+
+import buildcraft.api.BCItems;
 
 public enum EnumRedstoneChipset implements IStringSerializable {
     RED,
