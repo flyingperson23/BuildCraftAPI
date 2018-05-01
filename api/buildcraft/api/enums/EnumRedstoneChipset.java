@@ -1,7 +1,8 @@
 package buildcraft.api.enums;
 
-import javax.annotation.Nullable;
 import java.util.Locale;
+
+import javax.annotation.Nullable;
 
 import buildcraft.api.BCItems;
 import net.minecraft.item.Item;

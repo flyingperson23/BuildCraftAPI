@@ -1,9 +1,10 @@
 package buildcraft.api.core;
 
-import javax.annotation.Nonnull;
 import java.lang.reflect.Field;
 import java.util.IdentityHashMap;
 import java.util.concurrent.Callable;
+
+import javax.annotation.Nonnull;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;

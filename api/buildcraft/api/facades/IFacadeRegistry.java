@@ -1,7 +1,8 @@
 package buildcraft.api.facades;
 
-import javax.annotation.Nullable;
 import java.util.Collection;
+
+import javax.annotation.Nullable;
 
 import net.minecraft.item.EnumDyeColor;
 

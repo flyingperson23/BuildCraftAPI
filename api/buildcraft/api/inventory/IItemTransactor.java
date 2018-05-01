@@ -1,13 +1,13 @@
 package buildcraft.api.inventory;
 
-import javax.annotation.Nullable;
 import java.util.List;
+import javax.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 
+import net.minecraft.item.ItemStack;
 import buildcraft.api.core.IStackFilter;
 import buildcraft.api.items.BCStackHelper;
-import net.minecraft.item.ItemStack;
 
 
 /** A simple way to define something that deals with item insertion and extraction, without caring about slots. */
