@@ -1,5 +1,7 @@
 package buildcraft.api;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -24,6 +26,7 @@ public enum BCModules implements IBuildCraftMod {
 
     public static final BCModules[] VALUES = values();
     private static boolean hasChecked = false;
+    private static BCModules[] loadedModules, missingModules;
 
     public final String lowerCaseName = name().toLowerCase(Locale.ROOT);
     private final String modId = "buildcraft" + lowerCaseName;
@@ -33,13 +36,29 @@ public enum BCModules implements IBuildCraftMod {
         if (hasChecked) {
             return;
         }
-        hasChecked = true;
+        load0();
+    }
+
+    /** Performs the actual loading of {@link #checkLoadStatus()}, except this is thread safe. */
+    private static synchronized void load0() {
+        if (hasChecked) {
+            return;
+        }
         if (!Loader.instance().hasReachedState(LoaderState.PREINITIALIZATION)) {
             throw new RuntimeException("You can only use EnumBuidCraftModule.isLoaded from pre-init onwards!");
         }
+        List<BCModules> found = new ArrayList<>(), missing = new ArrayList<>();
         for (BCModules module : VALUES) {
             module.loaded = Loader.isModLoaded(module.modId);
+            if (module.loaded) {
+                found.add(module);
+            } else {
+                missing.add(module);
+            }
         }
+        loadedModules = found.toArray(new BCModules[0]);
+        missingModules = missing.toArray(new BCModules[0]);
+        hasChecked = true;
     }
 
     public static boolean isBcMod(String testModId) {
@@ -49,6 +68,16 @@ public enum BCModules implements IBuildCraftMod {
             }
         }
         return false;
+    }
+
+    public static BCModules[] getLoadedModules() {
+        checkLoadStatus();
+        return loadedModules;
+    }
+
+    public static BCModules[] getMissingModules() {
+        checkLoadStatus();
+        return missingModules;
     }
 
     @Override
