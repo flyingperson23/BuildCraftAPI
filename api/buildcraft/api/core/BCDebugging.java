@@ -10,6 +10,12 @@ import java.util.Locale;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.LoaderState;
+import net.minecraftforge.fml.common.ModContainer;
+
+import buildcraft.api.BCModules;
+
 /** Provides a way to quickly enable or disable certain debug conditions via VM arguments or whether the client/server
  * is in a dev environment */
 public class BCDebugging {
@@ -38,6 +44,18 @@ public class BCDebugging {
         // - "disable" Disables ALL debugging (and doesn't output any messages even in the dev environment)
         // - "log" Major debug options are turned on. Registry setup + API usage etc
         // - "all" All possible debug options are turned on. Lots of spam. Not recommended.
+        // In addition logging is force-enabled for prereleases as that makes testing much easier
+
+        boolean isPrerelease = false;
+        Loader loader = Loader.instance();
+        // Check to see if loader.getIndexedModList() will NPE if this is a JUnit test as it hasn't been setup properly
+        // Fortunately this check always returns true if it is in a valid state.
+        if (loader.hasReachedState(LoaderState.NOINIT)) {
+            ModContainer libModContainer = loader.getIndexedModList().get(BCModules.LIB.getModId());
+            if (libModContainer != null) {
+                isPrerelease = libModContainer.getVersion().contains("-pre");
+            }
+        }
 
         boolean isDev;
         try {
@@ -59,13 +77,13 @@ public class BCDebugging {
         } else if ("log".equals(value)) {
             // Some debugging options are more than just logging, so we will differentiate between them
             DEBUG_STATUS = DebugStatus.LOGGING_ONLY;
+        } else if (isPrerelease) {
+            DEBUG_STATUS = DebugStatus.LOGGING_ONLY;
+        } else if (isDev) {
+            DEBUG_STATUS = DebugStatus.ENABLE;
         } else {
-            if (isDev) {
-                DEBUG_STATUS = DebugStatus.ENABLE;
-            } else {
-                // Most likely a built jar - don't spam people with info they probably don't need
-                DEBUG_STATUS = DebugStatus.NONE;
-            }
+            // Most likely a built jar - don't spam people with info they probably don't need
+            DEBUG_STATUS = DebugStatus.NONE;
         }
 
         if (DEBUG_STATUS == DebugStatus.ALL) {
