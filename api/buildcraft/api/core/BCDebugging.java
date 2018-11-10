@@ -46,17 +46,6 @@ public class BCDebugging {
         // - "all" All possible debug options are turned on. Lots of spam. Not recommended.
         // In addition logging is force-enabled for prereleases as that makes testing much easier
 
-        boolean isPrerelease = false;
-        Loader loader = Loader.instance();
-        // Check to see if loader.getIndexedModList() will NPE if this is a JUnit test as it hasn't been setup properly
-        // Fortunately this check always returns true if it is in a valid state.
-        if (loader.hasReachedState(LoaderState.NOINIT)) {
-            ModContainer libModContainer = loader.getIndexedModList().get(BCModules.LIB.getModId());
-            if (libModContainer != null) {
-                isPrerelease = libModContainer.getVersion().contains("-pre");
-            }
-        }
-
         boolean isDev;
         try {
             Method getTileEntity = World.class.getDeclaredMethod("getTileEntity", BlockPos.class);
@@ -76,8 +65,6 @@ public class BCDebugging {
             DEBUG_STATUS = DebugStatus.NONE;
         } else if ("log".equals(value)) {
             // Some debugging options are more than just logging, so we will differentiate between them
-            DEBUG_STATUS = DebugStatus.LOGGING_ONLY;
-        } else if (isPrerelease) {
             DEBUG_STATUS = DebugStatus.LOGGING_ONLY;
         } else if (isDev) {
             DEBUG_STATUS = DebugStatus.ENABLE;
