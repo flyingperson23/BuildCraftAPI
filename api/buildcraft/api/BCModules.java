@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.annotation.Nullable;
+
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.util.ResourceLocation;
 
@@ -29,6 +31,8 @@ public enum BCModules implements IBuildCraftMod {
     private static BCModules[] loadedModules, missingModules;
 
     public final String lowerCaseName = name().toLowerCase(Locale.ROOT);
+    // Bit hacky, but it works as this is all english
+    public final String camelCaseName = name().charAt(0) + lowerCaseName.substring(0);
     private final String modId = "buildcraft" + lowerCaseName;
     private boolean loaded;
 
@@ -61,13 +65,18 @@ public enum BCModules implements IBuildCraftMod {
         hasChecked = true;
     }
 
-    public static boolean isBcMod(String testModId) {
+    @Nullable
+    public static BCModules getBcMod(String testModId) {
         for (BCModules mod : VALUES) {
             if (mod.modId.equals(testModId)) {
-                return true;
+                return mod;
             }
         }
-        return false;
+        return null;
+    }
+
+    public static boolean isBcMod(String testModId) {
+        return getBcMod(testModId) != null;
     }
 
     public static BCModules[] getLoadedModules() {
