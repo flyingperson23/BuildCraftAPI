@@ -25,8 +25,6 @@ public interface IReloadableRegistry<E> {
         getManager().reload(this);
     }
 
-    Class<E> getEntryClass();
-
     /** Adds an entry permanently to this reloadable manager. This will throw an exception if used during
      * {@link EventBuildCraftReload} event firings. */
     <T extends E> T addPermanent(T recipe);
