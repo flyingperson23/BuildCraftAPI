@@ -6,8 +6,6 @@ import java.util.EnumSet;
 
 import javax.annotation.Nonnull;
 
-import com.google.common.collect.Lists;
-
 import net.minecraft.util.EnumFacing;
 
 import net.minecraftforge.fluids.FluidStack;
@@ -160,8 +158,46 @@ public abstract class PipeEventFluid extends PipeEvent {
             allowed.removeAll(sides);
         }
 
+        public void disallowAllExcept(EnumFacing side) {
+            if (allowed.contains(side)) {
+                allowed.clear();
+                allowed.add(side);
+            } else {
+                allowed.clear();
+            }
+        }
+
         public void disallowAllExcept(EnumFacing... sides) {
-            allowed.retainAll(Lists.newArrayList(sides));
+            switch (sides.length) {
+                case 0: {
+                    allowed.clear();
+                    return;
+                }
+                case 1: {
+                    disallowAllExcept(sides[0]);
+                    return;
+                }
+                case 2: {
+                    allowed.retainAll(EnumSet.of(sides[0], sides[1]));
+                    return;
+                }
+                case 3: {
+                    allowed.retainAll(EnumSet.of(sides[0], sides[1], sides[2]));
+                    return;
+                }
+                case 4: {
+                    allowed.retainAll(EnumSet.of(sides[0], sides[1], sides[2], sides[3]));
+                    return;
+                }
+                default: {
+                    EnumSet<EnumFacing> except = EnumSet.noneOf(EnumFacing.class);
+                    for (EnumFacing face : sides) {
+                        except.add(face);
+                    }
+                    this.allowed.retainAll(except);
+                    return;
+                }
+            }
         }
 
         public void disallowAllExcept(Collection<EnumFacing> sides) {
