@@ -55,13 +55,21 @@ public class BCItems {
     @ObjectHolder("buildcrafttransport")
     public static class Transport {
         public static final Item PLUG_BLOCKER = null;
+        public static final Item PLUG_POWER_ADAPTOR = null;
 
         public static final Item PIPE_STRUCTURE = null;
+        public static final Item PIPE_WOOD_ITEM = null;
+        public static final Item PIPE_EMZULI_ITEM = null;
+        public static final Item PIPE_DIAMOND_WOOD_ITEM = null;
+        public static final Item PIPE_WOOD_FLUID = null;
+        public static final Item PIPE_DIAMOND_WOOD_FLUID = null;
     }
 
     @ObjectHolder("buildcraftsilicon")
     public static class Silicon {
         public static final Item REDSTONE_CHIPSET = null;
+
+        public static final Item PLUG_PULSAR = null;
     }
 
     @ObjectHolder("buildcraftrobotics")
