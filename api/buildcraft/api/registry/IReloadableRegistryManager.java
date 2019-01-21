@@ -9,6 +9,9 @@ public interface IReloadableRegistryManager {
 
     PackType getType();
 
+    /** @return True if this is loading everything during post-init, false otherwise. */
+    boolean isLoadingAll();
+
     void reload(IReloadableRegistry<?> registry);
 
     void reload(IReloadableRegistry<?>... registries);
