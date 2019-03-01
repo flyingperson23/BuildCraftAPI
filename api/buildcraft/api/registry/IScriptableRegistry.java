@@ -1,6 +1,7 @@
 package buildcraft.api.registry;
 
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,7 +24,7 @@ public interface IScriptableRegistry<E> extends IReloadableRegistry<E> {
      *         empty string will be the default type. */
     Map<String, Class<? extends E>> getScriptableTypes();
 
-    /** @return A map containing all custom deserializer types. The key with an empty string will be the defaultt
+    /** @return A map containing all custom deserializer types. The key with an empty string will be the default
      *         type. */
     Map<String, IEntryDeserializer<? extends E>> getCustomDeserializers();
 
@@ -34,6 +35,11 @@ public interface IScriptableRegistry<E> extends IReloadableRegistry<E> {
     default void addCustomType(String name, IEntryDeserializer<? extends E> deserializer) {
         getCustomDeserializers().put(name, deserializer);
     }
+
+    /** @return A {@link Set} (likely unmodifiable) that contains all of the
+     *         {@link ResourceLocation#getResourceDomain()}'s that had added entries to this registry through
+     *         scripts. */
+    Set<String> getSourceDomains();
 
     @FunctionalInterface
     public interface IEntryDeserializer<E> {
