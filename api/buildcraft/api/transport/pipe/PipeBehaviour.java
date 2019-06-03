@@ -62,6 +62,11 @@ public abstract class PipeBehaviour implements ICapabilityProvider {
         return true;
     }
 
+    /** Used to force a connection to a given tile, even if the {@link PipeFlow} wouldn't normally connect to it. */
+    public boolean shouldForceConnection(EnumFacing face, TileEntity oTile) {
+        return false;
+    }
+
     public boolean onPipeActivate(EntityPlayer player, RayTraceResult trace, float hitX, float hitY, float hitZ,
         EnumPipePart part) {
         return false;

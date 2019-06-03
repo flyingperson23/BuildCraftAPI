@@ -65,11 +65,18 @@ public abstract class PipeFlow implements ICapabilityProvider {
 
     public abstract boolean canConnect(EnumFacing face, TileEntity oTile);
 
+    /** Used to force a connection to a given tile, even if the {@link PipeBehaviour} wouldn't normally connect to
+     * it. */
+    public boolean shouldForceConnection(EnumFacing face, TileEntity oTile) {
+        return false;
+    }
+
     public void onTick() {}
 
     public void addDrops(NonNullList<ItemStack> toDrop, int fortune) {}
 
-    public boolean onFlowActivate(EntityPlayer player, RayTraceResult trace, float hitX, float hitY, float hitZ, EnumPipePart part) {
+    public boolean onFlowActivate(EntityPlayer player, RayTraceResult trace, float hitX, float hitY, float hitZ,
+        EnumPipePart part) {
         return false;
     }
 
