@@ -50,15 +50,8 @@ public interface IScriptableRegistry<E> extends IReloadableRegistry<E> {
          *         {@link OptionallyDisabled#isPresent() isPresent()} as false if:
          *         <ol>
          *         <li>The json object is well-formed</li>
-         *         <li>and any of these are the case:
-         *         <ul>
-         *         <li>The json refers to an item, pipe, block, etc that has been disabled in a config file (like if
-         *         buildcraft.lib.registry.RegistryConfig#hasObjectBeenDisabled(String,
-         *         net.minecraft.util.ResourceLocation) returns true)</li>or
-         *         <li></li>
-         *         <li>or any other scenario where the json might be valid in some other well-defined cases.</li>
-         *         </ul>
-         *         </li>
+         *         <li>Some part of what the json refers to has been disabled externally through configs (for example
+         *         blocks, items, pipes etc through buildcraft/objects.cfg or similar).</li>
          *         </ol>
          * @throws JsonSyntaxException if the input {@link JsonObject} was either missing required fields or had the
          *             wrong type or data for those fields. */
