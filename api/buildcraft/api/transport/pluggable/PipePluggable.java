@@ -135,7 +135,7 @@ public abstract class PipePluggable {
     }
 
     /** PipePluggable version of
-     * {@link net.minecraft.block.state.IBlockState#isSideSolid(IBlockAccess, BlockPos, EnumFacing)}  */
+     * {@link net.minecraft.block.state.IBlockState#isSideSolid(IBlockAccess, BlockPos, EnumFacing)} */
     public boolean isSideSolid() {
         return false;
     }
@@ -150,8 +150,12 @@ public abstract class PipePluggable {
     }
 
     /** PipePluggable version of
-     * {@link net.minecraft.block.state.IBlockState#getBlockFaceShape(IBlockAccess, BlockPos, EnumFacing)}  */
+     * {@link net.minecraft.block.state.IBlockState#getBlockFaceShape(IBlockAccess, BlockPos, EnumFacing)} */
     public BlockFaceShape getBlockFaceShape() {
         return BlockFaceShape.UNDEFINED;
+    }
+
+    public void onPlacedBy(EntityPlayer player) {
+
     }
 }
