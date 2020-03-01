@@ -1,8 +1,8 @@
 package buildcraft.api.enums;
 
 public enum EnumSnapshotType {
-    TEMPLATE(9),
-    BLUEPRINT(3);
+    TEMPLATE(900),
+    BLUEPRINT(300);
 
     public final int maxPerTick;
 
