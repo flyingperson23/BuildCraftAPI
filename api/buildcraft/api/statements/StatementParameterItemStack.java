@@ -26,10 +26,14 @@ public class StatementParameterItemStack implements IStatementParameter {
     @Nonnull
     private static final ItemStack EMPTY_STACK;
 
+    /** Immutable parameter that has the {@link ItemStack#EMPTY} as it's {@link #stack}. */
+    public static final StatementParameterItemStack EMPTY;
+
     static {
         ItemStack stack = ItemStack.EMPTY;
         if (stack == null) throw new Error("Somehow ItemStack.EMPTY was null!");
         EMPTY_STACK = stack;
+        EMPTY = new StatementParameterItemStack();
     }
 
     @Nonnull
@@ -73,10 +77,11 @@ public class StatementParameterItemStack implements IStatementParameter {
     }
 
     @Override
-    public StatementParameterItemStack onClick(IStatementContainer source, IStatement stmt, ItemStack stack,
-        StatementMouseClick mouse) {
+    public StatementParameterItemStack onClick(
+        IStatementContainer source, IStatement stmt, ItemStack stack, StatementMouseClick mouse
+    ) {
         if (stack.isEmpty()) {
-            return new StatementParameterItemStack();
+            return EMPTY;
         } else {
             ItemStack newStack = stack.copy();
             newStack.setCount(1);
@@ -90,7 +95,7 @@ public class StatementParameterItemStack implements IStatementParameter {
             StatementParameterItemStack param = (StatementParameterItemStack) object;
 
             return ItemStack.areItemStacksEqual(stack, param.stack)
-                && ItemStack.areItemStackTagsEqual(stack, param.stack);
+            && ItemStack.areItemStackTagsEqual(stack, param.stack);
         } else {
             return false;
         }
