@@ -60,9 +60,9 @@ public class BCItems {
         public static final Item PIPE_STRUCTURE = null;
         public static final Item PIPE_WOOD_ITEM = null;
         public static final Item PIPE_EMZULI_ITEM = null;
-        public static final Item PIPE_DIAMOND_WOOD_ITEM = null;
+        public static final Item PIPE_EMERALD_ITEM = null;
         public static final Item PIPE_WOOD_FLUID = null;
-        public static final Item PIPE_DIAMOND_WOOD_FLUID = null;
+        public static final Item PIPE_EMERALD_FLUID = null;
     }
 
     @ObjectHolder("buildcraftsilicon")

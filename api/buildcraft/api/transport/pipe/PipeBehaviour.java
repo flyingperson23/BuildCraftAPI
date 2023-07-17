@@ -16,6 +16,7 @@ import net.minecraft.util.math.RayTraceResult;
 
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
 
@@ -87,4 +88,8 @@ public abstract class PipeBehaviour implements ICapabilityProvider {
     }
 
     public void addDrops(NonNullList<ItemStack> toDrop, int fortune) {}
+
+    public IEnergyStorage getRF() {
+        return null;
+    }
 }
