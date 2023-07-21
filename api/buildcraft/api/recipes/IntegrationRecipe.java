@@ -8,6 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.List;
+
 public abstract class IntegrationRecipe {
     public final ResourceLocation name;
 
@@ -35,9 +37,12 @@ public abstract class IntegrationRecipe {
      * @param output The output that would be generated
      * @return The powercost in microjoules
      */
-    public abstract long getRequiredMicroJoules(ItemStack output);
+    public abstract long getRequiredMicroJoules();
 
     public abstract IngredientStack getCenterStack();
+
+    public abstract List<IngredientStack> getSurrounding();
+    public abstract ItemStack getOutput();
 
     @Override
     public boolean equals(Object o) {

@@ -31,7 +31,7 @@ public final class PipeApi {
 
     /** The default transfer information used if a pipe definition has not been registered. Note that this is replaced
      * by BuildCraft Transport to config-defined values. */
-    public static PowerTransferInfo powerInfoDefault = PowerTransferInfo.createFromResistance(8 * MjAPI.MJ, MjAPI.MJ / 32, false);
+    public static PowerTransferInfo powerInfoDefault = PowerTransferInfo.create(80, false);
 
     public static final Map<PipeDefinition, FluidTransferInfo> fluidTransferData = new IdentityHashMap<>();
     public static final Map<PipeDefinition, PowerTransferInfo> powerTransferData = new IdentityHashMap<>();
@@ -86,37 +86,18 @@ public final class PipeApi {
     }
 
     public static class PowerTransferInfo {
-        public final long transferPerTick;
-        public final long lossPerTick;
-        /** The percentage resistance per tick. Should be a value between 0 and {@link MjAPI#MJ} */
-        public final long resistancePerTick;
+        public final int transferPerTick;
         public final boolean isReceiver;
 
-        /** Sets resistancePerTick to be equal to lossPerTick when full power is being transferred, scaling down to 0.
-         * 
-         * @param transferPerTick
-         * @param lossPerTick
-         * @param isReceiver */
-        public static PowerTransferInfo createFromLoss(long transferPerTick, long lossPerTick, boolean isReceiver) {
-            return new PowerTransferInfo(transferPerTick, lossPerTick, lossPerTick * MjAPI.MJ / transferPerTick, isReceiver);
+        public static PowerTransferInfo create(int transferPerTick, boolean isReceiver) {
+            return new PowerTransferInfo(transferPerTick, isReceiver);
         }
 
-        /** Sets lossPerTick to be equal to resistancePerTick when full power is being transferred.
-         * 
-         * @param transferPerTick
-         * @param resistancePerTick
-         * @param isReceiver */
-        public static PowerTransferInfo createFromResistance(long transferPerTick, long resistancePerTick, boolean isReceiver) {
-            return new PowerTransferInfo(transferPerTick, resistancePerTick, resistancePerTick * transferPerTick / MjAPI.MJ, isReceiver);
-        }
-
-        public PowerTransferInfo(long transferPerTick, long lossPerTick, long resistancePerTick, boolean isReceiver) {
+        public PowerTransferInfo(int transferPerTick, boolean isReceiver) {
             if (transferPerTick < 10) {
                 transferPerTick = 10;
             }
             this.transferPerTick = transferPerTick;
-            this.lossPerTick = lossPerTick;
-            this.resistancePerTick = resistancePerTick;
             this.isReceiver = isReceiver;
         }
     }

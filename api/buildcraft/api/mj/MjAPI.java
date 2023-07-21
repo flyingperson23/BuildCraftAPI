@@ -42,6 +42,14 @@ public class MjAPI {
         return formatMjInternal(microMj / (double) MJ);
     }
 
+    public static String formatRF(int rf) {
+        return formatMjInternal(rf);
+    }
+
+    public static String formatRFFromMj(long microMj) {
+        return formatRF((int) (microMj * MjAPI.rfPerMj / MjAPI.MJ));
+    }
+
     private static String formatMjInternal(double val) {
         return MJ_DISPLAY_FORMAT.format(val);
     }
