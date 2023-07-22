@@ -42,7 +42,6 @@ public class BCBlocks {
         public static final Block CHUTE = null;
         public static final Block WATER_GEL = null;
         public static final Block DISTILLER = null;
-        public static final Block HEAT_EXCHANGE = null;
     }
 
     @ObjectHolder("buildcrafttransport")

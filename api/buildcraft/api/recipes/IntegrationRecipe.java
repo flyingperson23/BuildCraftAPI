@@ -34,7 +34,6 @@ public abstract class IntegrationRecipe {
 
     /**
      * Determines the amount of MJ required to integrate
-     * @param output The output that would be generated
      * @return The powercost in microjoules
      */
     public abstract long getRequiredMicroJoules();

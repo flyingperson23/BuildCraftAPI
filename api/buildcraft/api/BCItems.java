@@ -4,8 +4,6 @@ import net.minecraft.item.Item;
 
 import net.minecraftforge.fml.common.registry.GameRegistry.ObjectHolder;
 
-import buildcraft.api.items.FluidItemDrops;
-
 public class BCItems {
 
     @ObjectHolder("buildcraftlib")
@@ -29,10 +27,6 @@ public class BCItems {
         public static final Item MARKER_CONNECTOR = null;
         public static final Item VOLUME_BOX = null;
         public static final Item GOGGLES = null;
-
-        /** It is recommended that you refer to {@link FluidItemDrops#item} when creating fluid drops rather than
-         * this. */
-        public static final Item FRAGILE_FLUID_SHARD = null;
     }
 
     @ObjectHolder("buildcraftbuilders")
@@ -47,9 +41,7 @@ public class BCItems {
 
     @ObjectHolder("buildcraftfactory")
     public static class Factory {
-        public static final Item PLASTIC_SHEET = null;
-        public static final Item WATER_GEL = null;
-        public static final Item GELLED_WATER = null;
+
     }
 
     @ObjectHolder("buildcrafttransport")
