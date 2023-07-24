@@ -13,7 +13,8 @@ public enum EnumRedstoneChipset implements IStringSerializable {
     IRON,
     GOLD,
     QUARTZ,
-    DIAMOND;
+    DIAMOND,
+    EMERALD;
 
     private final String name = name().toLowerCase(Locale.ROOT);
 
