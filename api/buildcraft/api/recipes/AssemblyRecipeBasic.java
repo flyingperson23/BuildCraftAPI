@@ -11,8 +11,8 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import com.google.common.collect.ImmutableSet;
 
+import com.google.common.collect.ImmutableSet;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
